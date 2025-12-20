@@ -61,6 +61,32 @@
             padding: 5px 10px;
             border-radius: 5px;
         }
+           /* 縦動画全体の並び */
+.shorts-grid {
+    display: flex;
+    gap: 30px;              /* ← 間の余白 */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* 縦動画の共通表示枠 */
+.shorts-item {
+    width: 280px;           /* 好きな幅に調整 */
+    aspect-ratio: 9 / 16;   /* ← 縦長固定 */
+    overflow: hidden;       /* ← はみ出しをカット */
+    border-radius: 12px;
+    background: black;
+}
+
+/* img / video 共通 */
+.shorts-item img,
+.shorts-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* ← 縦長以外はトリミング */
+    display: block;
+}
+
 
         footer {
             text-align: center;
@@ -236,39 +262,29 @@
     </a>
 
     <!-- PRODUCT -->
-    <p>PRODUCT SHOOTING & EDIT</p>
-    <video class="video-item" controls autoplay muted>
-        <!-- YouTube Shorts -->
+<p>PRODUCT SHOOTING & EDIT</p>
 
-<a href="https://youtube.com/shorts/1oSomlH1JWg" target="_blank">
-  <img class="video-thumbnail" 
-       src="https://img.youtube.com/vi/1oSomlH1JWg/hqdefault.jpg" 
-       alt="YouTube Shorts 1">
-</a>
 
-<a href="https://youtube.com/shorts/nIzKI576CFU" target="_blank">
-  <img class="video-thumbnail" 
-       src="https://img.youtube.com/vi/nIzKI576CFU/hqdefault.jpg" 
-       alt="YouTube Shorts 2">
-</a>
+<div class="shorts-grid">
 
-<a href="https://youtube.com/shorts/tlH_n59R8Dw" target="_blank">
-  <img class="video-thumbnail" 
-       src="https://img.youtube.com/vi/tlH_n59R8Dw/hqdefault.jpg" 
-       alt="YouTube Shorts 3">
-</a>
+  <!-- YouTube Shorts thumbnails -->
+  <a href="https://youtube.com/shorts/1oSomlH1JWg" target="_blank" class="shorts-item">
+    <img src="https://img.youtube.com/vi/1oSomlH1JWg/hqdefault.jpg" alt="">
+  </a>
 
-<a href="https://youtube.com/shorts/Y7IrK6hmk8Y" target="_blank">
-  <img class="video-thumbnail" 
-       src="https://img.youtube.com/vi/Y7IrK6hmk8Y/hqdefault.jpg" 
-       alt="YouTube Shorts 4">
-</a>
+  <a href="https://youtube.com/shorts/nIzKI576CFU" target="_blank" class="shorts-item">
+    <img src="https://img.youtube.com/vi/nIzKI576CFU/hqdefault.jpg" alt="">
+  </a>
 
+  <a href="https://youtube.com/shorts/tlH_n59R8Dw" target="_blank" class="shorts-item">
+    <img src="https://img.youtube.com/vi/tlH_n59R8Dw/hqdefault.jpg" alt="">
+  </a>
+
+  <!-- MP4 video -->
+  <div class="shorts-item">
+    <video controls autoplay muted loop>
       <source src="videos/10251818070_19.mp4" type="video/mp4">
-      <source src="videos/11251829110_98.mp4" type="video/mp4">
-      お使いのブラウザは動画タグをサポートしていません。
     </video>
-
   </div>
 </section>
 
