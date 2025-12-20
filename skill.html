@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Portfolio with Profile Layout</title>
+
+  <style>
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .profile-header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      object-fit: cover;
+    }
+
+    .profile-header h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .profile-header p {
+      font-size: 1rem;
+      margin: 5px 0 0;
+    }
+
+    /* スマホ用の文字サイズ調整 */
+    @media (max-width: 768px) {
+      .profile-header p {
+        font-size: 15px;
+      }
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin: 30px 0 10px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #fff;
+      display: inline-block;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .content .column {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skills span {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* ハンバーガーメニュー */
+    .menu-toggle {
+      display: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    .hamburger .bar {
+      width: 25px;
+      height: 3px;
+      background-color: #00aaff;
+      margin: 4px 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-list li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+    }
+
+    .nav-list li a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+    }
+
+    /* スマホ用ナビ */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+      }
+
+      .menu-toggle:checked ~ .nav-list {
+        display: flex;
+      }
+
+      .menu-toggle:checked + .hamburger .bar:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .menu-toggle:checked + .hamburger .bar:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle:checked + .hamburger .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <h1>PORTFOLIO</h1>
+    </div>
+
+    <nav class="nav">
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </label>
+
+      <ul class="nav-list">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="motion.html">VIDEO</a></li>
+        <li><a href="photo.html">PHOTO</a></li>
+        <li><a href="skill.html">PROFILE</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="profile-header">
+      <img src="profile-photo.jpg" alt="Profile Photo">
+      <div>
+        <h1>KAHO KOBAYASHI</h1>
+        <p>PHOTO & VIDEO EDIT</p>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="section-title">ABOUT ME</h2>
+      <p>
+        現在、本業では写真撮影・レタッチを中心に企業のクリエイティブ業務に携わり、
+        副業として動画編集を行っています。さらに、2D・3Dデザインの合成を活用し、
+        モーショングラフィックス制作なども行っております。
+      </p>
+    </div>
+
+    <div>
+      <h2 class="section-title">MY PROFILE</h2>
+    </div>
+
+    <div class="content">
+      <div class="column">
+        <h3>Education</h3>
+        <p><strong>文化服装学院</strong></p>
+      </div>
+
+      <div class="column">
+        <h3>Work Experience</h3>
+        <p><strong>FAREAST COMPANY</strong></p>
+      </div>
+    </div>
+
+    <div>
+      <h3>SKILL</h3>
+      <div class="skills">
+        <span>Photography</span>
+        <span>Edit</span>
+      </div>
+    </div>
+
+    <div>
+      <h3>Softwear</h3>
+      <div class="skills">
+        <span>Photoshop</span>
+        <span>Premiere Pro</span>
+        <span>After Effects</span>
+        <span>Illustrator</span>
+        <span>Blender</span>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; portfolio</p>
+    </footer>
+  </div>
+</body>
+</html>
