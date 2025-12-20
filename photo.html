@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Portfolio with Profile Layout</title>
+    <style>
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            object-fit: cover;
+        }
+
+        .profile-header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .profile-header p {
+            font-size: 1rem;
+            margin: 5px 0 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin: 30px 0 10px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #fff;
+            display: inline-block;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .content .column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skills span {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* ハンバーガーメニューのスタイル */
+        .menu-toggle {
+            display: none; /* チェックボックスは非表示 */
+        }
+
+        .hamburger {
+            display: none; /* デスクトップでは非表示 */
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 100; /* メニューの上に表示 */
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #00aaff; /* バーの色 */
+            margin: 4px 0;
+            transition: all 0.3s ease; /* スムーズなアニメーション */
+        }
+
+        /* ナビゲーションメニュー */
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-list li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+
+        .nav-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* スマホ用のスタイル */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex; /* スマホでバーガーメニューを表示 */
+            }
+
+            .nav-list {
+                display: none; /* デフォルトではメニューを非表示 */
+                flex-direction: column; /* 縦並び */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9); /* 背景を暗くする */
+                justify-content: center;
+                align-items: center;
+                z-index: 99; /* 背景動画の上に配置 */
+            }
+
+            /* チェックがオンになった場合にメニューを表示 */
+            .menu-toggle:checked ~ .nav-list {
+                display: flex;
+            }
+
+            /* バーガーメニューのアニメーション */
+            .menu-toggle:checked + .hamburger .bar:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle:checked + .hamburger .bar:nth-child(2) {
+                opacity: 0; /* 中央のバーを非表示 */
+            }
+
+            .menu-toggle:checked + .hamburger .bar:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <div class="logo">
+            <h1>PORTFOLIO</h1>
+        </div>
+        <nav class="nav">
+            <!-- バーガーボタンのチェックボックス -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </label>
+            <ul class="nav-list">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="motion.html">VIDEO</a></li>
+                <li><a href="photo.html">PHOTO</a></li>
+                <li><a href="skill.html">PROFILE</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<section class="skill">
+
+    <div class="custom-image-grid">
+        <img src="images/photo1.jpg" alt="Photo 1">
+        <img src="images/photo2.jpg" alt="Photo 2">
+        <img src="images/photo3.jpg" alt="Photo 3">
+        <img src="images/photo4.jpg" alt="Photo 4">
+        <img src="images/photo5.jpg" alt="Photo 5">
+        <img src="images/photo6.jpg" alt="Photo 6">
+        <img src="images/photo7.jpg" alt="Photo 7">
+        <img src="images/photo8.jpg" alt="Photo 8">
+        <img src="images/photo9.jpg" alt="Photo 9">
+        <img src="images/photo10.jpg" alt="Photo 10">
+        <img src="images/photo11.jpg" alt="Photo 11">
+        <img src="images/photo12.jpg" alt="Photo 12">
+        <img src="images/photo13.jpg" alt="Photo 13">
+        <img src="images/photo14.jpg" alt="Photo 14">
+        <img src="images/photo15.jpg" alt="Photo 15">
+        <img src="images/photo16.jpg" alt="Photo 16">
+        <img src="images/photo17.jpg" alt="Photo 17">
+        <img src="images/photo18.jpg" alt="Photo 18">
+        
+    
+</div>
+
+</section>
+
+
+
+<footer>
+    <p>&copy; portfolio</p>
+</footer>
+
+<script>
+    // ハンバーガーメニューのスクリプト
+    const hamburger = document.getElementById("hamburger");
+    const navList = document.querySelector(".nav-list");
+
+    hamburger.addEventListener("click", () => {
+        navList.classList.toggle("active");
+    });
+</script>
+
+</body>
+</html>
