@@ -6,150 +6,189 @@
   <link rel="stylesheet" href="styles.css">
   <title>Portfolio with Profile Layout</title>
 
-  <style>
-    .profile-header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+   <style>
+        /* トップ動画用スタイル */
+        .top-video-container {
+            position: relative;
+            width: 100%;
+            height: 60vh; /* ビューポートの高さの60% */
+            overflow: hidden;
+        }
 
-    .profile-header img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #fff;
-      object-fit: cover;
-    }
+        .top-video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 動画をコンテナにフィットさせる */
+        }
 
-    .profile-header h1 {
-      font-size: 2rem;
-      margin: 0;
-    }
+        /* トップ動画上のテキストオーバーレイ */
+        .top-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4); /* 半透明のオーバーレイ */
+            color: #ffffff;
+            font-size: 2rem;
+            text-align: center;
+        }
 
-    .profile-header p {
-      font-size: 1rem;
-      margin: 5px 0 0;
-    }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-    /* スマホ用の文字サイズ調整 */
-    @media (max-width: 768px) {
-      .profile-header p {
-        font-size: 15px;
-      }
-    }
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            object-fit: cover;
+        }
 
-    .section-title {
-      font-size: 1.5rem;
-      margin: 30px 0 10px;
-      text-transform: uppercase;
-      border-bottom: 2px solid #fff;
-      display: inline-block;
-    }
+        .profile-header h1 {
+            font-size: 2rem;
+            margin: 0;
+            text-align: center;
+        }
 
-    .content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
+        .profile-header p {
+            font-size: 1rem;
+            margin: 5px 0 0;
+        }
+        
+        .portfolio-text h2 {
+    text-align: center; /* h2だけ中央揃え */
+}
 
-    .content .column {
-      flex: 1;
-      min-width: 250px;
-    }
+        .section-title {
+            font-size: 1.5rem;
+            margin: 30px 0 10px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #fff;
+            display: inline-block;
+        }
 
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
-    .skills span {
-      background-color: rgba(255, 255, 255, 0.2);
-      padding: 5px 10px;
-      border-radius: 5px;
-    }
+        .content .column {
+            flex: 1;
+            min-width: 250px;
+        }
 
-    footer {
-      text-align: center;
-      margin-top: 20px;
-    }
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-    /* ハンバーガーメニュー */
-    .menu-toggle {
-      display: none;
-    }
+        .skills span {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
 
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      z-index: 100;
-    }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-    .hamburger .bar {
-      width: 25px;
-      height: 3px;
-      background-color: #00aaff;
-      margin: 4px 0;
-      transition: all 0.3s ease;
-    }
+        /* ハンバーガーメニューのスタイル */
+        .menu-toggle {
+            display: none; /* チェックボックスは非表示 */
+        }
 
-    .nav-list {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+        .hamburger {
+            display: none; /* デスクトップでは非表示 */
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 100; /* メニューの上に表示 */
+        }
 
-    .nav-list li a {
-      color: #fff;
-      text-decoration: none;
-      padding: 10px 20px;
-    }
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #00aaff; /* バーの色 */
+            margin: 4px 0;
+            transition: all 0.3s ease; /* スムーズなアニメーション */
+        }
 
-    .nav-list li a:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 5px;
-    }
+        /* ナビゲーションメニュー */
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
 
-    /* スマホ用ナビ */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
+        .nav-list li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
 
-      .nav-list {
-        display: none;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        justify-content: center;
-        align-items: center;
-        z-index: 99;
-      }
+        .nav-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
 
-      .menu-toggle:checked ~ .nav-list {
-        display: flex;
-      }
+        /* スマホ用のスタイル */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex; /* スマホでバーガーメニューを表示 */
+            }
 
-      .menu-toggle:checked + .hamburger .bar:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
+            .nav-list {
+                display: none; /* デフォルトではメニューを非表示 */
+                flex-directio
 
-      .menu-toggle:checked + .hamburger .bar:nth-child(2) {
-        opacity: 0;
-      }
+            /* チェックがオンになった場合にメニューを表示 */
+            .menu-toggle:checked ~ .nav-list {
+                display: flex;
+            }
 
-      .menu-toggle:checked + .hamburger .bar:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-      }
-    }
-  </style>
+            /* バーガーメニューn: column; /* 縦並び */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9); /* 背景を暗くする */
+                justify-content: center;
+                align-items: center;
+                z-index: 99; /* 背景動画の上に配置 */
+            }
+
+            /* チェックがオンになった場合にメニューを表示 */
+            .menu-toggle:checked ~ .nav-list {
+                display: flex;
+            }
+
+            /* バーガーメニューのアニメーション */
+            .menu-toggle:checked + .hamburger .bar:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle:checked + .hamburger .bar:nth-child(2) {
+                opacity: 0; /* 中央のバーを非表示 */
+            }
+
+            .menu-toggle:checked + .hamburger .bar:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+        }
+    </style>
 </head>
+
 
 <body>
   <header>
@@ -175,8 +214,7 @@
   </header>
 
       <div>
-        <h1>KAHO KOBAYASHI</h1>
-        <p>PHOTO & VIDEO EDIT</p>
+        <h3>KAHO KOBAYASHI</h3>
       </div>
     </div>
 
@@ -193,36 +231,29 @@
       <h2 class="section-title">MY PROFILE</h2>
     </div>
 
-    <div class="content">
-      <div class="column">
-        <h3>Education</h3>
-        <p><strong>文化服装学院</strong></p>
-      </div>
+  <div class="profile-block">
+  <h3>Education</h3>
+  <div class="skills">
+    <span>文化服装学院</span>
+  </div>
+</div>
 
-      <div class="column">
-        <h3>Work Experience</h3>
-        <p><strong>FAREAST COMPANY</strong></p>
-      </div>
-    </div>
+<div class="profile-block">
+  <h3>Work Experience</h3>
+  <div class="skills">
+    <span>FAREAST COMPANY</span>
+  </div>
+</div>
 
-    <div>
-      <h3>SKILL</h3>
-      <div class="skills">
-        <span>Photography</span>
-        <span>Edit</span>
-      </div>
-    </div>
+<div class="profile-block">
+  <h3>SKILL</h3>
+  <div class="skills">
+    <span>Photography</span>
+    <span>Videography</span>
+    <span>Edit</span>
+  </div>
+</div>
 
-    <div>
-      <h3>Softwear</h3>
-      <div class="skills">
-        <span>Photoshop</span>
-        <span>Premiere Pro</span>
-        <span>After Effects</span>
-        <span>Illustrator</span>
-        <span>Blender</span>
-      </div>
-    </div>
 
     <footer>
       <p>&copy; portfolio</p>
@@ -230,5 +261,3 @@
   </div>
 </body>
 </html>
-
-
