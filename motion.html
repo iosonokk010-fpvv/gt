@@ -5,181 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Portfolio with Profile Layout</title>
-    <style>
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .profile-header img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            object-fit: cover;
-        }
-
-        .profile-header h1 {
-            font-size: 2rem;
-            margin: 0;
-        }
-
-        .profile-header p {
-            font-size: 1rem;
-            margin: 5px 0 0;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            margin: 30px 0 10px;
-            text-transform: uppercase;
-            border-bottom: 2px solid #fff;
-            display: inline-block;
-        }
-
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .content .column {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skills span {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-           /* 縦動画全体の並び */
-.shorts-grid {
-    display: flex;
-    gap: 30px;              /* ← 間の余白 */
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-/* 縦動画の共通表示枠 */
-.shorts-item {
-    width: 280px;           /* 好きな幅に調整 */
-    aspect-ratio: 9 / 16;   /* ← 縦長固定 */
-    overflow: hidden;       /* ← はみ出しをカット */
-    border-radius: 12px;
-    background: black;
-}
-
-/* img / video 共通 */
-.shorts-item img,
-.shorts-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;      /* ← 縦長以外はトリミング */
-    display: block;
-}
-
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* ハンバーガーメニューのスタイル */
-        .menu-toggle {
-            display: none; /* チェックボックスは非表示 */
-        }
-
-        .hamburger {
-            display: none; /* デスクトップでは非表示 */
-            flex-direction: column;
-            cursor: pointer;
-            z-index: 100; /* メニューの上に表示 */
-        }
-
-        .hamburger .bar {
-            width: 25px;
-            height: 3px;
-            background-color: #00aaff; /* バーの色 */
-            margin: 4px 0;
-            transition: all 0.3s ease; /* スムーズなアニメーション */
-        }
-
-        /* ナビゲーションメニュー */
-        .nav-list {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-list li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-        }
-
-        .nav-list li a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-        }
-
-        /* スマホ用のスタイル */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex; /* スマホでバーガーメニューを表示 */
-            }
-
-            .nav-list {
-                display: none; /* デフォルトではメニューを非表示 */
-                flex-direction: column; /* 縦並び */
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.9); /* 背景を暗くする */
-                justify-content: center;
-                align-items: center;
-                z-index: 99; /* 背景動画の上に配置 */
-            }
-
-            /* チェックがオンになった場合にメニューを表示 */
-            .menu-toggle:checked ~ .nav-list {
-                display: flex;
-            }
-
-            /* バーガーメニューのアニメーション */
-            .menu-toggle:checked + .hamburger .bar:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .menu-toggle:checked + .hamburger .bar:nth-child(2) {
-                opacity: 0; /* 中央のバーを非表示 */
-            }
-
-            .menu-toggle:checked + .hamburger .bar:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- ヘッダー -->
     <header>
         <div class="logo">
             <h1>PORTFOLIO</h1>
         </div>
         <nav class="nav">
-            <!-- バーガーボタンのチェックボックス -->
             <input type="checkbox" id="menu-toggle" class="menu-toggle">
             <label for="menu-toggle" class="hamburger">
                 <span class="bar"></span>
@@ -195,123 +27,75 @@
         </nav>
     </header>
 
-<style>
-  .portfolio-section {
-    text-align: center; /* 文字を中央揃え */
-  }
+    <section class="portfolio-section">
+        <div class="portfolio-text">
+            <p>PERSONAL PROJECT</p>
+            <a href="https://www.youtube.com/watch?v=9oJPrcyI9G4" target="_blank">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/9oJPrcyI9G4/hqdefault.jpg" alt="PERSONAL PROJECT">
+            </a>
+            <a href="https://youtu.be/08-nvPmuFNc" target="_blank">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/08-nvPmuFNc/hqdefault.jpg" alt="PERSONAL PROJECT">
+            </a>
 
-  .video-thumbnail,
-  .video-item {
-    display: block;
-    width: 100%;
-    max-width: 560px; /* すべての動画・サムネイルの横幅を統一 */
-    margin: 0 auto;
-    border-radius: 10px; /* 角を少し丸く */
-    overflow: hidden;
-  }
+            <p>COORDINATOR</p>
+            <a href="https://www.youtube.com/watch?v=6-FV6zMvuxs" target="_blank">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/6-FV6zMvuxs/hqdefault.jpg" alt="COORDINATOR">
+            </a>
 
-  .portfolio-section p {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 20px 0 10px; /* 上下の余白を調整 */
-  }
+            <p>CLIENT WORK</p>
+            <a href="https://www.youtube.com/watch?v=HRYDqllzIo4" target="_blank">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/HRYDqllzIo4/hqdefault.jpg" alt="CLIENT WORK 4">
+            </a>
+            <a href="https://www.youtube.com/watch?v=y1F0raVHGhU&start=11" target="_blank">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/y1F0raVHGhU/hqdefault.jpg" alt="CLIENT WORK 1">
+            </a>
+            <a href="https://www.youtube.com/watch?v=fhiSts8SJug" target="_blank">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/fhiSts8SJug/hqdefault.jpg" alt="CLIENT WORK 2">
+            </a>
+            <a href="https://www.youtube.com/watch?v=ITl4x9A_ps8&start=290" target="_blank">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/ITl4x9A_ps8/hqdefault.jpg" alt="CLIENT WORK 3">
+            </a>
 
-  /* スマホ用の調整 */
-  @media (max-width: 768px) {
-    .video-thumbnail,
-    .video-item {
-      max-width: 300px; /* スマホでは小さめに調整 */
-    }
+            <p>PRODUCT SHOOTING & EDIT</p>
 
-    .portfolio-section p {
-      font-size: 1rem;
-    }
-  }
-</style>
+            <div class="shorts-grid">
+                <div class="shorts-item">
+                    <video controls autoplay muted loop>
+                        <source src="videos/sns_4.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="shorts-item">
+                    <video controls autoplay muted loop>
+                        <source src="videos/0919.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="shorts-item">
+                    <video controls autoplay muted loop>
+                        <source src="videos/10251818070_19.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="shorts-item">
+                    <video controls autoplay muted loop>
+                        <source src="videos/CD_shimada_15mb.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="portfolio-section">
-  <div class="portfolio-text">
-    <!-- PERSONAL PROJECT -->
-    <p>PERSONAL PROJECT</p>
-    <a href="https://www.youtube.com/watch?v=9oJPrcyI9G4" target="_blank">
-      <img class="video-thumbnail" src="https://img.youtube.com/vi/9oJPrcyI9G4/hqdefault.jpg" alt="PERSONAL PROJECT">
-    </a>
-    <a href="https://youtu.be/08-nvPmuFNc" target="_blank">
-  <img class="video-thumbnail" src="https://img.youtube.com/vi/08-nvPmuFNc/hqdefault.jpg" alt="PERSONAL PROJECT">
-</a>
+    <footer>
+        <p>&copy; portfolio</p>
+    </footer>
 
-    <!-- COORDINATOR -->
-    <p>COORDINATOR</p>
-    <a href="https://www.youtube.com/watch?v=6-FV6zMvuxs" target="_blank">
-      <img class="video-thumbnail" src="https://img.youtube.com/vi/6-FV6zMvuxs/hqdefault.jpg" alt="COORDINATOR">
-    </a>
-
-    <!-- CLIENT WORK -->
-    <p>CLIENT WORK</p>
-      <a href="https://www.youtube.com/watch?v=HRYDqllzIo4" target="_blank">
-  <img class="video-thumbnail" src="https://img.youtube.com/vi/HRYDqllzIo4/hqdefault.jpg" alt="CLIENT WORK 4">
-</a>
-    <a href="https://www.youtube.com/watch?v=y1F0raVHGhU&start=11" target="_blank">
-      <img class="video-thumbnail" src="https://img.youtube.com/vi/y1F0raVHGhU/hqdefault.jpg" alt="CLIENT WORK 1">
-    </a>
-    <a href="https://www.youtube.com/watch?v=fhiSts8SJug" target="_blank">
-      <img class="video-thumbnail" src="https://img.youtube.com/vi/fhiSts8SJug/hqdefault.jpg" alt="CLIENT WORK 2">
-    </a>
-    <a href="https://www.youtube.com/watch?v=ITl4x9A_ps8&start=290" target="_blank">
-      <img class="video-thumbnail" src="https://img.youtube.com/vi/ITl4x9A_ps8/hqdefault.jpg" alt="CLIENT WORK 3">
-    </a>
-
-    <!-- PRODUCT -->
-<p>FILMING & EDIT</p>
-
-
-<div class="shorts-grid">
-
-  <!-- YouTube Shorts thumbnails -->
-
-  <div class="shorts-item">
-    <video controls autoplay muted loop>
-      <source src="videos/sns_4.mp4" type="video/mp4">
-    </video>
-  </div>
-
-
-  <div class="shorts-item">
-    <video controls autoplay muted loop>
-      <source src="videos/09191.mp4" type="video/mp4">
-    </video>
-  </div>
-
-  <div class="shorts-item">
-    <video controls autoplay muted loop>
-      <source src="videos/10251818070_19.mp4" type="video/mp4">
-    </video>
-  </div>
-
-  <div class="shorts-item">
-  <video controls autoplay muted loop>
-    <source src="videos/CD_shimada_15mb.mp4" type="video/mp4">
-  </video>
-</div>
-
-
-</div>
-</section>
-
-
-<footer>
-    <p>&copy; portfolio</p>
-</footer>
-
-<script>
-    // ハンバーガーメニューのスクリプト
-    const hamburger = document.getElementById("hamburger");
-    const navList = document.querySelector(".nav-list");
-
-    hamburger.addEventListener("click", () => {
-        navList.classList.toggle("active");
-    });
-</script>
-
+    <script>
+        // ハンバーガーメニューのスクリプト（フォールバック用）
+        const hamburger = document.getElementById("hamburger");
+        const navList = document.querySelector(".nav-list");
+        if (hamburger) {
+            hamburger.addEventListener("click", () => {
+                navList.classList.toggle("active");
+            });
+        }
+    </script>
 </body>
 </html>
