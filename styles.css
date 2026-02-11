@@ -422,18 +422,34 @@ header {
 /* =========================================
    5. グリッド (Image / Shorts)
    ========================================= */
+/* グリッド全体の設定 */
 .custom-image-grid {
     display: grid;
+    /* 1列の最低幅を200pxに設定し、画面幅に合わせて自動整列 */
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
+    gap: 10px;        /* 画像同士の間隔 */
+    padding: 20px 0;  /* 上下の余白 */
 }
 
+/* 画像自体の設定（つぶれ防止） */
 .custom-image-grid img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
+    width: 100%;       /* 横幅は親要素（グリッド枠）に合わせる */
+    height: 250px;     /* 高さを固定して列を揃える */
+    
+    /* 【重要】画像がつぶれるのを防ぎ、枠に合わせて切り抜く */
+    object-fit: cover; 
+    
+    border-radius: 10px; /* 角を少し丸くする */
+    display: block;      /* 下の隙間を消す */
+    transition: transform 0.3s ease;
 }
+
+/* マウスを乗せた時の演出 */
+.custom-image-grid img:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
 
 /* =========================================
    6. レスポンシブ
@@ -462,3 +478,104 @@ header {
 
 }
 
+/* プロフィールページの全体コンテナ */
+.profile-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-name h3 {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    color: #00aaff;
+    border-bottom: 1px solid #333;
+    display: inline-block;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+
+.about-text {
+    font-size: 1rem;
+    margin-bottom: 50px;
+    line-height: 1.8;
+}
+
+/* 修正の肝：見出しとタグのブロック */
+.profile-block {
+    margin-bottom: 30px;
+}
+
+.profile-block h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px; /* 見出しとタグの間の隙間を調整 */
+}
+
+/* タブ（スパン）の並び */
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start; /* ← これを left や flex-start にすることで間を詰めました */
+}
+
+.skills span {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00aaff;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: white;
+}
+
+/* フッターの余白 */
+footer {
+    padding: 50px 0;
+}
+/* 写真一覧セクションの背景や余白 */
+.skill {
+    background-color: black;
+    padding: 50px 0;
+}
+
+/* グリッドレイアウトの設定 */
+.custom-image-grid {
+    display: grid;
+    /* 1列あたり最低200px〜最大1fr（均等）で自動整列 */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px; /* 画像の隙間を10pxに設定 */
+    padding: 0 20px;
+}
+
+/* 画像の表示設定（cover） */
+.custom-image-grid img {
+    width: 100%;
+    height: 250px;       /* 全ての画像の高さを250pxで統一 */
+    object-fit: cover;   /* 【重要】縦横比を維持して枠を埋める */
+    display: block;
+    border-radius: 4px;  /* ほんの少し角を丸くすると洗練されます */
+    transition: opacity 0.3s ease;
+}
+
+/* ホバー時に少し明るくする演出 */
+.custom-image-grid img:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+/* スマホ用の調整（2列表示に固定したい場合など） */
+/* スマホ用（画面幅768px以下）の微調整 */
+@media (max-width: 768px) {
+    .custom-image-grid {
+        grid-template-columns: repeat(2, 1fr); /* スマホで2列に固定 */
+        gap: 5px;
+    }
+    .custom-image-grid img {
+        height: 180px; /* スマホでは高さを少し抑える */
+    }
+}
+}
