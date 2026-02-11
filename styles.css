@@ -1,267 +1,152 @@
-
-
-
-/* 全体のスタイル */
+/* =========================================
+   1. 基本設定（全ページ共通）
+   ========================================= */
 body {
     font-family: Helvetica, sans-serif;
-    font-size: 30px;
-    background-color: black; /* 背景を黒に設定 */
-    color: #ffffff; /* 文字を水色に設定 */
+    font-size: 30px; /* 全体的に大きめの設定を維持 */
+    background-color: black;
+    color: #ffffff;
     padding: 20px;
-    margin: 0 100px; /* マージンをリセット */
-    line-height: 1.6; /* 行間を少し広げて読みやすく */
+    margin: 0 100px;
+    line-height: 1.6;
 }
 
-/* ヘッダースタイル */
+/* その他のテキスト要素 */
+section, p, li {
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =========================================
+   2. ヘッダー & ナビゲーション（チェックボックス式）
+   ========================================= */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: black; /* ヘッダーの背景色を黒に */
+    background-color: black;
     padding: 10px 10px;
 }
 
 .logo h1 {
     font-size: 30px;
-    color: #00aaff; /* ロゴの色 */
+    color: #00aaff;
     margin: 0;
 }
 
-/* デフォルトのスタイル */
-.top-video-overlay h1 {
-    font-size: 3rem; /* 通常のフォントサイズ */
-    color: #00aaff; /* テキストの色 */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* テキストに影を追加 */
-    margin: 0;
-    padding: 0;
-}
-
-/* スマホ向けスタイル */
-@media (max-width: 768px) {
-    .top-video-overlay h1 {
-        font-size: 1rem; /* スマホ版のフォントサイズを小さくする */
-    }
-
-    p {
-        font-size: 15px; /* スマホ時に文字サイズを小さく */
-    }
-}
-
-    .container {
-        padding: 0 30px; /* スマホ時に左右に20pxの余白を追加 */
-    }
-}
-
-
-
-/* ナビゲーションメニュー */
-.nav {
-    position: relative;
-}
-
+/* ナビゲーションリスト（デスクトップ） */
 .nav-list {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
+    gap: 20px;
 }
 
-.nav-list li {
-    margin: 0 15px;
+.nav-list li a {
+    color: #00aaff;
+    padding: 10px 20px;
+    transition: 0.3s;
 }
 
-.nav-list a {
-    color: #00aaff; /* メニューの文字色 */
-    text-decoration: none;
+.nav-list li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    color: white;
 }
 
-/* ハンバーガーメニュー */
+/* ハンバーガーメニュー設定（初期は非表示） */
+.menu-toggle {
+    display: none;
+}
+
 .hamburger {
-    display: none; /* デフォルトでは非表示 */
+    display: none;
     flex-direction: column;
     cursor: pointer;
+    z-index: 100;
 }
 
-.bar {
+.hamburger .bar {
     width: 25px;
     height: 3px;
-    background-color: #00aaff; /* バーの色 */
+    background-color: #00aaff;
     margin: 4px 0;
+    transition: all 0.3s ease;
 }
 
-/* メディアクエリでレスポンシブ対応 */
-@media (max-width: 1024px) {
-    body {
-        margin: 0 20px; /* タブレットでの余白調整 */
-    }
-
-    .nav-list {
-        display: none; /* モバイルではメニューを非表示 */
-        flex-direction: column; /* 縦に並べる */
-        position: absolute;
-        top: 60px; /* ヘッダーの下に表示 */
-        right: 0;
-        background-color: black; /* メニューの背景色を黒に */
-        width: 100%;
-        z-index: 10;
-    }
-
-    .nav-list.active {
-        display: flex; /* アクティブ時に表示 */
-    }
-
-    .hamburger {
-        display: flex; /* モバイルではハンバーガーボタンを表示 */
-    }
-}
-
-@media (max-width: 768px) {
-    /* 画面サイズが768px以下の時の調整 */
-    body {
-        padding: 0px; /* モバイル向けにパディングを調整 */
-        margin: 0; /* モバイルでは横マージンをリセット */
-    }
-
-    header {
-        padding: 5px 5px; /* ヘッダーのパディングを縮小 */
-    }
-
-    .nav-list {
-        display: none; /* メニューを非表示 */
-        flex-direction: column; /* ナビゲーションを縦に並べる */
-        position: absolute;
-        top: 50px;
-        right: 0;
-        background-color: black; /* 背景色を黒に設定 */
-        width: 100%;
-        z-index: 10;
-    }
-
-    .nav-list.active {
-        display: flex; /* アクティブ時に表示 */
-    }
-
-    .nav-list li {
-        margin: 0px 0; /* リスト項目の間隔を広げる */
-    }
-
-    .hamburger {
-        display: flex; /* ハンバーガーメニュー表示 */
-    }
-
-    .portfolio-images img {
-        max-width: 100%; /* 画像がレスポンシブに伸縮する */
-        margin-bottom: 10px; /* 画像間のスペース */
-    }
-}
-
-/* フッターのスタイル */
-footer {
-    background-color: black; /* フッターの背景色を黒に */
-    color: #00aaff; /* フッターの文字色を水色に */
-    padding: 20px; /* フッターの余白を調整 */
-    text-align: center;
-    margin-top: 20px; /* フッター上部の余白を調整 */
-}
-
-/* セクションのスタイル */
-section {
-    background-color: rgba(0, 0, 0, 0.8); /* 半透明の黒背景 */
-    color: #00aaff; /* セクションの文字色を水色に */
-    padding: 20px;
-    margin: 20px 0; /* セクションの上下の余白を調整 */
-    text-align: left; /* 左揃え */
-    border-radius: 10px; /* 角を丸くする */
-    position: center; /* 子要素のための相対位置 */
-    overflow: hidden; /* はみ出しを隠す */
-}
-
-
-/* セクションのタイトル */
-h2 {
-    font-size: 20px; /* セクションタイトルのフォントサイズを50pxに設定 */
-    margin-bottom: 0px; /* 下部のマージン */
-    position: center; /* タイトルのための相対位置 */
-    z-index: 1; /* タイトルを前面に配置 */
-    color: #00aaff; /* タイトルの文字色を水色に設定 */
-    /* セクションのタイトル */
-}
-
-.portfolio-text h2 {
-    text-align: center; /* h2だけ中央揃え */
-}
-
-
-/* その他のテキストの色を白に設定 */
-body, section, p, li {
-    color: white; /* 全体のテキストを白に設定 */
-}
-
-
-/* スキル項目のスタイル */
-.skill-item {
-    font-size: 20px; /* スキル項目のフォントサイズを50pxに設定 */
-    margin: 10px 0; /* 上下にマージンを設定 */
-    opacity: 0; /* 初期状態で透明 */
-    transform: translateY(20px); /* 下に移動 */
-    animation: fadeInUp 0.5s forwards; /* アニメーションを適用 */
-    position: center; /* スキル項目のための相対位置 */
-    z-index: 1; /* スキル項目を前面に配置 */
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1; /* 完全に表示 */
-        transform: translateY(0); /* 元の位置に戻す */
-    }
-}
-
-/* ポートフォリオ画像のスタイル */
-.portfolio-images {
+/* =========================================
+   3. プロフィール & セクション
+   ========================================= */
+.profile-header {
     display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    object-fit: cover;
+}
+
+section {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #00aaff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.section-title, h2 {
+    font-size: 1.5rem;
+    margin: 30px 0 10px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #fff;
+    display: inline-block;
+    color: #00aaff;
+}
+
+/* =========================================
+   4. グリッドシステム（Shorts / Image / Video）
+   ========================================= */
+
+/* A. 縦型動画（Shorts） */
+.shorts-grid {
+    display: flex;
+    gap: 30px;
     flex-wrap: wrap;
-    justify-content: center; /* 中央揃え */
-    gap: 50px; /* 画像間のスペース */
-    margin-top: 50px; /* 上部のマージン */
-    z-index: 2; /* 画像を前面に配置 */
+    justify-content: center;
 }
 
-.portfolio-images img {
-    max-width: 400px; /* 画像の最大幅を設定 */
-    height: auto; /* 高さを自動設定 */
-    border-radius: 8px; /* 角を丸くする */
+.shorts-item {
+    width: 280px;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    border-radius: 12px;
+    background: black;
 }
 
-.adobe-images img {
-    max-width: 200px; /* 画像の最大幅を設定 */
-    height: auto; /* 高さを自動設定 */
-    border-radius: 8px; /* 角を丸くする */
+.shorts-item img, .shorts-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
-/* リストのデフォルトのマーカーを消す */
-ul {
-    list-style-type: none; /* デフォルトのリストマーカーを消す */
-    padding-left: 0; /* 左側の余白を削除 */
-}
-
-/* リンクのスタイル */
-li a {
-    text-decoration: none; /* 下線を削除 */
-    color: inherit; /* 親の文字色を引き継ぐ */
-}
-
-/* リスト項目内のaタグ */
-li a h2 {
-    margin: 0; /* h2タグが余白を持たないように */
-    text-align: center; /* 親要素で中央揃え */
-}
-/* ギャラリーのスタイル */
+/* B. カスタム画像グリッド */
 .custom-image-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 5px;
-    padding: 10px 10px 20px; /* ヘッダーの高さを考慮して余白を調整 */
-    z-index: 1; /* 前面に表示 */
+    padding: 10px 10px 20px;
 }
 
 .custom-image-grid img {
@@ -274,85 +159,47 @@ li a h2 {
 }
 
 .custom-image-grid img:hover {
-    transform: scale(1.05); /* ホバー時に拡大 */
+    transform: scale(1.05);
 }
 
-/* ランダムサイズ調整 */
-.custom-image-grid img:nth-child(3n) {
-    grid-column: span 2; /* 横に2列分を占有 */
-    grid-row: span 2; /* 縦に2行分を占有 */
-}
-
-.custom-image-grid img:nth-child(5n) {
-    grid-column: span 3; /* 横に3列分を占有 */
-}
-
-@media (max-width: 768px) {
-    .custom-image-grid {
-        grid-template-columns: 1fr;
-        border-radius: 8px; /* 角を丸くする */
-    }
-}
+/* C. YouTubeビデオグリッド */
 .custom-video-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 自動調整カラム */
-    gap: 20px; /* 各動画間のスペース */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
     padding: 20px;
-}
-
-.custom-video-grid p {
-    margin: 0;
-    color: #00aaff; /* テキストの色 */
-    font-size: 18px;
-    text-align: center;
 }
 
 .custom-video-grid iframe {
     width: 100%;
-    aspect-ratio: 16 / 9; /* 動画のアスペクト比を維持 */
-    border-radius: 8px; /* 角を丸くする */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 影を追加 */
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
     transition: transform 0.3s;
 }
 
-.custom-video-grid iframe:hover {
-    transform: scale(1.05); /* ホバー時に拡大 */
+/* =========================================
+   5. スキル & アニメーション
+   ========================================= */
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-/* ランダムサイズ調整 */
-.custom-video-grid iframe:nth-child(3n) {
-    grid-column: span 2; /* 横幅を2列分占有 */
-    grid-row: span 2; /* 縦幅を2行分占有 */
+.skills span {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
-.custom-video-grid iframe:nth-child(5n) {
-    grid-column: span 3; /* 横幅を3列分占有 */
-}
-
-/* スマホ対応 */
-@media (max-width: 768px) {
-    .custom-video-grid {
-        grid-template-columns: 1fr; /* 1列表示 */
-    }
-
-    .custom-video-grid iframe:nth-child(3n),
-    .custom-video-grid iframe:nth-child(5n) {
-        grid-column: span 1; /* 通常サイズに戻す */
-        grid-row: span 1;
-    }
-}
-/* スキル項目のスタイル */
 .skill-item {
     font-size: 20px;
     margin: 10px 0;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.5s forwards;
-    position: relative;
-    z-index: 1; /* テキストを前面に配置 */
 }
 
-/* アニメーションの定義 */
 @keyframes fadeInUp {
     to {
         opacity: 1;
@@ -360,147 +207,258 @@ li a h2 {
     }
 }
 
-/* index.htmlにのみ適用されるスタイル */
-#index-section {
-    position: relative; /* 親要素に相対的な位置を設定 */
-    padding: 40px; /* セクション内の余白 */
-    text-align: center; /* 中央揃え */
-    color: #fff; /* 文字色を白に設定 */
-    height: 500px; /* 高さを指定、必要に応じて調整 */
-    overflow: hidden; /* はみ出し部分を隠す */
-}
-
-/* 動画コンテナ */
+/* =========================================
+   6. インデックス（背景動画）セクション
+   ========================================= */
 .video-container {
     position: relative;
     width: 100%;
-    height: 100vh; /* ビューポート全体の高さを占める */
+    height: 100vh;
     overflow: hidden;
-    margin-top: 50px; /* SKILLセクションと動画の間に隙間を追加 */
-    border-radius: 20px; /* 動画の角を丸くする */
+    margin-top: 50px;
+    border-radius: 20px;
 }
 
-/* 動画の設定 */
 #background-video {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 110%; /* さらに大きく表示させる */
-    height: 110%; /* さらに大きく表示させる */
-    object-fit: cover; /* 動画が画面いっぱいに広がるように設定 */
-    transform: translate(-50%, -50%); /* 中央に配置 */
-    z-index: -1; /* 背景として配置 */
-    border-radius: 20px; /* 動画の角も丸くする */
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
 }
 
-/* レスポンシブ対応 */
-@media (max-width: 768px) 
-    .video-container {
-        height: 80vh; /* モバイルでは高さを調整 */
-    }
+/* =========================================
+   7. フッター
+   ========================================= */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    color: #00aaff;
+}
 
-    #background-video {
-        width: 100%;
-    }  
-
-/* 動画再生速度を遅くする */
-@keyframes slow-video {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(1);
+/* =========================================
+   8. レスポンシブ（スマホ対応）
+   ========================================= */
+@media (max-width: 1024px) {
+    body {
+        margin: 0 20px;
     }
 }
 
-/* スキル項目のスタイル */
-.skill-item {
-    font-size: 40px;
-    margin: 10px 0;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s forwards;
-    position: relative;
-    z-index: 1; /* テキストを前面に配置 */
-}
-
-/* アニメーションの定義 */
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-/* バーガーメニューの設定 */
-.menu-toggle {
-    display: none; /* チェックボックスは非表示 */
-}
-
-.hamburger {
-    display: none; /* デスクトップでは非表示 */
-    flex-direction: column;
-    cursor: pointer;
-    z-index: 100; /* メニューの上に表示 */
-}
-
-.hamburger .bar {
-    width: 25px;
-    height: 3px;
-    background-color: #00aaff; /* バーの色 */
-    margin: 4px 0;
-    transition: all 0.3s ease; /* スムーズなアニメーション */
-}
-
-/* スマホ用のスタイル */
 @media (max-width: 768px) {
+    body {
+        font-size: 20px; /* スマホでは文字サイズを少し落とす */
+        margin: 0;
+        padding: 10px;
+    }
+
+    p { font-size: 15px; }
+
+    /* ハンバーガーメニューの挙動 */
     .hamburger {
-        display: flex; /* スマホでバーガーメニューを表示 */
+        display: flex;
     }
 
     .nav-list {
-        display: none; /* デフォルトではメニューを非表示 */
-        flex-direction: column; /* 縦並び */
+        display: none;
+        flex-direction: column;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.9); /* 背景を暗くする */
+        background-color: rgba(0, 0, 0, 0.95);
         justify-content: center;
         align-items: center;
-        z-index: 99; /* 背景動画の上に配置 */
+        z-index: 99;
     }
 
-    /* チェックがオンになった場合にメニューを表示 */
+    /* チェック時に表示 */
     .menu-toggle:checked ~ .nav-list {
         display: flex;
     }
 
-    /* バーガーメニューのアニメーション */
-    .menu-toggle:checked + .hamburger .bar:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
+    .menu-toggle:checked + .hamburger .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .menu-toggle:checked + .hamburger .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle:checked + .hamburger .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .nav-list li a {
+        font-size: 30px;
     }
 
-    .menu-toggle:checked + .hamburger .bar:nth-child(2) {
-        opacity: 0; /* 中央のバーを非表示 */
+    /* グリッドを1列に */
+    .custom-image-grid, .custom-video-grid {
+        grid-template-columns: 1fr;
     }
 
-    .menu-toggle:checked + .hamburger .bar:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
+    .video-container {
+        height: 60vh;
     }
+}
 
-    .nav-list li {
-        margin: 15px 0; /* メニュー間のスペース */
-    }
+/* =========================================
+   1. 基本設定
+   ========================================= */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size: 30px;
+    background-color: black;
+    color: #ffffff;
+    padding: 0;
+    margin: 0 100px;
+    line-height: 1.6;
+}
 
-    .nav-list a {
-        font-size: 40px; /* メニュー文字のサイズを調整 */
-        color: #00aaff; /* メニュー文字の色 */
-        text-decoration: none;
-        transition: color 0.3s ease; /* スムーズな色の変化 */
-    }
+section, p, li { color: white; }
+a { text-decoration: none; color: inherit; }
 
-    .nav-list a:hover {
-        color: white; /* ホー時の色を変更 */
+/* =========================================
+   2. ヘッダー & ナビゲーション
+   ========================================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 10px 20px;
+}
+
+.logo h1 { font-size: 30px; color: #00aaff; margin: 0; }
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+/* ナビゲーションリスト（デスクトップ） */
+.nav-list li a {
+    color: white; /* ← 白色に変更します */
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+.nav-list li a:hover { color: white; background: rgba(255,255,255,0.1); border-radius: 5px; }
+
+/* ハンバーガーメニュー */
+.menu-toggle { display: none; }
+.hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 100; }
+.hamburger .bar { width: 25px; height: 3px; background-color: #00aaff; margin: 4px 0; transition: 0.3s; }
+
+/* =========================================
+   3. 動画 & ビジュアルセクション
+   ========================================= */
+.top-video-container {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+}
+
+.top-video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.top-video-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.portfolio-section { text-align: center; padding: 40px 0; }
+.project-title { font-size: 1.2rem; font-weight: bold; margin: 30px 0 10px; color: #00aaff; }
+
+.video-thumbnail {
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    margin: 10px auto;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.video-thumbnail:hover { transform: scale(1.03); }
+
+/* =========================================
+   4. プロフィールバナー
+   ========================================= */
+.profile-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 15px;
+    margin: 20px 0;
+    box-sizing: border-box;
+}
+
+.profile-banner img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info { flex: 1; text-align: left; padding: 0 30px; }
+.profile-info p:first-child { font-size: 1.8rem; font-weight: bold; margin: 0; }
+
+.skills-section { flex: 1; }
+.skills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+.skills span {
+    background-color: rgba(0, 170, 255, 0.2);
+    border: 1px solid #00aaff;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   5. グリッド (Image / Shorts)
+   ========================================= */
+.custom-image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.custom-image-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* =========================================
+   6. レスポンシブ
+   ========================================= */
+@media (max-width: 768px) {
+    body { margin: 0; font-size: 20px; }
+    
+    .hamburger { display: flex; }
+    .nav-list {
+        display: none;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.95); flex-direction: column;
+        justify-content: center; align-items: center; z-index: 99;
     }
     
+    .menu-toggle:checked ~ .nav-list { display: flex; }
+    .menu-toggle:checked + .hamburger .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .menu-toggle:checked + .hamburger .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle:checked + .hamburger .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .profile-banner { flex-direction: column; text-align: center; }
+    .profile-info { padding: 20px 0; }
+    .skills { justify-content: center; }
+    
+    .video-thumbnail { max-width: 90%; }
+
+}
+
