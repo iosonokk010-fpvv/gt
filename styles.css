@@ -1,14 +1,15 @@
 /* =========================================
-   1. 基本設定（全ページ共通）
+   1. 基本設定（全ページ共通・中央揃え）
    ========================================= */
 body {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 30px; /* ユーザー様の基本設定を維持 */
+    font-size: 30px; /* 基本設定を維持 */
     background-color: black;
     color: #ffffff;
     padding: 0;
     margin: 0 100px; /* デスクトップ時の左右余白 */
     line-height: 1.6;
+    text-align: center; /* テキストを中央揃えに設定 */
 }
 
 /* テキスト要素の基本色 */
@@ -23,7 +24,7 @@ a {
 }
 
 /* =========================================
-   2. ヘッダー & ナビゲーション（チェックボックス式・機能維持）
+   2. ヘッダー & ナビゲーション（機能維持）
    ========================================= */
 header {
     display: flex;
@@ -31,7 +32,6 @@ header {
     align-items: center;
     background-color: black;
     padding: 20px 0;
-    /* ページ上部で固定したい場合は position: sticky; top: 0; を追加してください */
 }
 
 .logo h1 {
@@ -51,9 +51,9 @@ header {
 }
 
 .nav-list li a {
-    color: white; /* 以前の青から白に変更して洗練 */
+    color: white;
     padding: 10px 20px;
-    font-size: 18px; /* ナビゲーションは少し小さくして上品に */
+    font-size: 18px;
 }
 
 .nav-list li a:hover {
@@ -61,13 +61,13 @@ header {
     border-radius: 5px;
 }
 
-/* ハンバーガーメニュー設定（機能は一切崩していません） */
+/* ハンバーガーメニュー設定 */
 .menu-toggle {
     display: none;
 }
 
 .hamburger {
-    display: none; /* デスクトップでは非表示 */
+    display: none;
     flex-direction: column;
     cursor: pointer;
     z-index: 1000;
@@ -82,49 +82,64 @@ header {
 }
 
 /* =========================================
-   3. 統一されたセクション構造（デザインアップデート）
+   3. 統一されたセクション構造（中央揃え・デザイン）
    ========================================= */
 
-/* 従来の「黒い箱」から「繊細な線での区切り」に統一 */
 section {
-    border-top: 1px solid #333; /* 上の境界線で区切るエディトリアル形式 */
+    border-top: 1px solid #333;
     padding: 60px 0;
-    margin: 0;
-    background-color: transparent; /* 背景の透過度設定をなくし、スッキリさせる */
-    border-radius: 0; /* 角丸を廃止してミニマルに */
-    overflow: visible;
+    margin: 0 auto;
+    background-color: transparent;
+    max-width: 1000px; /* 線が広がりすぎないよう中央に寄せる */
 }
 
-/* セクションのタイトル（青色のアクセント） */
-.section-title, h2 {
+/* セクションタイトル（中央揃え） */
+.section-title, h2, .section-title-label {
     font-size: 1.2rem;
     margin-bottom: 30px;
     text-transform: uppercase;
     display: block;
     color: #00aaff;
-    border-bottom: none; /* 下線をなくし、上の区切り線とセットでデザイン */
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
+    text-align: center;
 }
 
-/* 名前などの大きなタイポグラフィ（プロフィール等で使用） */
+/* 巨大なタイポグラフィ（中央揃え） */
 .profile-name h3 {
-    font-size: clamp(50px, 10vw, 120px); /* 画面幅に応じて可変する巨大な文字 */
+    font-size: clamp(50px, 10vw, 120px);
     font-weight: bold;
     line-height: 0.9;
     margin: 60px 0;
     letter-spacing: -0.02em;
+    text-align: center;
 }
 
 /* =========================================
-   4. グリッドシステム（元のサイズと挙動を完全キープ）
+   4. グリッド & 動画（中央揃え・サイズ維持）
    ========================================= */
+
+/* YouTubeサムネイル等のコンテナを中央寄せに */
+.video-content, .portfolio-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.video-thumbnail {
+    width: 100%;
+    max-width: 700px; /* 中央で見やすい最大幅 */
+    height: auto;
+    border-radius: 10px;
+    transition: 0.3s;
+}
 
 /* A. 縦型動画（Shorts） */
 .shorts-grid {
     display: flex;
     gap: 30px;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* グリッド全体を中央へ */
 }
 
 .shorts-item {
@@ -142,18 +157,19 @@ section {
     display: block;
 }
 
-/* B. カスタム画像グリッド（250px固定・object-fit維持） */
+/* B. カスタム画像グリッド（250px固定・中央寄せ） */
 .custom-image-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 10px;
     padding: 20px 0;
+    justify-content: center;
 }
 
 .custom-image-grid img {
     width: 100%;
-    height: 250px; /* 全ての画像の高さを250pxで統一 */
-    object-fit: cover; /* 枠に合わせて切り抜く */
+    height: 250px;
+    object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -161,7 +177,6 @@ section {
 .custom-image-grid img:hover {
     transform: scale(1.05);
     opacity: 0.8;
-    cursor: pointer;
 }
 
 /* C. YouTubeビデオグリッド */
@@ -169,6 +184,7 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
+    justify-content: center;
 }
 
 .custom-video-grid iframe {
@@ -178,13 +194,13 @@ section {
 }
 
 /* =========================================
-   5. スキルタグ & アニメーション
+   5. スキルタグ & アニメーション（中央寄せ）
    ========================================= */
 .skills {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: flex-start;
+    justify-content: center; /* スキルタグも中央寄せ */
 }
 
 .skills span {
@@ -199,7 +215,7 @@ section {
    6. ポップアップ（モーダル機能）
    ========================================= */
 .modal {
-    display: none; /* JSで表示切り替え */
+    display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -225,23 +241,24 @@ section {
     border-left: 1px solid #333;
     background: #050505;
     overflow-y: auto;
+    text-align: left; /* モーダル内の文字は読みやすさのため左寄せ */
 }
 
 /* =========================================
-   7. フッター（Portfolio共通）
+   7. フッター（中央揃え）
    ========================================= */
 footer {
-    text-align: right; /* 右寄せにしてエディトリアル感を出す */
+    text-align: center;
     padding: 80px 0 40px;
     margin-top: 40px;
-    color: #555; /* 少しグレーにして落ち着かせる */
+    color: #555;
     font-size: 14px;
     letter-spacing: 0.2em;
     border-top: 1px solid #222;
 }
 
 /* =========================================
-   8. レスポンシブ（スマホ対応：挙動を完全維持）
+   8. レスポンシブ（スマホ対応：機能維持）
    ========================================= */
 @media (max-width: 1024px) {
     body {
@@ -251,14 +268,13 @@ footer {
 
 @media (max-width: 768px) {
     body {
-        font-size: 20px; /* スマホでは読みやすくサイズ調整 */
+        font-size: 20px;
         margin: 0;
         padding: 20px;
     }
 
     p { font-size: 18px; }
 
-    /* バーガーメニューの挙動（変更なし） */
     .hamburger {
         display: flex;
     }
@@ -275,12 +291,10 @@ footer {
         z-index: 900;
     }
 
-    /* チェック時に表示 */
     .menu-toggle:checked ~ .nav-list {
         display: flex;
     }
 
-    /* 三本線がバツ印になるアニメーション */
     .menu-toggle:checked + .hamburger .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     .menu-toggle:checked + .hamburger .bar:nth-child(2) { opacity: 0; }
     .menu-toggle:checked + .hamburger .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
@@ -289,27 +303,24 @@ footer {
         font-size: 30px;
     }
 
-    /* グリッドをスマホ最適化（画像は2列に固定） */
     .custom-image-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 5px;
     }
     
     .custom-image-grid img {
-        height: 180px; /* スマホでは高さを抑える */
+        height: 180px;
     }
 
     .custom-video-grid {
         grid-template-columns: 1fr;
     }
 
-    /* プロフィール名のスマホサイズ */
     .profile-name h3 {
         font-size: 45px;
         margin: 40px 0;
     }
 
-    /* ポップアップをスマホでは縦並びに */
     .modal-container {
         flex-direction: column;
         height: 90vh;
