@@ -3,8 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>PROFILE | KAHO KOBAYASHI</title>
+    <link rel="stylesheet" href="styles.css"> <title>Portfolio | Kaho Kobayashi</title>
+    <style>
+        /* =========================================
+           プロフィールページ専用の独自レイアウト
+           （ここを維持してエディトリアル感を出す）
+           ========================================= */
+        
+        /* メインコンテナ */
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 60px 100px;
+        }
+
+        /* 巨大な名前 */
+        .profile-name {
+            margin-bottom: 100px;
+            text-align: left; /* ここはあえての左寄せでデザインを強調 */
+        }
+        .profile-name h3 {
+            font-size: clamp(40px, 8vw, 120px);
+            margin: 0;
+            letter-spacing: -0.02em;
+            font-weight: 700;
+            line-height: 0.9;
+            color: #fff;
+        }
+
+        /* 1:2のグリッドレイアウト */
+        .profile-section {
+            border-top: 1px solid #333;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            padding: 40px 0;
+            gap: 40px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            color: #00aaff;
+            margin: 0;
+            text-align: left;
+        }
+
+        .about-text {
+            font-size: 15px;
+            max-width: 600px;
+            margin: 0;
+            text-align: justify;
+            color: #fff;
+        }
+
+        .profile-block {
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .profile-block h3 {
+            font-size: 24px;
+            margin: 0 0 20px 0;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        /* スキルのスラッシュ区切り */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            justify-content: flex-start; /* 左寄せ */
+        }
+        .skills-list span {
+            font-size: 13px;
+            color: #999;
+            position: relative;
+        }
+        .skills-list span:not(:last-child)::after {
+            content: "/";
+            margin-left: 20px;
+            color: #333;
+        }
+
+        /* スマホ対応 */
+        @media (max-width: 768px) {
+            .profile-section { 
+                grid-template-columns: 1fr; 
+                gap: 20px; 
+            }
+            .profile-container { padding: 0 20px 60px; }
+            .profile-name { margin-bottom: 50px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -34,50 +124,6 @@
             <h3>KAHO<br>KOBAYASHI</h3>
         </div>
 
-        <section class="editorial-section">
-            <div class="section-title-label">ABOUT ME</div>
-            <p class="about-text">
-                現在、本業では撮影の進行管理および写真撮影・レタッチを中心に、企業のクリエイティブ制作に携わっています。副業として動画撮影・編集を行い、過去には2D・3Dデザインを組み合わせたモーショングラフィックス制作にも従事してきました。<br><br>
-                また、AIを活用したクリエイティブ表現にも関心が高く、日常的に画像・動画生成AIを用いた制作を行っています。
-            </p>
-        </section>
-
-        <section class="editorial-section">
-            <div class="section-title-label">MY PROFILE</div>
-            
-            <div class="profile-block">
-                <h3>Education</h3>
-                <div class="skills">
-                    <span>文化服装学院</span>
-                </div>
-            </div>
-
-            <div class="profile-block">
-                <h3>Work Experience</h3>
-                <div class="skills">
-                    <span>FAREAST COMPANY</span>
-                </div>
-            </div>
-
-            <div class="profile-block">
-                <h3>Skill</h3>
-                <div class="skills">
-                    <span>Photography</span>
-                    <span>Videography</span>
-                    <span>Edit</span>
-                    <span>AI model</span>
-                    <span>Photoshop</span>
-                    <span>Premiere Pro</span>
-                    <span>After Effects</span>
-                    <span>Illustrator</span>
-                    <span>Blender</span>
-                    <span>Nano Banana</span>
-                    <span>Kling</span>
-                    <span>Higgsfield</span>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy;
+        <section class="profile-section">
+            <h2 class="section-title">ABOUT ME</h2>
+            <p class
