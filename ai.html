@@ -4,27 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Portfolio | AI Image Gallery</title>
+    <title>Portfolio | AI Gallery</title>
     <style>
-        /* --- スライドエリア（横スクロール） --- */
-        .shorts-grid {
+        /* --- 共通設定 --- */
+        body {
+            background-color: black;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        /* --- 横スクロールエリア --- */
+        .scroll-grid {
             display: flex;
             gap: 20px;
             overflow-x: auto; 
             scroll-snap-type: x mandatory; 
-            padding: 20px 0;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefoxスクロールバー非表示 */
+            padding: 20px 40px;
+            scrollbar-width: none;
         }
-        .shorts-grid::-webkit-scrollbar {
-            display: none; /* Chrome/Safariスクロールバー非表示 */
-        }
+        .scroll-grid::-webkit-scrollbar { display: none; }
 
-        /* --- 4:5 画像アイテム --- */
-        .shorts-item {
+        /* --- 共通アイテム設定 --- */
+        .gallery-item {
             flex: 0 0 auto;
-            width: 300px; 
-            aspect-ratio: 4 / 5; 
             position: relative;
             overflow: hidden;
             border-radius: 12px;
@@ -33,126 +37,45 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .shorts-item img {
+        /* 画像用 (4:5) */
+        .image-size {
+            width: 300px; 
+            aspect-ratio: 4 / 5; 
+        }
+
+        /* 動画用 (9:16 - 1080x1920相当) */
+        .video-size {
+            width: 300px; /* 横幅を揃えてサイトの統一感を出す */
+            aspect-ratio: 9 / 16; 
+        }
+
+        .gallery-item img, .gallery-item video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 4:5の枠に合わせてきれいに収める */
+            object-fit: cover;
             display: block;
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* ホバー時の拡大演出 */
-        .shorts-item:hover img {
-            transform: scale(1.08);
-        }
+        .gallery-item:hover img { transform: scale(1.08); }
 
-        /* --- プロンプト表示（ホバー時に下から出る） --- */
+        /* --- プロンプト表示 --- */
         .prompt-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
             color: #fff;
-            padding: 30px 15px 15px; /* 上側に余裕を持たせて文字を読みやすく */
+            padding: 40px 15px 15px;
             font-size: 13px;
             transform: translateY(100%);
             transition: transform 0.4s ease-out;
             text-align: left;
-            pointer-events: none; /* 文字をクリックしても画像の邪魔をしない */
+            pointer-events: none;
         }
 
-        .shorts-item:hover .prompt-overlay {
-            transform: translateY(0);
-        }
+        .gallery-item:hover .prompt-overlay { transform: translateY(0); }
 
         .prompt-tag {
             color: #00aaff;
-            font-weight: bold;
-            font-size: 10px;
-            display: block;
-            margin-bottom: 4px;
-            letter-spacing: 1px;
-        }
-
-        .portfolio-section {
-            text-align: center;
-            padding: 40px 20px;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo"><h1>PORTFOLIO</h1></div>
-        <nav class="nav">
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-            </label>
-            <ul class="nav-list">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="motion.html">VIDEO</a></li>
-                <li><a href="photo.html">PHOTO</a></li>
-                <li><a href="ai.html">AI</a></li>
-                <li><a href="skill.html">PROFILE</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main class="portfolio-section">
-        <p class="section-title-text">AI IMAGE GENERATE</p>
-
-        <div class="shorts-grid">
-            
-            <div class="shorts-item">
-                <img src="01_image.webp" alt="AI Generated Image 1">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    Cinematic, 01_image prompt text here...
-                </div>
-            </div>
-
-            <div class="shorts-item">
-                <img src="02_image.webp" alt="AI Generated Image 2">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    Futuristic, 02_image prompt text here...
-                </div>
-            </div>
-
-            <div class="shorts-item">
-                <img src="03_image.webp" alt="AI Generated Image 3">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    Detailed, 03_image prompt text here...
-                </div>
-            </div>
-
-            <div class="shorts-item">
-                <img src="04_image.webp" alt="AI Generated Image 4">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    Abstract, 04_image prompt text here...
-                </div>
-            </div>
-            
-            <main class="portfolio-section">
-        <p class="section-title-text">AI VIDEO GENERATE & EDIT</p>
-
-        <div class="shorts-grid">
-            <div class="shorts-item">
-                <video controls autoplay muted loop playsinline>
-                    <source src="ai_videos/ai_movie_01.mp4" type="video/mp4">
-                </video>
-            </div>
-
-        </div>
-    </main>
-
-    <footer>
-        <p>&copy; portfolio</p>
-    </footer>
-
-</body>
-</html>
