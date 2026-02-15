@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Portfolio with Profile Layout</title>
 </head>
 <body>
     <header>
@@ -28,37 +27,53 @@
         </nav>
     </header>
 
-    <section class="portfolio-section">
-        <div class="portfolio-text">
-            <p>PERSONAL PROJECT</p>
-            <a href="https://www.youtube.com/watch?v=9oJPrcyI9G4" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/9oJPrcyI9G4/hqdefault.jpg" alt="PERSONAL PROJECT">
-            </a>
-            <a href="https://youtu.be/08-nvPmuFNc" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/08-nvPmuFNc/hqdefault.jpg" alt="PERSONAL PROJECT">
-            </a>
+    <main class="profile-container">
+        <div class="profile-name">
+            <h3>MOTION<br>WORKS</h3>
+        </div>
 
-            <p>COORDINATOR</p>
-            <a href="https://www.youtube.com/watch?v=6-FV6zMvuxs" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/6-FV6zMvuxs/hqdefault.jpg" alt="COORDINATOR">
-            </a>
+        <section class="editorial-section">
+            <div class="section-title-label">PERSONAL PROJECT</div>
+            <div class="video-content">
+                <a href="https://www.youtube.com/watch?v=9oJPrcyI9G4" target="_blank">
+                    <img class="video-thumbnail" src="https://img.youtube.com/vi/9oJPrcyI9G4/hqdefault.jpg" alt="PROJECT 1">
+                </a>
+                <a href="https://youtu.be/08-nvPmuFNc" target="_blank">
+                    <img class="video-thumbnail" src="https://img.youtube.com/vi/08-nvPmuFNc/hqdefault.jpg" alt="PROJECT 2">
+                </a>
+            </div>
+        </section>
 
-            <p>CLIENT WORK</p>
-            <a href="https://www.youtube.com/watch?v=HRYDqllzIo4" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/HRYDqllzIo4/hqdefault.jpg" alt="CLIENT WORK 4">
-            </a>
-            <a href="https://www.youtube.com/watch?v=y1F0raVHGhU&start=11" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/y1F0raVHGhU/hqdefault.jpg" alt="CLIENT WORK 1">
-            </a>
-            <a href="https://www.youtube.com/watch?v=fhiSts8SJug" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/fhiSts8SJug/hqdefault.jpg" alt="CLIENT WORK 2">
-            </a>
-            <a href="https://www.youtube.com/watch?v=ITl4x9A_ps8&start=290" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/ITl4x9A_ps8/hqdefault.jpg" alt="CLIENT WORK 3">
-            </a>
+        <section class="editorial-section">
+            <div class="section-title-label">COORDINATOR</div>
+            <div class="video-content">
+                <a href="https://www.youtube.com/watch?v=6-FV6zMvuxs" target="_blank">
+                    <img class="video-thumbnail" src="https://img.youtube.com/vi/6-FV6zMvuxs/hqdefault.jpg" alt="COORDINATOR">
+                </a>
+            </div>
+        </section>
 
-            <p>PRODUCT SHOOTING & EDIT</p>
+        <section class="editorial-section">
+            <div class="section-title-label">CLIENT WORK</div>
+            <div class="video-content">
+                <a href="https://www.youtube.com/watch?v=HRYDqllzIo4" target="_blank">
+                    <img class="video-thumbnail" src="https://img.youtube.com/vi/HRYDqllzIo4/hqdefault.jpg" alt="WORK 1">
+                </a>
+                <a href="https://www.youtube.com/watch?v=y1F0raVHGhU&start=11" target="_blank">
+                    <img class="video-thumbnail" src="https://img.youtube.com/vi/y1F0raVHGhU/hqdefault.jpg" alt="WORK 2">
+                </a>
+                <a href="https://www.youtube.com/watch?v=fhiSts8SJug" target="_blank">
+                    <img class="video-thumbnail" src="https://img.youtube.com/vi/fhiSts8SJug/hqdefault.jpg" alt="WORK 3">
+                </a>
+                <a href="https://www.youtube.com/watch?v=ITl4x9A_ps8&start=290" target="_blank">
+                    <img class="video-thumbnail" src="https://img.youtube.com/vi/ITl4x9A_ps8/hqdefault.jpg" alt="WORK 4">
+                </a>
+            </div>
+        </section>
 
+        <section class="editorial-section">
+            <div class="section-title-label">PRODUCT SHOOTING & EDIT</div>
+            
             <div class="shorts-grid">
                 <div class="shorts-item">
                     <video controls autoplay muted loop>
@@ -81,22 +96,12 @@
                     </video>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
         <p>&copy; portfolio</p>
     </footer>
 
-    <script>
-        // ハンバーガーメニューのスクリプト（フォールバック用）
-        const hamburger = document.getElementById("hamburger");
-        const navList = document.querySelector(".nav-list");
-        if (hamburger) {
-            hamburger.addEventListener("click", () => {
-                navList.classList.toggle("active");
-            });
-        }
-    </script>
 </body>
 </html>
