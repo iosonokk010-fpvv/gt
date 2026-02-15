@@ -12,7 +12,7 @@
             color: #ffffff;
             margin: 0;
             padding: 0;
-            font-family: sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
         /* --- 横スクロールエリア --- */
@@ -37,17 +37,8 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        /* 画像用 (4:5) */
-        .image-size {
-            width: 300px; 
-            aspect-ratio: 4 / 5; 
-        }
-
-        /* 動画用 (9:16 - 1080x1920相当) */
-        .video-size {
-            width: 300px; /* 横幅を揃えてサイトの統一感を出す */
-            aspect-ratio: 9 / 16; 
-        }
+        .image-size { width: 300px; aspect-ratio: 4 / 5; }
+        .video-size { width: 300px; aspect-ratio: 9 / 16; }
 
         .gallery-item img, .gallery-item video {
             width: 100%;
@@ -59,23 +50,127 @@
 
         .gallery-item:hover img { transform: scale(1.08); }
 
-        /* --- プロンプト表示 --- */
+        /* --- プロンプト表示（ここを強化） --- */
         .prompt-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
-            color: #fff;
-            padding: 40px 15px 15px;
-            font-size: 13px;
+            /* グラデーションを濃くして文字を読みやすく */
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 80%, transparent 100%);
+            color: #eee;
+            padding: 50px 15px 15px;
+            font-size: 11px; /* 少し小さくして情報を詰め込む */
+            line-height: 1.4;
             transform: translateY(100%);
             transition: transform 0.4s ease-out;
             text-align: left;
-            pointer-events: none;
+            pointer-events: auto; /* スクロールできるように変更 */
+            max-height: 70%;      /* 縦に長くなりすぎないよう制限 */
+            overflow-y: auto;    /* 長いプロンプトはスクロール可能に */
         }
 
         .gallery-item:hover .prompt-overlay { transform: translateY(0); }
 
         .prompt-tag {
             color: #00aaff;
+            font-weight: bold;
+            font-size: 10px;
+            display: block;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+            padding-bottom: 2px;
+        }
+
+        .prompt-content {
+            white-space: pre-wrap; /* 改行を反映させる */
+        }
+
+        /* --- ヘッダー等 --- */
+        header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .logo h1 { color: #00aaff; margin: 0; font-size: 24px; letter-spacing: 2px; }
+        .portfolio-section { text-align: center; padding-top: 40px; }
+        .section-title-text { color: #00aaff; letter-spacing: 2px; font-weight: bold; font-size: 14px; text-transform: uppercase; }
+        footer { text-align: center; padding: 40px; color: #555; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><h1>PORTFOLIO</h1></div>
+        <nav class="nav">
+            <ul class="nav-list" style="display:flex; list-style:none; gap:20px; margin:0; padding:0;">
+                <li><a href="index.html" style="color:white; text-decoration:none; font-size:12px;">HOME</a></li>
+                <li><a href="motion.html" style="color:white; text-decoration:none; font-size:12px;">VIDEO</a></li>
+                <li><a href="photo.html" style="color:white; text-decoration:none; font-size:12px;">PHOTO</a></li>
+                <li><a href="ai.html" style="color:white; text-decoration:none; font-size:12px;">AI</a></li>
+                <li><a href="skill.html" style="color:white; text-decoration:none; font-size:12px;">PROFILE</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="portfolio-section">
+        <p class="section-title-text">AI IMAGE GENERATE</p>
+        <div class="scroll-grid">
+            
+            <div class="gallery-item image-size">
+                <img src="01_image.webp" alt="AI Image 1">
+                <div class="prompt-overlay">
+                    <span class="prompt-tag">PROMPT</span>
+                    <div class="prompt-content">Cinematic portrait, realistic lighting, 8k.</div>
+                </div>
+            </div>
+
+            <div class="gallery-item image-size">
+                <img src="02_image.webp" alt="AI Image 2">
+                <div class="prompt-overlay">
+                    <span class="prompt-tag">PROMPT</span>
+                    <div class="prompt-content">**Model Identity:** Maintain same model (Image A & B), features, and hairstyle.
+**Clothing:** Open jacket revealing top (Image D). Shoes from Image C. Remove bag.
+**Environment:** Natural daylight, realistic reflections.
+**Style:** Photorealistic fashion editorial, sharp focus.
+**Neg:** No face change, no distortion, no blur.</div>
+                </div>
+            </div>
+
+            <div class="gallery-item image-size">
+                <img src="03_image.webp" alt="AI Image 3">
+                <div class="prompt-overlay">
+                    <span class="prompt-tag">PROMPT</span>
+                    <div class="prompt-content">Futuristic landscape, bioluminescent flora.</div>
+                </div>
+            </div>
+
+            <div class="gallery-item image-size">
+                <img src="04_image.webp" alt="AI Image 4">
+                <div class="prompt-overlay">
+                    <span class="prompt-tag">PROMPT</span>
+                    <div class="prompt-content">Abstract liquid gold, high contrast.</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="portfolio-section">
+        <p class="section-title-text">AI VIDEO GENERATE & EDIT</p>
+        <div class="scroll-grid">
+            <div class="gallery-item video-size">
+                <video controls autoplay muted loop playsinline>
+                    <source src="ai_videos/ai_movie_01.mp4" type="video/mp4">
+                </video>
+                <div class="prompt-overlay">
+                    <span class="prompt-tag">PROMPT</span>
+                    <div class="prompt-content">Dynamic movement, slow motion, AI generated video...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; portfolio</p>
+    </footer>
+
+</body>
+</html>
