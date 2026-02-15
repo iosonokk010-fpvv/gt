@@ -49,7 +49,7 @@
 
     /* 巨大な名前：デザインの主役 */
     .profile-name {
-      margin-bottom: ８０px;
+      margin-bottom: 100px;
     }
     .profile-name h3 {
       font-size: clamp(40px, 8vw, 120px); /* 画面サイズで可変 */
@@ -80,6 +80,34 @@
       max-width: 600px;
       margin: 0;
       text-align: justify;
+    }
+
+    /* プロフィールブロックのリスト化 */
+    .profile-block {
+      margin-bottom: 40px;
+    }
+    .profile-block h3 {
+      font-size: 24px;
+      margin: 0 0 20px 0;
+      font-weight: 500;
+    }
+
+    /* スキル：囲み線をやめてミニマルなタグに */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+    }
+    .skills span {
+      font-size: 13px;
+      color: #999;
+      position: relative;
+    }
+    /* スキルの間にドットを入れる演出 */
+    .skills span:not(:last-child)::after {
+      content: "/";
+      margin-left: 20px;
+      color: #333;
     }
 
     footer {
@@ -142,20 +170,12 @@
 
         <div class="profile-block">
           <h3>Skill</h3>
-<div class="skills">
-                            <span>Photography</span>
-                            <span>Videography</span>
-                            <span>Edit</span>
-                            <span>AI model</span>
-                            <span>Photoshop</span>
-                            <span>Premiere Pro</span>
-                            <span>After Effects</span>
-                            <span>Illustrator</span>
-                            <span>Blender</span>
-                            <span>Nano Banana</span>
-                            <span>Kling</span>
-                            <span>Higgsfield</span>
-      
+          <div class="skills">
+            <span>Photography</span><span>Videography</span><span>Edit</span>
+            <span>AI model</span><span>Photoshop</span><span>Premiere Pro</span>
+            <span>After Effects</span><span>Illustrator</span><span>Blender</span>
+            <span>Nano Banana</span><span>Kling</span><span>Higgsfield</span>
+          </div>
         </div>
       </div>
     </section>
@@ -166,5 +186,3 @@
   </footer>
 </body>
 </html>
-
-
