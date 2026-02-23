@@ -99,6 +99,24 @@
         .nav-btn:hover { background: rgba(0, 170, 255, 0.6); }
         .prev-btn { left: -60px; }
         .next-btn { right: -60px; }
+        
+        /* 画像の設定 */
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none; /* これは既にあります */
+            
+            /* ▼▼▼ ここを追加します ▼▼▼ */
+            user-select: none;
+            -webkit-user-select: none; /* Safari, Chrome用 */
+            -moz-user-select: none;    /* Firefox用 */
+            -ms-user-select: none;     /* IE/Edge用 */
+            /* ▲▲▲ ここまでを追加 ▲▲▲ */
+
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
 
         /* スマホ等でボタンを内側に入れる */
         @media (max-width: 1300px) {
