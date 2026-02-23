@@ -508,13 +508,27 @@ footer {
         font-size: 30px;
     }
 
-    .custom-image-grid {
+.custom-image-grid {
+        /* 横に2枚並べる設定は維持 */
         grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
+        gap: 8px; /* 隙間を少し調整 */
+        padding: 10px;
     }
-    
+
     .custom-image-grid img {
-        height: 180px;
+        /* ▼▼▼ 固定の高さを消して比率を指定 ▼▼▼ */
+        width: 100%;
+        height: auto; 
+        aspect-ratio: 4 / 5; 
+        /* ▲▲▲ ここまで ▲▲▲ */
+
+        object-fit: cover;
+        
+        /* スマホでの長押し選択（青いハイライト）を防止 */
+        -webkit-touch-callout: none; /* 長押しメニュー防止 */
+        user-select: none;
+        -webkit-user-select: none;
+        pointer-events: none; 
     }
 
     .custom-video-grid {
