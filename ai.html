@@ -427,15 +427,37 @@ Realistic texture and fluid transitions.</div>
 
     <footer><p>&copy; portfolio</p></footer>
 
-    <script>
-        // ボタンによるスライド機能
-        document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
-            const slider = wrapper.querySelector('.scroll-grid');
-            const prevBtn = wrapper.querySelector('.prev-btn');
-            const nextBtn = wrapper.querySelector('.next-btn');
+<script>
+    // 1. 【追加】スクロールでふわっと表示させる機能 (Intersection Observer)
+    const observerOptions = {
+        threshold: 0.1 // 10%見えたら実行
+    };
 
-            const moveAmount = 320; // 1回で動く量（画像幅+gap）
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
 
+    // アニメーションさせたい要素を指定して観察開始
+    // セクション、グリッド内の画像、バナーなどに適用
+    document.querySelectorAll('section, .custom-image-grid img, .banner-item').forEach(el => {
+        el.classList.add('reveal'); // 初期状態のクラスを付与
+        observer.observe(el);
+    });
+
+
+    // 2. 【既存】ボタンによるスライド機能 & ドラッグスクロール
+    document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
+        const slider = wrapper.querySelector('.scroll-grid');
+        const prevBtn = wrapper.querySelector('.prev-btn');
+        const nextBtn = wrapper.querySelector('.next-btn');
+
+        const moveAmount = 320; // 1回で動く量
+
+        if (prevBtn && nextBtn) {
             prevBtn.addEventListener('click', () => {
                 slider.scrollBy({ left: -moveAmount, behavior: 'smooth' });
             });
@@ -443,22 +465,26 @@ Realistic texture and fluid transitions.</div>
             nextBtn.addEventListener('click', () => {
                 slider.scrollBy({ left: moveAmount, behavior: 'smooth' });
             });
+        }
 
-            // ドラッグスクロール機能（マウスでも掴める）
-            let isDown = false, startX, scrollLeft;
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
-            });
-            slider.addEventListener('mouseleave', () => { isDown = false; });
-            slider.addEventListener('mouseup', () => { isDown = false; });
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2;
-                slider.scrollLeft = scrollLeft - walk;
-            });
+        // ドラッグスクロール機能
+        let isDown = false, startX, scrollLeft;
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true; 
+            slider.classList.add('active-drag'); // ドラッグ中用のスタイル（必要なら）
+            startX = e.pageX - slider.offsetLeft; 
+            scrollLeft = slider.scrollLeft;
         });
-    </script>
+        slider.addEventListener('mouseleave', () => { isDown = false; });
+        slider.addEventListener('mouseup', () => { isDown = false; });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    });
+</script>
 </body>
 </html>
