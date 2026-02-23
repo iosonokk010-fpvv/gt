@@ -103,6 +103,23 @@
     <footer>
         <p>&copy; portfolio</p>
     </footer>
+<script>
+// スクロールで要素をふわっと表示させる（Intersection Observer）
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, { threshold: 0.1 });
 
+// アニメーションさせたい要素（セクションや画像）に一括適用
+document.querySelectorAll('section, .custom-image-grid img, .banner-item').forEach(el => {
+    el.classList.add('reveal');
+    observer.observe(el);
+});
+
+// 前回のスライダー機能もここに一緒に置いておいてくださいね！
+</script>
 </body>
 </html>
