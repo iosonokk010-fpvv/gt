@@ -157,26 +157,39 @@ section {
     display: block;
 }
 
-/* B. カスタム画像グリッド（250px固定・中央寄せ） */
+/* B. カスタム画像グリッド（4:5比率・ハイライト防止済み） */
 .custom-image-grid {
     display: grid;
+    /* minmaxの200pxを調整することで1行あたりの枚数を制御できます */
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
+    gap: 15px; /* 隙間を少し広げると4:5が綺麗に見えます */
     padding: 20px 0;
     justify-content: center;
+    
+    /* グリッド全体でも選択を無効化 */
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .custom-image-grid img {
     width: 100%;
-    height: 250px;
+    /* ▼▼▼ ここで4:5比率を指定 ▼▼▼ */
+    aspect-ratio: 4 / 5; 
+    height: auto; /* 固定値を解除 */
+    /* ▲▲▲ ここまで ▲▲▲ */
+    
     object-fit: cover;
     border-radius: 8px;
+    
+    /* 青いハイライト防止 */
+    pointer-events: none; 
+    
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .custom-image-grid img:hover {
     transform: scale(1.05);
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 /* C. YouTubeビデオグリッド */
