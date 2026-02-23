@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles.css"> <title>Portfolio | AI Gallery</title>
     <style>
         /* =========================================
-           AIページ独自のスタイル（横スクロール・プロンプト）
+           AIページ独自のスタイル
            ========================================= */
         
         .scroll-grid {
@@ -15,9 +15,14 @@
             overflow-x: auto; 
             scroll-snap-type: x mandatory; 
             padding: 20px 0;
-            scrollbar-width: none;
+            scrollbar-width: none; /* Firefox */
+            cursor: grab; /* 掴めることを示すアイコン */
+            user-select: none; /* テキスト選択を防いでドラッグしやすくする */
         }
-        .scroll-grid::-webkit-scrollbar { display: none; }
+        .scroll-grid:active {
+            cursor: grabbing; /* 掴んでいる時のアイコン */
+        }
+        .scroll-grid::-webkit-scrollbar { display: none; } /* Chrome, Safari */
 
         .gallery-item {
             flex: 0 0 auto;
@@ -37,6 +42,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            pointer-events: none; /* ドラッグ操作の邪魔をしないようにする */
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -109,6 +115,10 @@
 
     <main class="profile-container">
 
+        <div class="profile-name">
+            <h3>AI<br>GENERATIVE</h3>
+        </div>
+
         <section class="ai-section">
             <p class="section-title-label">AI IMAGE GENERATE (4:5)</p>
             <div class="scroll-grid">
@@ -170,5 +180,35 @@
         <p>&copy; portfolio</p>
     </footer>
 
+    <script>
+        const sliders = document.querySelectorAll('.scroll-grid');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        sliders.forEach(slider => {
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2; // スクロール速度の倍率
+                slider.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
 </body>
 </html>
