@@ -245,6 +245,43 @@ section {
 }
 
 /* =========================================
+バナーセクション専用スタイル 
+========================================= */
+.banner-container {
+    display: flex;
+    flex-direction: column; /* 縦に並べる */
+    gap: 30px; /* バナー同士の隙間 */
+    width: 100%;
+    max-width: 1000px; /* バナーの最大幅（お好みで調整） */
+    margin: 0 auto; /* 中央寄せ */
+}
+
+.banner-item {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px; /* 他のパーツと角丸を合わせる */
+    line-height: 0; /* 画像下の謎の隙間を消す */
+}
+
+.banner-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* 横長にフィットさせる */
+    transition: transform 0.5s ease;
+}
+
+.banner-item:hover img {
+    transform: scale(1.02); /* ホバー時に少しだけ大きくして高級感を出す */
+}
+
+/* スマホ対応：左右の余白を少し作る */
+@media (max-width: 768px) {
+    .banner-container {
+        padding: 0 10px;
+    }
+}
+
+/* =========================================
    7. フッター（中央揃え）
    ========================================= */
 footer {
