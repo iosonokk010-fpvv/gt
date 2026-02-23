@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css"> <title>Portfolio | AI Gallery</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <title>Portfolio | AI Gallery Slides</title>
     <style>
         /* =========================================
-           AIページ独自のスタイル
+           スライダーの基本スタイル
            ========================================= */
         
+        /* スライダーを包むコンテナ */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+            max-width: 1200px; /* 画面幅に合わせて調整 */
+        }
+
         .scroll-grid {
             display: flex;
             gap: 20px;
@@ -16,92 +25,101 @@
             scroll-snap-type: x mandatory; 
             padding: 20px 0;
             scrollbar-width: none; /* Firefox */
-            cursor: grab; /* 掴めることを示すアイコン */
-            user-select: none; /* テキスト選択を防いでドラッグしやすくする */
+            scroll-behavior: smooth; /* スムーズに動くように設定 */
+            cursor: grab;
         }
-        .scroll-grid:active {
-            cursor: grabbing; /* 掴んでいる時のアイコン */
-        }
-        .scroll-grid::-webkit-scrollbar { display: none; } /* Chrome, Safari */
+        .scroll-grid::-webkit-scrollbar { display: none; }
 
         .gallery-item {
             flex: 0 0 auto;
             position: relative;
             overflow: hidden;
             border-radius: 12px;
-            scroll-snap-align: center;
+            scroll-snap-align: center; /* 中央にピタッと止まる */
             background: #111;
         }
 
-        /* アスペクト比の設定 */
         .image-size { width: 300px; aspect-ratio: 4 / 5; }
         .video-size { width: 300px; aspect-ratio: 9 / 16; }
 
+        /* 画像の設定 */
         .gallery-item img, .gallery-item video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            pointer-events: none; /* ドラッグ操作の邪魔をしないようにする */
+            pointer-events: none;
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .gallery-item:hover img { transform: scale(1.08); }
 
+        /* プロンプト表示 */
         .prompt-overlay {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 80%, transparent 100%);
             color: #eee;
             padding: 50px 15px 15px;
             font-size: 11px;
-            line-height: 1.4;
             transform: translateY(100%);
             transition: transform 0.4s ease-out;
             text-align: left;
-            max-height: 70%;
-            overflow-y: auto;
         }
-
-        .gallery-item:hover .prompt-overlay {
-            transform: translateY(0);
-        }
+        .gallery-item:hover .prompt-overlay { transform: translateY(0); }
 
         .prompt-tag {
             color: #00aaff;
             font-weight: bold;
-            font-size: 10px;
             display: block;
             margin-bottom: 6px;
-            letter-spacing: 1px;
             border-bottom: 1px solid rgba(0, 170, 255, 0.3);
-            padding-bottom: 2px;
         }
 
-        .prompt-content {
-            white-space: pre-wrap;
+        /* 左右のナビゲーションボタン */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 170, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 170, 255, 0.5);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+        .nav-btn:hover { background: rgba(0, 170, 255, 0.6); }
+        .prev-btn { left: -60px; }
+        .next-btn { right: -60px; }
+
+        /* スマホ等でボタンを内側に入れる */
+        @media (max-width: 1300px) {
+            .prev-btn { left: 10px; }
+            .next-btn { right: 10px; }
         }
 
         .ai-section {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
-            <h1>PORTFOLIO</h1>
-        </div>
+        <div class="logo"><h1>PORTFOLIO</h1></div>
         <nav class="nav">
             <input type="checkbox" id="menu-toggle" class="menu-toggle">
             <label for="menu-toggle" class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
             </label>
             <ul class="nav-list">
                 <li><a href="index.html">HOME</a></li>
@@ -121,91 +139,81 @@
 
         <section class="ai-section">
             <p class="section-title-label">AI IMAGE GENERATE (4:5)</p>
-            <div class="scroll-grid">
-                <div class="gallery-item image-size"><img src="aiimages/03_image.webp" alt="01"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
-                <div class="gallery-item image-size"><img src="aiimages/02_image.webp" alt="02"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
-                <div class="gallery-item image-size"><img src="aiimages/06_image.webp" alt="03"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
-                <div class="gallery-item image-size"><img src="aiimages/07_image.webp" alt="04"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
-                <div class="gallery-item image-size"><img src="aiimages/01_image.webp" alt="05"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
-                <div class="gallery-item image-size"><img src="aiimages/04_image.webp" alt="06"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
-                <div class="gallery-item image-size"><img src="aiimages/05_image.webp" alt="07"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
+            <div class="slider-wrapper">
+                <button class="nav-btn prev-btn">❮</button>
+                <div class="scroll-grid" id="slider1">
+                    <div class="gallery-item image-size"><img src="aiimages/03_image.webp" alt="01"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Cinematic 4:5 shot...</div></div></div>
+                    <div class="gallery-item image-size"><img src="aiimages/02_image.webp" alt="02"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Realistic portrait...</div></div></div>
+                    <div class="gallery-item image-size"><img src="aiimages/06_image.webp" alt="03"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Cyberpunk vibe...</div></div></div>
+                    <div class="gallery-item image-size"><img src="aiimages/07_image.webp" alt="04"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Neon light...</div></div></div>
+                    <div class="gallery-item image-size"><img src="aiimages/01_image.webp" alt="05"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Fashion AI...</div></div></div>
+                    <div class="gallery-item image-size"><img src="aiimages/04_image.webp" alt="06"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Futuristic...</div></div></div>
+                    <div class="gallery-item image-size"><img src="aiimages/05_image.webp" alt="07"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Detailed art...</div></div></div>
+                </div>
+                <button class="nav-btn next-btn">❯</button>
             </div>
         </section>
 
         <section class="ai-section">
             <p class="section-title-label">AI IMAGE GENERATE (9:16)</p>
-            <div class="scroll-grid">
-                <div class="gallery-item video-size">
-                    <img src="aiimages/20_image.webp" alt="10">
-                    <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div>
+            <div class="slider-wrapper">
+                <button class="nav-btn prev-btn">❮</button>
+                <div class="scroll-grid">
+                    <div class="gallery-item video-size"><img src="aiimages/20_image.webp" alt="10"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Vertical shot...</div></div></div>
+                    <div class="gallery-item video-size"><img src="aiimages/11_image.webp" alt="11"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">AI concept...</div></div></div>
+                    <div class="gallery-item video-size"><img src="aiimages/12_image.webp" alt="12"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Modern design...</div></div></div>
                 </div>
-                <div class="gallery-item video-size">
-                    <img src="aiimages/11_image.webp" alt="11">
-                    <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div>
-                </div>
-                <div class="gallery-item video-size">
-                    <img src="aiimages/12_image.webp" alt="12">
-                    <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div>
-                </div>
+                <button class="nav-btn next-btn">❯</button>
             </div>
         </section>
 
         <section class="ai-section">
-            <p class="section-title-label">AI IMAGE GENERATE (9:16)</p>
-            <div class="scroll-grid">
-                <div class="gallery-item video-size"><img src="aiimages/10_image.webp" alt="20"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
-                <div class="gallery-item video-size"><img src="aiimages/21_image.webp" alt="21"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
-                <div class="gallery-item video-size"><img src="aiimages/22_image.webp" alt="22"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">Prompt details...</div></div></div>
-            </div>
-        </section>
-
-        <section class="ai-section">
-            <p class="section-title-label">AI VIDEO GENERATE & EDIT</p>
-            <div class="scroll-grid">
-                <div class="gallery-item video-size">
-                    <video controls autoplay muted loop playsinline>
-                        <source src="aivideos/ai_movie_01.mp4" type="video/mp4">
-                    </video>
-                    <div class="prompt-overlay">
-                        <span class="prompt-tag">PROMPT</span>
-                        <div class="prompt-content">Dynamic movement, slow motion, AI generated video...</div>
+            <p class="section-title-label">AI VIDEO GENERATE</p>
+            <div class="slider-wrapper">
+                <button class="nav-btn prev-btn">❮</button>
+                <div class="scroll-grid">
+                    <div class="gallery-item video-size">
+                        <video controls autoplay muted loop playsinline><source src="aivideos/ai_movie_01.mp4" type="video/mp4"></video>
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">AI Generated Motion...</div></div>
                     </div>
                 </div>
+                <button class="nav-btn next-btn">❯</button>
             </div>
         </section>
 
     </main>
 
-    <footer>
-        <p>&copy; portfolio</p>
-    </footer>
+    <footer><p>&copy; portfolio</p></footer>
 
     <script>
-        const sliders = document.querySelectorAll('.scroll-grid');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+        // ボタンによるスライド機能
+        document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
+            const slider = wrapper.querySelector('.scroll-grid');
+            const prevBtn = wrapper.querySelector('.prev-btn');
+            const nextBtn = wrapper.querySelector('.next-btn');
 
-        sliders.forEach(slider => {
+            const moveAmount = 320; // 1回で動く量（画像幅+gap）
+
+            prevBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: -moveAmount, behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: moveAmount, behavior: 'smooth' });
+            });
+
+            // ドラッグスクロール機能（マウスでも掴める）
+            let isDown = false, startX, scrollLeft;
             slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                slider.classList.add('active');
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
+                isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
             });
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.classList.remove('active');
-            });
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.classList.remove('active');
-            });
+            slider.addEventListener('mouseleave', () => { isDown = false; });
+            slider.addEventListener('mouseup', () => { isDown = false; });
             slider.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
                 e.preventDefault();
                 const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2; // スクロール速度の倍率
+                const walk = (x - startX) * 2;
                 slider.scrollLeft = scrollLeft - walk;
             });
         });
