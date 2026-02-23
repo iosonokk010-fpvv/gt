@@ -99,24 +99,6 @@
         .nav-btn:hover { background: rgba(0, 170, 255, 0.6); }
         .prev-btn { left: -60px; }
         .next-btn { right: -60px; }
-        
-        /* 画像の設定 */
-        .gallery-item img, .gallery-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            pointer-events: none; /* これは既にあります */
-            
-            /* ▼▼▼ ここを追加します ▼▼▼ */
-            user-select: none;
-            -webkit-user-select: none; /* Safari, Chrome用 */
-            -moz-user-select: none;    /* Firefox用 */
-            -ms-user-select: none;     /* IE/Edge用 */
-            /* ▲▲▲ ここまでを追加 ▲▲▲ */
-
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
 
         /* スマホ等でボタンを内側に入れる */
         @media (max-width: 1300px) {
@@ -155,12 +137,12 @@
             <h3>AI<br>GENERATIVE</h3>
         </div>
 
- <section class="ai-section">
+<section class="ai-section">
     <p class="section-title-label">AI IMAGE GENERATE (4:5)</p>
     <div class="slider-wrapper">
         <button class="nav-btn prev-btn">❮</button>
         <div class="scroll-grid" id="slider1">
-            
+
             <div class="gallery-item image-size">
                 <img src="aiimages/03_image.webp" alt="01">
                 <div class="prompt-overlay">
@@ -173,20 +155,21 @@
                 <img src="aiimages/02_image.webp" alt="02">
                 <div class="prompt-overlay">
                     <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">【Model】
-Keep the exact same model from Image A and Image B, preserving facial features and hairstyle.
+                    <div class="prompt-content">Keep the exact same model from Image A and Image B, 
+preserving facial features and hairstyle.
 
 【Changes】
 Change the shoes to the exact ones from Image C.
-Open the jacket and wear the top from Image D.
+Open the jacket, wear the top from Image D.
 Remove the bag.
 
-【Style】
-Natural daylight, soft shadows, photorealistic, ultra-detailed.
+【Environment & Style】
+Natural daylight, soft shadows, realistic reflections.
+Photorealistic, ultra-detailed, sharp focus.
 High-quality fashion editorial photography.
 
 【Negative】
-no face change, no identity drift, no body distortion, no blur.</div>
+no face change, no identity drift, no body distortion.</div>
                 </div>
             </div>
 
@@ -194,20 +177,21 @@ no face change, no identity drift, no body distortion, no blur.</div>
                 <img src="aiimages/06_image.webp" alt="03">
                 <div class="prompt-overlay">
                     <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">【Model】
-Same model preservation from Image A/B.
+                    <div class="prompt-content">Keep the exact same model from Image A and Image B, 
+preserving facial features and hairstyle.
 
 【Changes】
-Update shoes from Image C.
-Modify jacket/top from Image D.
-Bag removal.
+Change the shoes to the exact ones from Image C.
+Open the jacket, wear the top from Image D.
+Remove the bag.
 
 【Technical】
-Photorealistic, sharp focus, cinematic depth of field.
+Natural daylight, soft shadows, realistic reflections.
+Photorealistic, ultra-detailed, cinematic depth of field.
 Aspect ratio 4:5.
 
 【Negative】
-no artifacts, no cropping, no aspect ratio change.</div>
+no blur, no artifacts, no cropping, no aspect ratio change.</div>
                 </div>
             </div>
 
@@ -215,13 +199,12 @@ no artifacts, no cropping, no aspect ratio change.</div>
                 <img src="aiimages/07_image.webp" alt="04">
                 <div class="prompt-overlay">
                     <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Full body portrait.
-Blending facial features of Image A onto the body of Image B.
+                    <div class="prompt-content">Full body portrait blending the specific facial features and hairstyle of Image A onto the body and pose of Image B. 
 
-【Lighting】
 Soft studio lighting, 8k resolution.
 Hyper-realistic skin textures.
-Sharp focus on the eyes.</div>
+Sharp focus on the eyes. 
+The subject is wearing the exact outfit from Image B.</div>
                 </div>
             </div>
 
@@ -229,125 +212,26 @@ Sharp focus on the eyes.</div>
                 <img src="aiimages/01_image.webp" alt="05">
                 <div class="prompt-overlay">
                     <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">【Model】
-Keep exact features, hairstyle, and skin tone from Image A.
+                    <div class="prompt-content">Keep the exact same model from Image A, preserving facial features, hairstyle, body proportions, and skin tone.
 
 【Background】
-Manhattan Village, 3200 N Sepulveda Blvd, CA.
+Manhattan Village, 3200 N Sepulveda Blvd, 
+Manhattan Beach, CA
 
-【Style】
-Outdoor lifestyle fashion, natural daylight.
-Cinematic depth of field.</div>
+        <section class="ai-section">
+            <p class="section-title-label">AI VIDEO GENERATE</p>
+            <div class="slider-wrapper">
+                <button class="nav-btn prev-btn">❮</button>
+                <div class="scroll-grid">
+                    <div class="gallery-item video-size">
+                        <video controls autoplay muted loop playsinline><source src="aivideos/ai_movie_01.mp4" type="video/mp4"></video>
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span><div class="prompt-content">AI Generated Motion...</div></div>
+                    </div>
                 </div>
+                <button class="nav-btn next-btn">❯</button>
             </div>
+        </section>
 
-            <div class="gallery-item image-size">
-                <img src="aiimages/04_image.webp" alt="06">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">【Model & BG】
-Preserve identity and background from Image A.
-
-【Changes】
-Change pants to Image B.
-Tuck in the top.
-
-【Style】
-Photorealistic, fashion editorial style.
-Natural shadows and reflections.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/05_image.webp" alt="07">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">【Model】
-Same features/hairstyle from Image A.
-
-【Outfit】
-Base from Image B.
-Shoes from Image C / Top from Image D.
-Roll up sleeves, slightly cropped top.
-
-【Style】
-Natural daylight, cinematic photography.</div>
-                </div>
-            </div>
-
-        </div>
-        <button class="nav-btn next-btn">❯</button>
-    </div>
-</section>
-
-<section class="ai-section">
-    <p class="section-title-label">AI IMAGE GENERATE (9:16)</p>
-    <div class="slider-wrapper">
-        <button class="nav-btn prev-btn">❮</button>
-        <div class="scroll-grid">
-            
-            <div class="gallery-item video-size">
-                <img src="aiimages/20_image.webp" alt="20">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">【Composition】
-Three-angle facial portrait:
-1. Close up Front-facing
-2. 45-degree three-quarter view
-3. Full side profile
-
-【Detail】
-Maintain exact features, hairstyle, and natural makeup.
-Neutral background, professional fashion style.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item video-size">
-                <img src="aiimages/11_image.webp" alt="11">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">【Scene】
-Modern glass skyscraper district.
-Subject putting smartphone into pocket.
-
-【Style】
-Urban reflections, corporate atmosphere.
-Shallow depth of field, ultra-realistic.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item video-size">
-                <img src="aiimages/12_image.webp" alt="12">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">【Action】
-Rearranging clothing on a rack.
-Remove bag from reference.
-
-【Interior】
-Minimalist modern shop, soft warm lighting.
-Clean architectural lines.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item video-size">
-                <img src="aiimages/21_image.webp" alt="21">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">【Location】
-Marunouchi red brick storefront.
-Morning light.
-
-【Action】
-Adjusting handbag, facing entrance.
-Soft warm sunlight, cinematic urban feel.</div>
-                </div>
-            </div>
-
-        </div>
-        <button class="nav-btn next-btn">❯</button>
-    </div>
-</section>
     </main>
 
     <footer><p>&copy; portfolio</p></footer>
