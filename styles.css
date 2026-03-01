@@ -260,24 +260,24 @@ section {
 /* =========================================
 バナーセクション専用スタイル 
 ========================================= */
-/* --- バナースライダー専用スタイル --- */
-.banner-slider-section {
-    padding: 40px 0;
+/* バナー用スライダーの微調整 */
+.banner-section .scroll-grid {
+    gap: 15px; /* 画像同士の隙間 */
+    padding: 10px 0;
 }
 
-/* 各バナーの入れ物：高さを抑えて「小さめ」に */
-.banner-item-mini {
+.banner-item-scroll {
     flex: 0 0 auto;
-    height: 180px; /* ここで全体のサイズ感を調整（小さめなら150px〜180px） */
+    /* ▼ 高さを150px〜180px程度にすると「小さめ」で綺麗に見えます */
+    height: 160px; 
     border-radius: 6px;
     overflow: hidden;
     background: #111;
-    transition: transform 0.3s ease;
 }
 
-.banner-item-mini img {
-    height: 100%;
-    width: auto; /* 比率を維持して横に広がる */
+.banner-item-scroll img {
+    height: 100%; /* 高さいっぱいに表示 */
+    width: auto;  /* 横幅は元の画像比率を維持 */
     display: block;
     object-fit: contain;
     
@@ -287,15 +287,10 @@ section {
     pointer-events: none;
 }
 
-/* ホバー時に少しだけ浮く演出 */
-.banner-item-mini:hover {
-    transform: translateY(-5px);
-}
-
-/* スマホでは高さをさらに少し下げる */
+/* スマホ用：さらに高さを抑える */
 @media (max-width: 768px) {
-    .banner-item-mini {
-        height: 120px;
+    .banner-item-scroll {
+        height: 100px; 
     }
 }
   /* =========================================
