@@ -260,52 +260,42 @@ section {
 /* =========================================
 バナーセクション専用スタイル 
 ========================================= */
-/* --- バナーセクション専用スタイル --- */
-.banner-section {
+/* --- バナースライダー専用スタイル --- */
+.banner-slider-section {
     padding: 40px 0;
 }
 
-.banner-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px; /* バナー間の隙間 */
-    width: 100%;
-    /* AI画像の横幅(300px)より少しだけ大きく設定するとバランスが良いです */
-    max-width: 400px; 
-    margin: 0 auto; /* 中央寄せ */
-}
-
-.banner-item {
-    width: 100%;
+/* 各バナーの入れ物：高さを抑えて「小さめ」に */
+.banner-item-mini {
+    flex: 0 0 auto;
+    height: 180px; /* ここで全体のサイズ感を調整（小さめなら150px〜180px） */
+    border-radius: 6px;
     overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     background: #111;
+    transition: transform 0.3s ease;
 }
 
-.banner-item img {
-    width: 100%;
-    height: auto; /* 画像本来の比率を維持 */
+.banner-item-mini img {
+    height: 100%;
+    width: auto; /* 比率を維持して横に広がる */
     display: block;
-    object-fit: contain; /* 比率を絶対崩さない設定 */
+    object-fit: contain;
     
-    /* 青いハイライト（選択）を防止 */
+    /* 青くならない設定 */
     user-select: none;
     -webkit-user-select: none;
-    pointer-events: none; 
-    
-    transition: transform 0.5s ease;
+    pointer-events: none;
 }
 
-.banner-item:hover img {
-    transform: scale(1.05);
+/* ホバー時に少しだけ浮く演出 */
+.banner-item-mini:hover {
+    transform: translateY(-5px);
 }
 
-/* スマホ用の調整 */
+/* スマホでは高さをさらに少し下げる */
 @media (max-width: 768px) {
-    .banner-container {
-        max-width: 85%; /* スマホ画面の85%の幅で表示 */
-        gap: 20px;
+    .banner-item-mini {
+        height: 120px;
     }
 }
   /* =========================================
