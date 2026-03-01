@@ -260,37 +260,48 @@ section {
 /* =========================================
 バナーセクション専用スタイル 
 ========================================= */
-/* バナー用スライダーの微調整 */
-.banner-section .scroll-grid {
-    gap: 15px; /* 画像同士の隙間 */
-    padding: 10px 0;
+/* バナーセクション専用の調整 */
+.banner-section .slider-wrapper {
+    max-width: 1000px; /* 少し幅を絞ると「小さめ」感が強調されます */
 }
 
 .banner-item-scroll {
     flex: 0 0 auto;
-    /* ▼ 高さを150px〜180px程度にすると「小さめ」で綺麗に見えます */
-    height: 160px; 
-    border-radius: 6px;
+    /* ▼ 高さを思い切り下げて「小さめ」に設定 */
+    height: 120px; 
+    border-radius: 12px; /* 画像と同じく角を丸める */
     overflow: hidden;
     background: #111;
+    transition: transform 0.3s ease;
 }
 
 .banner-item-scroll img {
-    height: 100%; /* 高さいっぱいに表示 */
-    width: auto;  /* 横幅は元の画像比率を維持 */
+    height: 100%;
+    width: auto; /* 比率を崩さず横に並べる */
     display: block;
     object-fit: contain;
     
-    /* 青くならない設定 */
+    /* 青いハイライト防止 */
     user-select: none;
     -webkit-user-select: none;
     pointer-events: none;
+    
+    border-radius: 12px; /* 画像自体の角も丸める */
 }
 
-/* スマホ用：さらに高さを抑える */
+/* ホバー時の演出（お好みで） */
+.banner-item-scroll:hover {
+    transform: scale(1.03);
+}
+
+/* スマホ用：さらにサイズを小さく */
 @media (max-width: 768px) {
     .banner-item-scroll {
-        height: 100px; 
+        height: 80px; 
+        border-radius: 8px;
+    }
+    .banner-item-scroll img {
+        border-radius: 8px;
     }
 }
   /* =========================================
