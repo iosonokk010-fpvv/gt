@@ -555,3 +555,31 @@ footer {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* =========================================
+   AI VIDEO セクション専用の追加調整
+   ========================================= */
+
+/* YouTubeのリンクを枠いっぱいに広げる */
+.gallery-item.video-size a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* AIセクション内のYouTube画像をビデオと同じサイズに強制する */
+.gallery-item.video-size .video-thumbnail {
+    width: 100%;
+    height: 100%;
+    max-width: none;    /* 既存の700px制限を解除 */
+    object-fit: cover;  /* 比率を保ちつつ枠を埋める */
+    border-radius: 12px;
+    display: block;
+}
+
+/* ドラッグ時の青い選択（ハイライト）をYouTube画像でも防止 */
+.gallery-item.video-size .video-thumbnail {
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: none; /* 画像自体のドラッグを無効化し、スライダーを動かしやすくする */
+}
