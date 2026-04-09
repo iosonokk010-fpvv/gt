@@ -258,46 +258,59 @@ section {
 }
 
 /* =========================================
-バナーセクション専用スタイル 
+バナーセクション専用スタイル（スライド調整）
 ========================================= */
-/* --- バナーセクション専用：サイズと角丸 --- */
+
+/* 1. スライダーの外枠：ボタンを配置するために relative に */
+.banner-section .slider-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 2. 横並びにするための設定（重要） */
+.banner-section .scroll-grid {
+    display: flex; /* 横並びにする */
+    gap: 20px;
+    overflow-x: auto; /* 横スクロールを有効に */
+    scroll-snap-type: x mandatory; /* ピタッと止まる設定 */
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none; /* スクロールバー非表示（Firefox） */
+}
+
+.banner-section .scroll-grid::-webkit-scrollbar {
+    display: none; /* スクロールバー非表示（Chrome/Safari） */
+}
+
+/* 3. 各バナーアイテムの設定 */
 .banner-item-scroll {
-    flex: 0 0 auto;
-    /* ▼ 前回の120pxから220pxへサイズアップ */
+    flex: 0 0 auto; /* 横幅が縮まないように固定 */
     height: 220px; 
     border-radius: 12px;
     overflow: hidden;
+    scroll-snap-align: center; /* スクロール時に中央で止まる */
     background: #111;
     transition: transform 0.3s ease;
 }
 
 .banner-item-scroll img {
     height: 100%;
-    width: auto; /* バナー本来の横長比率を維持 */
+    width: auto; 
     display: block;
-    object-fit: contain;
-    border-radius: 12px;
-
-    /* 青いハイライト（選択）を完全に防止 */
-    user-select: none;
-    -webkit-user-select: none;
-    pointer-events: none; 
+    object-fit: cover; /* 枠いっぱいに表示 */
+    pointer-events: none; /* ドラッグによる画像ズレを防止 */
 }
 
-/* ホバー時に少し浮く演出 */
+/* ホバー演出 */
 .banner-item-scroll:hover {
     transform: scale(1.02);
 }
 
-/* スマホ用：画面に合わせてサイズを調整 */
-@media (max-width: 768px) {
-    .banner-item-scroll {
-        height: 140px; /* スマホでも見栄えが良い高さ */
-        border-radius: 8px;
-    }
-    .banner-item-scroll img {
-        border-radius: 8px;
-    }
+/* 4. ナビゲーションボタンの配置（AIセクションのボタン設定を流用） */
+.banner-section .nav-btn {
+    /* ここはAIページ共通スタイルで定義されている .nav-btn が自動適用されます */
 }
   /* =========================================
            AIページ共通スタイル
