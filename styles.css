@@ -208,7 +208,7 @@ section {
     border-radius: 8px;
 }
 /* =========================================
-   B-2. 新規追加：3列固定画像グリッド
+   B-2. 新規追加：3列固定画像グリッド（2:3比率）
    ========================================= */
 .custom-image-grid-3col {
     display: grid;
@@ -226,9 +226,10 @@ section {
 
 .custom-image-grid-3col img {
     width: 100%;
-    aspect-ratio: 4 / 5; /* 4:5比率を維持 */
+    /* ▼ 380:561に最も近く、写真が綺麗に見える2:3比率に変更 */
+    aspect-ratio: 2 / 3; 
     height: auto;
-    object-fit: cover;
+    object-fit: cover; /* 枠に合わせて切り抜く（画像が伸びない） */
     border-radius: 8px;
     
     /* ドラッグ防止 */
@@ -241,7 +242,7 @@ section {
     opacity: 0.9;
 }
 
-/* スマホ用：画面が狭い時は2枚にする設定（必要なければ削除してください） */
+/* スマホ用設定 */
 @media (max-width: 768px) {
     .custom-image-grid-3col {
         grid-template-columns: repeat(2, 1fr);
