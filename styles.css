@@ -358,6 +358,40 @@ section {
 .banner-container {
     display: none !important; /* スライダー形式にするため古いコンテナは隠す */
 }
+/* バナーセクションを強制的に横並びにする */
+.banner-section .scroll-grid {
+    display: flex !important; /* 絶対に横並び */
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 20px;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+/* 220pxの高さを死守する */
+.banner-item-scroll {
+    flex: 0 0 auto !important;
+    height: 220px !important; /* 固定サイズ */
+    width: auto;
+    border-radius: 12px;
+    overflow: hidden;
+    scroll-snap-align: center;
+}
+
+.banner-item-scroll img {
+    height: 100% !important;
+    width: auto !important;
+    display: block;
+    object-fit: contain;
+}
+
+/* ボタンを最前面に（これが無いと押せません） */
+.banner-section .nav-btn {
+    z-index: 999 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
   /* =========================================
            AIページ共通スタイル
            ========================================= */
