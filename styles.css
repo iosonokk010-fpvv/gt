@@ -192,6 +192,8 @@ section {
     opacity: 0.9;
 }
 
+
+
 /* C. YouTubeビデオグリッド */
 .custom-video-grid {
     display: grid;
@@ -204,6 +206,47 @@ section {
     width: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 8px;
+}
+/* =========================================
+   B-2. 新規追加：3列固定画像グリッド
+   ========================================= */
+.custom-image-grid-3col {
+    display: grid;
+    /* PCでは横に3つ固定 */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
+    padding: 20px 0;
+    margin: 0 auto;
+    max-width: 1000px;
+    
+    /* 選択・ハイライト防止 */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.custom-image-grid-3col img {
+    width: 100%;
+    aspect-ratio: 4 / 5; /* 4:5比率を維持 */
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    
+    /* ドラッグ防止 */
+    pointer-events: none; 
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.custom-image-grid-3col img:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* スマホ用：画面が狭い時は2枚にする設定（必要なければ削除してください） */
+@media (max-width: 768px) {
+    .custom-image-grid-3col {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 }
 
 /* =========================================
