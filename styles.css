@@ -304,94 +304,39 @@ section {
 /* =========================================
 バナーセクション専用スタイル（スライド調整）
 ========================================= */
-
-/* バナーセクション全体の調整 */
-.banner-section {
-    padding: 60px 0;
-}
-
-/* スライダーの外枠（ボタンを画像の上に表示するため） */
+/* --- バナーセクション：強制横並びセット --- */
 .banner-section .slider-wrapper {
-    position: relative;
-    z-index: 1;
+    display: block !important; /* コンテナの影響をリセット */
+    position: relative !important;
 }
 
-/* スクロールエリア（縦並び設定を上書きして横並びを強制） */
 .banner-section .scroll-grid {
-    display: flex !important; /* 強制的に横並び */
-    flex-direction: row !important;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    padding: 20px 0;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-}
-
-/* 各バナーのサイズ固定（最初の設定を維持） */
-.banner-item-scroll {
-    flex: 0 0 auto;
-    height: 220px; /* ここでサイズを固定 */
-    border-radius: 12px;
-    overflow: hidden;
-    scroll-snap-align: center;
-    background: #111;
-}
-
-.banner-item-scroll img {
-    height: 100%;
-    width: auto;
-    display: block;
-    object-fit: cover;
-    pointer-events: none;
-}
-
-/* ボタンが押せない問題を解決（重なり順を一番上に） */
-.banner-section .nav-btn {
-    z-index: 100 !important;
-    cursor: pointer;
-    pointer-events: auto !important;
-}
-
-/* 不要な縦並び設定を無効化 */
-.banner-container {
-    display: none !important; /* スライダー形式にするため古いコンテナは隠す */
-}
-/* バナーセクションを強制的に横並びにする */
-.banner-section .scroll-grid {
-    display: flex !important; /* 絶対に横並び */
-    flex-direction: row !important;
+    display: flex !important;
+    flex-wrap: nowrap !important; /* 絶対に折り返さない */
     overflow-x: auto !important;
-    gap: 20px;
-    padding: 20px 0;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    gap: 20px !important;
 }
 
-/* 220pxの高さを死守する */
-.banner-item-scroll {
-    flex: 0 0 auto !important;
-    height: 220px !important; /* 固定サイズ */
-    width: auto;
-    border-radius: 12px;
-    overflow: hidden;
-    scroll-snap-align: center;
-}
-
-.banner-item-scroll img {
-    height: 100% !important;
-    width: auto !important;
-    display: block;
-    object-fit: contain;
-}
-
-/* ボタンを最前面に（これが無いと押せません） */
+/* --- ボタンを「絶対に」押せるようにする --- */
 .banner-section .nav-btn {
-    z-index: 999 !important;
-    pointer-events: auto !important;
-    cursor: pointer !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 9999 !important; /* 圧倒的最前面 */
+    pointer-events: auto !important; /* クリックを許可 */
+    visibility: visible !important;
+    opacity: 1 !important;
 }
+
+.banner-section .prev-btn { left: -50px !important; }
+.banner-section .next-btn { right: -50px !important; }
+
+/* スマホ等でボタンが外に飛び出す場合 */
+@media (max-width: 1350px) {
+    .banner-section .prev-btn { left: 10px !important; }
+    .banner-section .next-btn { right: 10px !important; }
+}z
   /* =========================================
            AIページ共通スタイル
            ========================================= */
