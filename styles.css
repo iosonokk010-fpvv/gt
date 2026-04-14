@@ -304,49 +304,53 @@ section {
 /* =========================================
    バナーセクション：グリッドレイアウト
    ========================================= */
+/* =========================================
+   バナーセクション：表示されない問題を解決する最小コード
+   ========================================= */
 
+/* 他の section 設定に負けないように幅を強制指定 */
 .banner-section {
-    padding: 60px 0;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 60px 0 !important;
+    max-width: 100% !important; /* 幅を 1000px に制限させない */
+    margin: 0 auto !important;
+    display: block !important; /* 万が一 display: none が効いていれば解除 */
 }
 
-/* 画像を並べるコンテナ */
+/* グリッドコンテナ */
 .banner-grid {
-    display: grid;
-    /* 画面幅に合わせて自動で列を増減（最小幅300px） */
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 20px;
-    padding: 0 20px;
-    justify-content: center;
+    display: grid !important;
+    /* 1列あたり最小300px。入りきらない場合は自動で下に回る */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    gap: 20px !important;
+    padding: 20px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
 }
 
-/* 各バナーアイテムのサイズ設定 */
+/* 各バナーアイテム */
 .banner-item {
-    height: 220px;       /* 最初の設定通りの高さ */
-    border-radius: 12px; /* 角を丸く */
-    overflow: hidden;
-    background: #111;
-    transition: transform 0.3s ease;
+    height: 220px !important;       /* 高さを 220px 固定 */
+    border-radius: 12px !important; /* 角丸 12px */
+    overflow: hidden !important;
+    background: #111 !important;    /* 画像がない時も枠が見えるように */
+    position: relative !important;
 }
 
+/* 画像の設定 */
 .banner-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;   /* 枠いっぱいに綺麗に収める */
-    display: block;
-    user-select: none;
-    -webkit-user-select: none;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;   /* 比率を保って枠を埋める */
+    display: block !important;
 }
 
-/* スマホ用：画面が狭いときは高さを少し調整して見やすく */
+/* スマホ用設定 */
 @media (max-width: 768px) {
     .banner-grid {
-        grid-template-columns: 1fr; /* 1列にする */
-        gap: 15px;
+        grid-template-columns: 1fr !important; /* スマホでは 1 列 */
     }
     .banner-item {
-        height: 180px; /* スマホでは少し低くするとバランスが良い */
+        height: 180px !important; /* スマホでは少し低く */
     }
 }
   /* =========================================
