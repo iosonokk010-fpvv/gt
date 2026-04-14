@@ -339,12 +339,6 @@ section {
     -webkit-user-select: none;
 }
 
-/* ホバー時のちょっとした演出 */
-.banner-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 170, 255, 0.2);
-}
-
 /* スマホ用：画面が狭いときは高さを少し調整して見やすく */
 @media (max-width: 768px) {
     .banner-grid {
