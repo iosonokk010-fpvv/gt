@@ -304,39 +304,30 @@ section {
 /* =========================================
 バナーセクション専用スタイル（スライド調整）
 ========================================= */
-/* --- バナーセクション：強制横並びセット --- */
+/* バナーセクション専用の修正 */
 .banner-section .slider-wrapper {
-    display: block !important; /* コンテナの影響をリセット */
-    position: relative !important;
+    position: relative;
+    z-index: 1; /* セクション全体の重なり順 */
 }
 
-.banner-section .scroll-grid {
-    display: flex !important;
-    flex-wrap: nowrap !important; /* 絶対に折り返さない */
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-    gap: 20px !important;
-}
-
-/* --- ボタンを「絶対に」押せるようにする --- */
 .banner-section .nav-btn {
-    position: absolute !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    z-index: 9999 !important; /* 圧倒的最前面 */
-    pointer-events: auto !important; /* クリックを許可 */
-    visibility: visible !important;
-    opacity: 1 !important;
+    z-index: 100; /* ボタンを一番手前に持ってくる */
+    pointer-events: auto; /* 確実にクリックを反応させる */
+    cursor: pointer;
 }
 
-.banner-section .prev-btn { left: -50px !important; }
-.banner-section .next-btn { right: -50px !important; }
-
-/* スマホ等でボタンが外に飛び出す場合 */
-@media (max-width: 1350px) {
-    .banner-section .prev-btn { left: 10px !important; }
-    .banner-section .next-btn { right: 10px !important; }
-}z
+/* スクロールエリアの設定 */
+.banner-section .scroll-grid {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* iOSでの滑らかなスクロール */
+    padding: 20px 0;
+    scrollbar-width: none;
+    position: relative;
+    z-index: 5; /* ボタン(100)より低く設定 */
+}
   /* =========================================
            AIページ共通スタイル
            ========================================= */
