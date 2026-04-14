@@ -305,56 +305,58 @@ section {
 バナーセクション専用スタイル（スライド調整）
 ========================================= */
 
-/* 1. スライダーの外枠：ボタンを配置するために relative に */
+/* バナーセクション全体の調整 */
+.banner-section {
+    padding: 60px 0;
+}
+
+/* スライダーの外枠（ボタンを画像の上に表示するため） */
 .banner-section .slider-wrapper {
     position: relative;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    z-index: 1;
 }
 
-/* 2. 横並びにするための設定（重要） */
+/* スクロールエリア（縦並び設定を上書きして横並びを強制） */
 .banner-section .scroll-grid {
-    display: flex; /* 横並びにする */
+    display: flex !important; /* 強制的に横並び */
+    flex-direction: row !important;
     gap: 20px;
-    overflow-x: auto; /* 横スクロールを有効に */
-    scroll-snap-type: x mandatory; /* ピタッと止まる設定 */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     padding: 20px 0;
-    scrollbar-width: none; /* スクロールバー非表示（Firefox） */
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
 }
 
-.banner-section .scroll-grid::-webkit-scrollbar {
-    display: none; /* スクロールバー非表示（Chrome/Safari） */
-}
-
-/* 3. 各バナーアイテムの設定 */
+/* 各バナーのサイズ固定（最初の設定を維持） */
 .banner-item-scroll {
-    flex: 0 0 auto; /* 横幅が縮まないように固定 */
-    height: 220px; 
+    flex: 0 0 auto;
+    height: 220px; /* ここでサイズを固定 */
     border-radius: 12px;
     overflow: hidden;
-    scroll-snap-align: center; /* スクロール時に中央で止まる */
+    scroll-snap-align: center;
     background: #111;
-    transition: transform 0.3s ease;
 }
 
 .banner-item-scroll img {
     height: 100%;
-    width: auto; 
+    width: auto;
     display: block;
-    object-fit: cover; /* 枠いっぱいに表示 */
-    pointer-events: none; /* ドラッグによる画像ズレを防止 */
+    object-fit: cover;
+    pointer-events: none;
 }
 
-/* ホバー演出 */
-.banner-item-scroll:hover {
-    transform: scale(1.02);
-}
-
-/* 4. ナビゲーションボタンの配置（AIセクションのボタン設定を流用） */
+/* ボタンが押せない問題を解決（重なり順を一番上に） */
 .banner-section .nav-btn {
-    /* ここはAIページ共通スタイルで定義されている .nav-btn が自動適用されます */
+    z-index: 100 !important;
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+/* 不要な縦並び設定を無効化 */
+.banner-container {
+    display: none !important; /* スライダー形式にするため古いコンテナは隠す */
 }
   /* =========================================
            AIページ共通スタイル
