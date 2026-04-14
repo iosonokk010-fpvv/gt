@@ -302,31 +302,58 @@ section {
 }
 
 /* =========================================
-バナーセクション専用スタイル（スライド調整）
-========================================= */
-/* バナーセクション専用の修正 */
-.banner-section .slider-wrapper {
-    position: relative;
-    z-index: 1; /* セクション全体の重なり順 */
+   バナーセクション：グリッドレイアウト
+   ========================================= */
+
+.banner-section {
+    padding: 60px 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.banner-section .nav-btn {
-    z-index: 100; /* ボタンを一番手前に持ってくる */
-    pointer-events: auto; /* 確実にクリックを反応させる */
-    cursor: pointer;
-}
-
-/* スクロールエリアの設定 */
-.banner-section .scroll-grid {
-    display: flex;
+/* 画像を並べるコンテナ */
+.banner-grid {
+    display: grid;
+    /* 画面幅に合わせて自動で列を増減（最小幅300px） */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 20px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; /* iOSでの滑らかなスクロール */
-    padding: 20px 0;
-    scrollbar-width: none;
-    position: relative;
-    z-index: 5; /* ボタン(100)より低く設定 */
+    padding: 0 20px;
+    justify-content: center;
+}
+
+/* 各バナーアイテムのサイズ設定 */
+.banner-item {
+    height: 220px;       /* 最初の設定通りの高さ */
+    border-radius: 12px; /* 角を丸く */
+    overflow: hidden;
+    background: #111;
+    transition: transform 0.3s ease;
+}
+
+.banner-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* 枠いっぱいに綺麗に収める */
+    display: block;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ホバー時のちょっとした演出 */
+.banner-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 170, 255, 0.2);
+}
+
+/* スマホ用：画面が狭いときは高さを少し調整して見やすく */
+@media (max-width: 768px) {
+    .banner-grid {
+        grid-template-columns: 1fr; /* 1列にする */
+        gap: 15px;
+    }
+    .banner-item {
+        height: 180px; /* スマホでは少し低くするとバランスが良い */
+    }
 }
   /* =========================================
            AIページ共通スタイル
