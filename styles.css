@@ -392,8 +392,19 @@ section {
 
         /* アスペクト比設定 */
         .image-size { width: 300px; aspect-ratio: 4 / 5; }
-        .video-size { width: 300px; aspect-ratio: 9 / 16; }
-
+        /* 1. コンテナの幅固定を解除し、高さを基準にする */
+.video-size {
+    width: auto !important;       /* 幅 300px の固定を解除 */
+    height: 533px !important;    /* 9:16の縦長動画と同じ高さに固定 */
+    flex: 0 0 auto !important;
+}
+/* 2. 動画自体の設定：高さを100%にして、幅を自動調整 */
+.video-size video {
+    width: auto !important;       /* 幅を自動計算させる */
+    height: 100% !important;      /* 親の高さ(533px)いっぱいに広げる */
+    object-fit: contain !important; /* ★ここが重要！動画を絶対にカットしない */
+    background: #000;            /* 読み込み待ちなどの背景色 */
+}
         .gallery-item img, 
         .gallery-item video {
             width: 100%;
@@ -614,17 +625,10 @@ footer {
    AI VIDEO セクション専用の追加調整
    ========================================= */
 
-/* 1. スライダーの中のアイテムを横並びにする */
+/* 3. スライダー内の並びを「上揃え」に固定してガタつきを防止 */
 .scroll-grid {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start; /* 上揃え */
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    cursor: grab;
-    user-select: none;
-    -webkit-user-select: none;
+    display: flex !important;
+    align-items: flex-start !important; 
 }
 .scroll-grid::-webkit-scrollbar { display: none; }
 
