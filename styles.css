@@ -356,7 +356,7 @@ section {
  <style>
  <style>
     /* =========================================
-       AIページ共通スタイル
+       AIページ共通スタイル（PROMPTタグ左揃え修正版）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -369,72 +369,44 @@ section {
         display: flex !important;
         align-items: flex-start !important;
         gap: 20px;
-        /* --- ここを修正：縦スクロールを完全に殺す --- */
         overflow-x: auto;
         overflow-y: hidden !important; 
-        touch-action: pan-x; /* 指での操作を横方向のみに限定 */
-        /* -------------------------------------- */
+        touch-action: pan-x;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        padding-bottom: 10px; /* スクロールバー非表示用（念のため） */
+        padding-bottom: 15px;
         user-select: none;
         -webkit-user-select: none;
     }
 
-    /* スクロールバーを消す（全ブラウザ対応） */
     .scroll-grid::-webkit-scrollbar { display: none; }
-    .scroll-grid { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* --- アイテムサイズ設定（4:5 と 9:16 の高さを統一） --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
         overflow: hidden;
         border-radius: 12px;
         background: #111;
-        /* 縦に伸びないよう固定 */
-        max-height: 100%; 
+        height: 533px !important; 
     }
 
-    /* --- サイズ設定 --- */
-    .image-size, .video-size {
-        width: 300px;
-        flex: 0 0 auto;
-    }
-    .image-size { aspect-ratio: 4 / 5; }
-    .video-size { aspect-ratio: 9 / 16; }
+    .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
+    .video-size { aspect-ratio: 9 / 16 !important; width: auto !important; }
+    .gallery-item:has(video) { aspect-ratio: auto !important; width: auto !important; }
 
-    /* --- 16:9 動画の表示設定（高さを揃える） --- */
-    .gallery-item:has(video) {
-        width: auto !important; 
-        height: 533px !important; /* PC版：9:16画像と同じ高さ */
-        aspect-ratio: auto !important;
+    .gallery-item img {
+        width: 100% !important; height: 100% !important;
+        object-fit: cover; display: block;
     }
 
     .gallery-item video {
-        width: auto !important;
-        height: 100% !important;
-        object-fit: contain !important;
-        display: block;
+        height: 100% !important; width: auto !important;
+        object-fit: contain !important; display: block;
     }
 
-    .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-    /* --- モバイル対応 --- */
-    @media (max-width: 768px) {
-        .image-size, .video-size { width: 250px; }
-        .gallery-item:has(video) {
-            height: 444px !important; /* スマホ版：高さも縮小して画面内に収める */
-        }
-        .nav-btn { display: none; }
-    }
-
-    /* プロンプト・ナビボタン（デザイン維持） */
-.prompt-overlay {
+    /* --- 【重要】プロンプト表示設定：ここを左揃えに特化 --- */
+    .prompt-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 80%, transparent 100%);
@@ -444,18 +416,53 @@ section {
         line-height: 1.5;
         transform: translateY(100%);
         transition: transform 0.4s ease-out;
-        text-align: left;
+        
+        /* 中身を左寄せにするための設定 */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important; /* 子要素（タグなど）を左端に寄せる */
+        text-align: left !important;         /* テキストを左揃えにする */
+        
         max-height: 80%;
         overflow-y: auto;
-        
-        /* ここが重要：改行を反映させる */
         white-space: pre-wrap !important; 
         word-wrap: break-word;
     }
+
     .gallery-item:hover .prompt-overlay { transform: translateY(0); }
+
+    /* PROMPTタグ自体の設定 */
+    .prompt-tag {
+        color: #00aaff;
+        font-weight: bold;
+        font-size: 10px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+        padding-bottom: 2px;
+        
+        /* 左寄せを確実にする設定 */
+        display: block !important;       /* 幅いっぱいにせず独立させる */
+        width: fit-content !important;  /* 下線の長さを文字の幅に合わせる */
+        text-align: left !important;     /* 文字を左に寄せる */
+        margin-left: 0 !important;      /* 外側の余白をリセット */
+        margin-right: auto !important;
+    }
+
+    .prompt-content {
+        width: 100%;
+        text-align: left !important;
+    }
+
+    /* --- モバイル対応 --- */
+    @media (max-width: 768px) {
+        .gallery-item { height: 400px !important; }
+        .nav-btn { display: none; }
+    }
+
+    /* ナビボタン */
     .nav-btn {
         position: absolute; top: 50%; transform: translateY(-50%);
-        width: 44px; height: 44px; background: rgba(0, 170, 255, 0.1);
+        width: 44px; height: 44px; background: rgba(0, 170, 255, 0.2);
         backdrop-filter: blur(5px); border: 1px solid rgba(0, 170, 255, 0.3);
         color: white; border-radius: 50%; cursor: pointer; z-index: 10;
         display: flex; align-items: center; justify-content: center;
@@ -463,7 +470,6 @@ section {
     .prev-btn { left: -60px; }
     .next-btn { right: -60px; }
     @media (max-width: 1350px) { .prev-btn { left: 10px; } .next-btn { right: 10px; } }
-    .ai-section { text-align: center; margin-bottom: 80px; }
 </style>
 /* =========================================
    7. フッター（中央揃え）
