@@ -16,15 +16,10 @@
             max-width: 1200px;
         }
 
-        .scroll-grid {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 20px 0;
-            scrollbar-width: none;
-            scroll-behavior: smooth;
-            cursor: grab;
+.scroll-grid {
+    display: flex;
+    align-items: flex-start !important; 
+}
             /* ▼▼▼ ここが重要：ドラッグ時の青い選択を防止 ▼▼▼ */
             user-select: none;
             -webkit-user-select: none; /* Safari, Chrome用 */
@@ -45,10 +40,16 @@
 
         /* アスペクト比設定 */
         .image-size { width: 300px; aspect-ratio: 4 / 5; }
-        .video-size { 
-    width: 300px; 
-    /* aspect-ratio: 9 / 16;  ←これを削除するかコメントアウト */
-    height: auto;           /* 高さを自動（動画比率）にする */
+.video-size { 
+    /* 横幅固定をやめ、縦長(9:16)の時の高さ（約533px）を基準にする */
+    height: 533px !important; 
+    width: auto !important;   /* 幅は比率に合わせて自動で広がる */
+    flex: 0 0 auto;
+}
+        .video-size video {
+    height: 100% !important;  /* 親の高さ(533px)に合わせる */
+    width: auto !important;    /* 横幅は比率を維持 */
+    object-fit: contain;      /* アスペクト比を絶対に変えない */
 }
         .scroll-grid {
     display: flex;
