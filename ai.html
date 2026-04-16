@@ -7,13 +7,14 @@
     <title>Portfolio | AI Gallery Slides</title>
 <style>
     /* =========================================
-       AIページ共通スタイル（スマホ比率完全修正版）
+       AIページ共通スタイル（完全表示・比率維持版）
        ========================================= */
     .slider-wrapper {
         position: relative;
         width: 100%;
         margin: 0 auto;
         max-width: 1200px;
+        overflow: visible; /* 外側で切れないようにする */
     }
 
     .scroll-grid {
@@ -25,66 +26,70 @@
         touch-action: pan-x;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        padding-bottom: 15px;
+        padding-bottom: 20px; /* スクロールバー分の余白 */
         user-select: none;
         -webkit-user-select: none;
     }
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- デスクトップ版の基本設定（高さ533px基準） --- */
+    /* --- 各アイテムの共通設定 --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
         overflow: hidden;
         border-radius: 12px;
-        background: #111;
+        background: #000; /* 隙間を黒で埋める */
+        
+        /* PC版の基準高さ */
         height: 533px !important; 
     }
 
-    /* PC版の比率計算 */
-    .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
-    .video-size { aspect-ratio: 9 / 16 !important; width: auto !important; }
-    .gallery-item:has(video) { aspect-ratio: auto !important; width: auto !important; }
-
-    .gallery-item img {
-        width: 100% !important; height: 100% !important;
-        object-fit: cover; display: block;
+    /* --- 【修正】比率を「枠」そのものに強制適用 --- */
+    /* これにより、枠が画像と同じ形になり、中身が隠れなくなります */
+    .image-size { 
+        aspect-ratio: 4 / 5 !important; 
+        width: auto !important; 
+    }
+    .video-size { 
+        aspect-ratio: 9 / 16 !important; 
+        width: auto !important; 
     }
 
+    /* ビデオ等、比率が不定なものは中身に合わせる */
+    .gallery-item:has(video) {
+        aspect-ratio: auto !important;
+        width: auto !important;
+    }
+
+    /* --- 【重要】中の画像・動画の設定（containに変更） --- */
+    .gallery-item img, 
     .gallery-item video {
-        height: 100% !important; width: auto !important;
-        object-fit: contain !important; display: block;
+        width: 100% !important;
+        height: 100% !important;
+        /* coverからcontainに変更：画像全体を枠内に収め、一切隠さない */
+        object-fit: contain !important; 
+        display: block;
+        transition: transform 0.6s;
     }
 
-    /* --- 【修正】モバイル対応：比率を強制的に固定 --- */
+    /* --- 【修正】モバイル対応（4:5が隠れる問題を解消） --- */
     @media (max-width: 768px) {
-        .scroll-grid { gap: 12px; padding-left: 10px; }
+        .scroll-grid { gap: 15px; padding-left: 10px; }
 
-        /* スマホでの基準高さを 380px に設定 */
         .gallery-item {
-            height: 380px !important; 
+            height: 400px !important; /* スマホでの高さを固定 */
         }
 
-        /* 4:5 画像：380pxの高さに対して横幅 304px に固定 */
-        .image-size {
-            width: 304px !important; 
-            aspect-ratio: 4 / 5 !important;
+        /* 高さ400pxに基づいた横幅を明示して計算ミスを防ぐ */
+        .image-size { 
+            width: 320px !important; /* 400 * (4/5) = 320 */
         }
-
-        /* 9:16 画像・動画：380pxの高さに対して横幅 214px に固定 */
-        .video-size {
-            width: 214px !important; 
-            aspect-ratio: 9 / 16 !important;
+        .video-size { 
+            width: 225px !important; /* 400 * (9/16) = 225 */
         }
-
-        /* 横長ビデオなどの特殊サイズ */
-        .gallery-item:has(video) {
-            width: auto !important;
-        }
-
+        
         .nav-btn { display: none; }
-        .prompt-overlay { padding: 30px 12px 12px; }
     }
 
     /* --- プロンプト表示（左揃え・改行維持） --- */
@@ -123,8 +128,6 @@
         margin-left: 0 !important;
         margin-right: auto !important;
     }
-
-    .prompt-content { width: 100%; text-align: left !important; }
 
     /* ナビボタン */
     .nav-btn {
