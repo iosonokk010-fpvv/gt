@@ -7,14 +7,13 @@
     <title>Portfolio | AI Gallery Slides</title>
 <style>
     /* =========================================
-       AIページ共通スタイル（完全表示・比率維持版）
+       AIページ共通スタイル（スマホ全画面表示版）
        ========================================= */
     .slider-wrapper {
         position: relative;
         width: 100%;
         margin: 0 auto;
         max-width: 1200px;
-        overflow: visible; /* 外側で切れないようにする */
     }
 
     .scroll-grid {
@@ -26,69 +25,65 @@
         touch-action: pan-x;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        padding-bottom: 20px; /* スクロールバー分の余白 */
+        padding-bottom: 15px;
         user-select: none;
         -webkit-user-select: none;
     }
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- 各アイテムの共通設定 --- */
+    /* --- PC版の設定（従来通り） --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
         overflow: hidden;
         border-radius: 12px;
-        background: #000; /* 隙間を黒で埋める */
-        
-        /* PC版の基準高さ */
+        background: #000;
         height: 533px !important; 
     }
 
-    /* --- 【修正】比率を「枠」そのものに強制適用 --- */
-    /* これにより、枠が画像と同じ形になり、中身が隠れなくなります */
-    .image-size { 
-        aspect-ratio: 4 / 5 !important; 
-        width: auto !important; 
-    }
-    .video-size { 
-        aspect-ratio: 9 / 16 !important; 
-        width: auto !important; 
-    }
+    .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
+    .video-size { aspect-ratio: 9 / 16 !important; width: auto !important; }
+    .gallery-item:has(video) { aspect-ratio: auto !important; width: auto !important; }
 
-    /* ビデオ等、比率が不定なものは中身に合わせる */
-    .gallery-item:has(video) {
-        aspect-ratio: auto !important;
-        width: auto !important;
-    }
-
-    /* --- 【重要】中の画像・動画の設定（containに変更） --- */
-    .gallery-item img, 
-    .gallery-item video {
+    .gallery-item img, .gallery-item video {
         width: 100% !important;
         height: 100% !important;
-        /* coverからcontainに変更：画像全体を枠内に収め、一切隠さない */
-        object-fit: contain !important; 
+        object-fit: contain !important; /* 絶対に切らない */
         display: block;
-        transition: transform 0.6s;
     }
 
-    /* --- 【修正】モバイル対応（4:5が隠れる問題を解消） --- */
+    /* --- 【修正】モバイル対応：高さを固定せず、幅で決める --- */
     @media (max-width: 768px) {
-        .scroll-grid { gap: 15px; padding-left: 10px; }
+        .scroll-grid { 
+            gap: 15px; 
+            padding-left: 15px;
+            align-items: center !important; /* 中央揃えにしてガタつき防止 */
+        }
 
         .gallery-item {
-            height: 400px !important; /* スマホでの高さを固定 */
+            /* スマホでは高さを自動(auto)にし、幅を基準にする */
+            height: auto !important; 
+            max-height: 70vh; /* 画面の高さの7割を超えないように制限 */
         }
 
-        /* 高さ400pxに基づいた横幅を明示して計算ミスを防ぐ */
-        .image-size { 
-            width: 320px !important; /* 400 * (4/5) = 320 */
+        /* 4:5 画像：スマホの画面幅で見やすいサイズに調整 */
+        .image-size {
+            width: 80vw !important; /* 画面幅の80%に設定 */
+            aspect-ratio: 4 / 5 !important;
         }
-        .video-size { 
-            width: 225px !important; /* 400 * (9/16) = 225 */
+
+        /* 9:16 画像・動画：画面幅に合わせて表示 */
+        .video-size {
+            width: 70vw !important; /* 縦長なので少し幅を抑える */
+            aspect-ratio: 9 / 16 !important;
         }
-        
+
+        .gallery-item img, .gallery-item video {
+            width: 100% !important;
+            height: auto !important; /* 高さを幅に合わせる */
+        }
+
         .nav-btn { display: none; }
     }
 
