@@ -7,7 +7,7 @@
     <title>Portfolio | AI Gallery Slides</title>
 <style>
     /* =========================================
-       AIページ共通スタイル（比率完全修正版）
+       AIページ共通スタイル（スマホ版完全修正）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -25,60 +25,73 @@
         touch-action: pan-x;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        padding-bottom: 15px;
+        padding-bottom: 20px;
         user-select: none;
         -webkit-user-select: none;
     }
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- 各アイテムの共通設定 --- */
+    /* --- PC版設定（533px固定） --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
         overflow: hidden;
         border-radius: 12px;
-        background: #111;
-        /* PC版の高さ固定 */
+        background: #000;
         height: 533px !important; 
     }
 
-    /* --- 4:5 画像専用の設定 --- */
-    .image-size {
-        aspect-ratio: 4 / 5 !important;
-        width: auto !important; 
-    }
+    /* 比率ごとのクラス設定 */
+    .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
+    .video-size { aspect-ratio: 9 / 16 !important; width: auto !important; }
+    .gallery-item:has(video) { aspect-ratio: auto !important; width: auto !important; }
 
-    /* --- 9:16 画像・動画専用の設定 --- */
-    .video-size {
-        aspect-ratio: 9 / 16 !important;
-        width: auto !important;
-    }
-
-    /* --- 16:9 などの特殊な動画用の設定 --- */
-    .gallery-item:has(video) {
-        aspect-ratio: auto !important;
-        width: auto !important;
-    }
-
-    /* --- 中身（画像・動画）のフィット設定 --- */
-    .gallery-item img {
+    /* 中身を絶対に繰り返さない・切らない設定 */
+    .gallery-item img, .gallery-item video {
         width: 100% !important;
         height: 100% !important;
-        /* object-fit: contain に変更することで画像が絶対に切れないようにします */
-        object-fit: contain !important; 
+        object-fit: cover; /* PCでは枠一杯に */
         display: block;
         transition: transform 0.6s;
     }
 
-    .gallery-item video {
-        height: 100% !important;
-        width: auto !important;
-        object-fit: contain !important;
-        display: block;
+    /* --- 【修正の核心】スマホ版：比率を死守する設定 --- */
+    @media (max-width: 768px) {
+        .scroll-grid { 
+            gap: 15px; 
+            padding-left: 10px;
+            align-items: center !important; 
+        }
+
+        .gallery-item {
+            /* スマホでは「高さ固定」を解除。これが画像の二重表示を防ぎます */
+            height: auto !important; 
+            max-height: 75vh; /* 画面からはみ出さない程度に制限 */
+        }
+
+        /* 4:5 画像：画面幅の 85% を使って、縦横比を維持 */
+        .image-size {
+            width: 85vw !important; 
+            aspect-ratio: 4 / 5 !important;
+        }
+
+        /* 9:16 画像・動画：縦長なので、幅を少し絞って全体を見せる */
+        .video-size {
+            width: 75vw !important; 
+            aspect-ratio: 9 / 16 !important;
+        }
+
+        .gallery-item img, .gallery-item video {
+            width: 100% !important;
+            height: auto !important; /* 幅に合わせて高さを自動計算 */
+            object-fit: contain !important; /* 画像の端まで全部見せる */
+        }
+
+        .nav-btn { display: none; }
     }
 
-    /* --- プロンプト表示設定（改行・左揃え維持） --- */
+    /* --- プロンプト表示（左揃え・改行維持） --- */
     .prompt-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
@@ -89,7 +102,10 @@
         line-height: 1.5;
         transform: translateY(100%);
         transition: transform 0.4s ease-out;
-        text-align: left;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
         max-height: 80%;
         overflow-y: auto;
         white-space: pre-wrap !important; 
@@ -98,34 +114,21 @@
 
     .gallery-item:hover .prompt-overlay { transform: translateY(0); }
 
-    /* --- 【修正箇所】モバイル対応：アスペクト比を絶対に崩さない設定 --- */
-    @media (max-width: 768px) {
-        .scroll-grid { gap: 15px; }
-
-        .gallery-item {
-            /* スマホでは高さを固定せず、比率(aspect-ratio)に任せる */
-            height: auto !important; 
-        }
-
-        /* 4:5 画像：画面幅の約80%を基準に、正しい比率で表示 */
-        .image-size {
-            width: 80vw !important; 
-            aspect-ratio: 4 / 5 !important;
-        }
-
-        /* 9:16 画像・動画：画面幅の約70%を基準に、正しい比率で表示 */
-        .video-size {
-            width: 70vw !important; 
-            aspect-ratio: 9 / 16 !important;
-        }
-
-        .gallery-item img, .gallery-item video {
-            height: auto !important; /* 幅に合わせて高さを自動決定 */
-        }
+    .prompt-tag {
+        color: #00aaff;
+        font-weight: bold;
+        font-size: 10px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+        padding-bottom: 2px;
+        display: block !important;
+        width: fit-content !important; 
+        text-align: left !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
     }
 
-    /* ホバー、ナビボタン */
-    .gallery-item:hover img { transform: scale(1.08); }
+    /* ナビボタン */
     .nav-btn {
         position: absolute; top: 50%; transform: translateY(-50%);
         width: 44px; height: 44px; background: rgba(0,170,255,0.2);
