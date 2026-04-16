@@ -354,9 +354,9 @@ section {
     }
 }
  <style>
- <style>
+<style>
     /* =========================================
-       AIページ共通スタイル（PROMPTタグ左揃え修正版）
+       AIページ共通スタイル（スマホ比率完全修正版）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -381,7 +381,7 @@ section {
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- アイテムサイズ設定（4:5 と 9:16 の高さを統一） --- */
+    /* --- デスクトップ版の基本設定（高さ533px基準） --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
@@ -391,6 +391,7 @@ section {
         height: 533px !important; 
     }
 
+    /* PC版の比率計算 */
     .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
     .video-size { aspect-ratio: 9 / 16 !important; width: auto !important; }
     .gallery-item:has(video) { aspect-ratio: auto !important; width: auto !important; }
@@ -405,7 +406,37 @@ section {
         object-fit: contain !important; display: block;
     }
 
-    /* --- 【重要】プロンプト表示設定：ここを左揃えに特化 --- */
+    /* --- 【修正】モバイル対応：比率を強制的に固定 --- */
+    @media (max-width: 768px) {
+        .scroll-grid { gap: 12px; padding-left: 10px; }
+
+        /* スマホでの基準高さを 380px に設定 */
+        .gallery-item {
+            height: 380px !important; 
+        }
+
+        /* 4:5 画像：380pxの高さに対して横幅 304px に固定 */
+        .image-size {
+            width: 304px !important; 
+            aspect-ratio: 4 / 5 !important;
+        }
+
+        /* 9:16 画像・動画：380pxの高さに対して横幅 214px に固定 */
+        .video-size {
+            width: 214px !important; 
+            aspect-ratio: 9 / 16 !important;
+        }
+
+        /* 横長ビデオなどの特殊サイズ */
+        .gallery-item:has(video) {
+            width: auto !important;
+        }
+
+        .nav-btn { display: none; }
+        .prompt-overlay { padding: 30px 12px 12px; }
+    }
+
+    /* --- プロンプト表示（左揃え・改行維持） --- */
     .prompt-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
@@ -416,13 +447,10 @@ section {
         line-height: 1.5;
         transform: translateY(100%);
         transition: transform 0.4s ease-out;
-        
-        /* 中身を左寄せにするための設定 */
         display: flex !important;
         flex-direction: column !important;
-        align-items: flex-start !important; /* 子要素（タグなど）を左端に寄せる */
-        text-align: left !important;         /* テキストを左揃えにする */
-        
+        align-items: flex-start !important;
+        text-align: left !important;
         max-height: 80%;
         overflow-y: auto;
         white-space: pre-wrap !important; 
@@ -431,7 +459,6 @@ section {
 
     .gallery-item:hover .prompt-overlay { transform: translateY(0); }
 
-    /* PROMPTタグ自体の設定 */
     .prompt-tag {
         color: #00aaff;
         font-weight: bold;
@@ -439,25 +466,14 @@ section {
         margin-bottom: 6px;
         border-bottom: 1px solid rgba(0, 170, 255, 0.3);
         padding-bottom: 2px;
-        
-        /* 左寄せを確実にする設定 */
-        display: block !important;       /* 幅いっぱいにせず独立させる */
-        width: fit-content !important;  /* 下線の長さを文字の幅に合わせる */
-        text-align: left !important;     /* 文字を左に寄せる */
-        margin-left: 0 !important;      /* 外側の余白をリセット */
+        display: block !important;
+        width: fit-content !important; 
+        text-align: left !important;
+        margin-left: 0 !important;
         margin-right: auto !important;
     }
 
-    .prompt-content {
-        width: 100%;
-        text-align: left !important;
-    }
-
-    /* --- モバイル対応 --- */
-    @media (max-width: 768px) {
-        .gallery-item { height: 400px !important; }
-        .nav-btn { display: none; }
-    }
+    .prompt-content { width: 100%; text-align: left !important; }
 
     /* ナビボタン */
     .nav-btn {
