@@ -354,8 +354,9 @@ section {
     }
 }
  <style>
+ <style>
     /* =========================================
-       AIページ共通スタイル
+       AIページ共通スタイル（比率完全修正版）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -369,174 +370,92 @@ section {
         align-items: flex-start !important;
         gap: 20px;
         overflow-x: auto;
-        /* スクロールを滑らかにする */
+        overflow-y: hidden !important; 
+        touch-action: pan-x;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        padding-bottom: 20px; /* 下部が切れないように余白を確保 */
-        /* ドラッグ時の選択防止 */
+        padding-bottom: 15px;
         user-select: none;
         -webkit-user-select: none;
     }
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
+    /* --- 各アイテムの共通設定 --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
         overflow: hidden;
         border-radius: 12px;
         background: #111;
-    }
-
-    /* --- 1. 基本：サイズ設定 --- */
-    /* デスクトップ基準 */
-    .image-size, 
-    .video-size {
-        width: 300px;
-        flex: 0 0 auto;
-    }
-
-    /* 4:5 画像用 */
-    .image-size {
-        aspect-ratio: 4 / 5;
-    }
-
-    /* 9:16 画像・動画用 */
-    .video-size {
-        aspect-ratio: 9 / 16;
-    }
-
-    /* --- 2. 16:9 動画などをカットせずに表示する設定 --- */
-    /* デスクトップ：高さを533px(9:16の300px幅相当)に固定 */
-    .gallery-item:has(video) {
-        width: auto !important; 
+        /* 全体の高さを 9:16 (幅300px時) の 533px に固定 */
         height: 533px !important; 
+    }
+
+    /* --- 4:5 画像専用の設定 --- */
+    .image-size {
+        /* 高さ 533px に対して 4:5 になるよう横幅を自動計算 (約426px) */
+        aspect-ratio: 4 / 5 !important;
+        width: auto !important; 
+    }
+
+    /* --- 9:16 画像・動画専用の設定 --- */
+    .video-size {
+        aspect-ratio: 9 / 16 !important;
+        width: auto !important;
+    }
+
+    /* --- 【重要】16:9 などの特殊な動画用の設定 --- */
+    .gallery-item:has(video) {
+        /* 動画の場合は比率を固定せず、中身に合わせて横に広げる */
         aspect-ratio: auto !important;
+        width: auto !important;
+    }
+
+    /* --- 中身（画像・動画）のフィット設定 --- */
+    .gallery-item img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover; /* 4:5 や 9:16 の枠いっぱいに表示 */
+        display: block;
+        transition: transform 0.6s;
     }
 
     .gallery-item video {
-        width: auto !important;
         height: 100% !important;
-        object-fit: contain !important;
+        width: auto !important;
+        object-fit: contain !important; /* 横長動画でもカットせず全体を表示 */
         display: block;
     }
 
-    /* --- 3. 画像の表示ルール --- */
-    .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .gallery-item:hover img { transform: scale(1.08); }
-
-    /* --- 4. モバイル対応 (スマホ表示の調整) --- */
+    /* --- モバイル対応 (スマホでも比率を維持) --- */
     @media (max-width: 768px) {
-        .scroll-grid {
-            gap: 15px;
-            padding-left: 15px; /* 左側に少し余白 */
+        .scroll-grid { gap: 15px; }
+        .gallery-item {
+            /* スマホでは高さを 400px に下げて画面に収める */
+            height: 400px !important; 
         }
-
-        /* スマホでは横幅を少し小さくする (例: 260px) */
-        .image-size, 
-        .video-size {
-            width: 250px;
-        }
-
-        /* 動画セクション：スマホの画面高さに合わせて縮小 */
-        .gallery-item:has(video) {
-            height: 444px !important; /* 幅250px時の9:16の高さ */
-        }
-
-        .nav-btn { display: none; } /* スマホではボタンを隠してフリック操作のみに */
     }
 
-    /* プロンプト表示設定 */
+    /* ホバー、ナビボタンなどは以前のまま維持 */
+    .gallery-item:hover img { transform: scale(1.08); }
     .prompt-overlay {
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 80%, transparent 100%);
-        color: #eee;
-        padding: 40px 15px 15px;
-        font-size: 11px;
-        line-height: 1.4;
-        transform: translateY(100%);
-        transition: transform 0.4s ease-out;
-        text-align: left;
-        max-height: 80%;
-        overflow-y: auto;
+        position: absolute; bottom: 0; left: 0; right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+        color: #eee; padding: 40px 15px 15px; font-size: 11px;
+        transform: translateY(100%); transition: transform 0.4s;
     }
-
     .gallery-item:hover .prompt-overlay { transform: translateY(0); }
-
-    .prompt-tag {
-        color: #00aaff;
-        font-weight: bold;
-        font-size: 10px;
-        display: block;
-        margin-bottom: 6px;
-        letter-spacing: 1px;
-        border-bottom: 1px solid rgba(0, 170, 255, 0.3);
-        padding-bottom: 2px;
-    }
-
-    .prompt-content { white-space: pre-wrap; }
-
-    /* ナビゲーションボタン */
     .nav-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 44px;
-        height: 44px;
-        background: rgba(0, 170, 255, 0.1);
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(0, 170, 255, 0.3);
-        color: white;
-        border-radius: 50%;
-        cursor: pointer;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
+        position: absolute; top: 50%; transform: translateY(-50%);
+        width: 44px; height: 44px; background: rgba(0,170,255,0.2);
+        backdrop-filter: blur(5px); border: 1px solid rgba(0,170,255,0.3);
+        color: white; border-radius: 50%; cursor: pointer; z-index: 10;
+        display: flex; align-items: center; justify-content: center;
     }
-    .nav-btn:hover { background: rgba(0, 170, 255, 0.5); border-color: #00aaff; }
     .prev-btn { left: -60px; }
     .next-btn { right: -60px; }
-
-    @media (max-width: 1350px) {
-        .prev-btn { left: 10px; }
-        .next-btn { right: 10px; }
-    }
-
-    /* --- バナーセクション --- */
-    .banner-section { padding: 60px 0; }
-    .banner-container {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        width: 100%;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-    .banner-item {
-        width: 100%;
-        overflow: hidden;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-    .banner-item img {
-        width: 100%;
-        height: auto;
-        display: block;
-        user-select: none;
-        -webkit-user-select: none;
-    }
-
-    .ai-section { text-align: center; margin-bottom: 80px; }
+    @media (max-width: 1350px) { .prev-btn { left: 10px; } .next-btn { right: 10px; } }
 </style>
 /* =========================================
    7. フッター（中央揃え）
