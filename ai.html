@@ -7,7 +7,7 @@
     <title>Portfolio | AI Gallery Slides</title>
 <style>
     /* =========================================
-       AIページ共通スタイル（PROMPTタグ左揃え修正版）
+       AIページ共通スタイル（比率完全修正版）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -32,31 +32,53 @@
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- アイテムサイズ設定（4:5 と 9:16 の高さを統一） --- */
+    /* --- 各アイテムの共通設定 --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
         overflow: hidden;
         border-radius: 12px;
         background: #111;
+        /* 全体の高さを 9:16 (幅300px時) の 533px に固定 */
         height: 533px !important; 
     }
 
-    .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
-    .video-size { aspect-ratio: 9 / 16 !important; width: auto !important; }
-    .gallery-item:has(video) { aspect-ratio: auto !important; width: auto !important; }
+    /* --- 4:5 画像専用の設定 --- */
+    .image-size {
+        /* 高さ 533px に対して 4:5 になるよう横幅を自動計算 (約426px) */
+        aspect-ratio: 4 / 5 !important;
+        width: auto !important; 
+    }
 
+    /* --- 9:16 画像・動画専用の設定 --- */
+    .video-size {
+        aspect-ratio: 9 / 16 !important;
+        width: auto !important;
+    }
+
+    /* --- 【重要】16:9 などの特殊な動画用の設定 --- */
+    .gallery-item:has(video) {
+        /* 動画の場合は比率を固定せず、中身に合わせて横に広げる */
+        aspect-ratio: auto !important;
+        width: auto !important;
+    }
+
+    /* --- 中身（画像・動画）のフィット設定 --- */
     .gallery-item img {
-        width: 100% !important; height: 100% !important;
-        object-fit: cover; display: block;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover; /* 4:5 や 9:16 の枠いっぱいに表示 */
+        display: block;
+        transition: transform 0.6s;
     }
 
     .gallery-item video {
-        height: 100% !important; width: auto !important;
-        object-fit: contain !important; display: block;
+        height: 100% !important;
+        width: auto !important;
+        object-fit: contain !important; /* 横長動画でもカットせず全体を表示 */
+        display: block;
     }
-
-    /* --- 【重要】プロンプト表示設定：ここを左揃えに特化 --- */
+    /* --- 【復活】プロンプト表示設定（改行維持） --- */
     .prompt-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
@@ -67,44 +89,16 @@
         line-height: 1.5;
         transform: translateY(100%);
         transition: transform 0.4s ease-out;
-        
-        /* 中身を左寄せにするための設定 */
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important; /* 子要素（タグなど）を左端に寄せる */
-        text-align: left !important;         /* テキストを左揃えにする */
-        
+        text-align: left;
         max-height: 80%;
         overflow-y: auto;
+        
+        /* ここが重要：改行を反映させる */
         white-space: pre-wrap !important; 
         word-wrap: break-word;
     }
 
-    .gallery-item:hover .prompt-overlay { transform: translateY(0); }
-
-    /* PROMPTタグ自体の設定 */
-    .prompt-tag {
-        color: #00aaff;
-        font-weight: bold;
-        font-size: 10px;
-        margin-bottom: 6px;
-        border-bottom: 1px solid rgba(0, 170, 255, 0.3);
-        padding-bottom: 2px;
-        
-        /* 左寄せを確実にする設定 */
-        display: block !important;       /* 幅いっぱいにせず独立させる */
-        width: fit-content !important;  /* 下線の長さを文字の幅に合わせる */
-        text-align: left !important;     /* 文字を左に寄せる */
-        margin-left: 0 !important;      /* 外側の余白をリセット */
-        margin-right: auto !important;
-    }
-
-    .prompt-content {
-        width: 100%;
-        text-align: left !important;
-    }
-
- /* --- モバイル対応 (スマホでも比率を維持) --- */
+    /* --- モバイル対応 (スマホでも比率を維持) --- */
     @media (max-width: 768px) {
         .scroll-grid { gap: 15px; }
         .gallery-item {
@@ -112,7 +106,8 @@
             height: 400px !important; 
         }
     }
-   /* ホバー、ナビボタンなどは以前のまま維持 */
+
+    /* ホバー、ナビボタンなどは以前のまま維持 */
     .gallery-item:hover img { transform: scale(1.08); }
     .prompt-overlay {
         position: absolute; bottom: 0; left: 0; right: 0;
