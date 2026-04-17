@@ -7,7 +7,7 @@
     <title>Portfolio | AI Gallery Slides</title>
 <style>
     /* =========================================
-       AIページ共通スタイル（スマホ動画サイズ最適化版）
+       AIページ共通スタイル（スマホ版：全アイテム高さ統一・歪み解消版）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -25,14 +25,14 @@
         touch-action: pan-x;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        padding-bottom: 20px;
+        padding-bottom: 25px; /* 下部に少し余裕を持たせる */
         user-select: none;
         -webkit-user-select: none;
     }
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- PC版設定（変更なし） --- */
+    /* --- PC版設定（変更なし：高さ533px固定） --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
@@ -61,39 +61,51 @@
 
     .gallery-item video { object-fit: contain !important; }
 
-    /* --- 【修正】スマホ版：動画がデカすぎないように幅を再調整 --- */
+    /* --- 【重要】スマホ版修正：高さを一律にして、幅を比率で自動計算 --- */
     @media (max-width: 768px) {
         .scroll-grid { gap: 15px; padding-left: 10px; }
 
         .gallery-item {
-            height: auto !important; 
+            /* 全てのカードの高さを380pxに統一。これで「縦の長さが揃う」 */
+            height: 380px !important; 
+            width: auto !important; /* 幅はアスペクト比に任せる */
             border-radius: 12px !important;
-            background-repeat: no-repeat !important;
+            background: #000;
         }
 
-        /* 4:5 画像：画面幅の75%（スマホで見やすい標準サイズ） */
+        /* 4:5 画像：高さ380pxに合わせて幅を自動計算 */
         .image-size {
-            width: 75vw !important; 
             aspect-ratio: 4 / 5 !important;
         }
 
-        /* 9:16 動画：縦に長くなりすぎないよう、横幅を45%まで絞る（これで画面内に収まります） */
+        /* 9:16 縦動画：高さ380pxに合わせて幅を自動計算（これでデカすぎなくなる） */
         .video-size {
-            width: 45vw !important; 
             aspect-ratio: 9 / 16 !important;
+        }
+
+        /* 16:9 横動画：高さ380pxに合わせて幅を横に広げる（歪まない） */
+        /* もし横長動画に別のクラスをつけている場合は、そこにも aspect-ratio: 16/9 を適用してください */
+        .gallery-item:has(video[src*="horizontal"]), /* 仮の判定 */
+        .video-horiz-size { 
+            aspect-ratio: 16 / 9 !important;
         }
 
         .gallery-item img, .gallery-item video {
             height: 100% !important;
             width: 100% !important;
-            object-fit: cover !important;
+            /* 歪みを防ぎ、全体を表示する設定 */
+            object-fit: contain !important; 
+            background: #000;
             border-radius: 12px !important;
         }
+        
+        /* 画像だけは隙間なく見せたい場合は cover に戻してください */
+        .gallery-item img { object-fit: cover !important; }
 
         .nav-btn { display: none; }
     }
 
-    /* --- プロンプト表示設定（維持） --- */
+    /* --- プロンプト表示設定（左揃え維持） --- */
     .prompt-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
@@ -126,11 +138,9 @@
         display: block !important;
         width: fit-content !important; 
         text-align: left !important;
-        margin-left: 0 !important;
-        margin-right: auto !important;
     }
 
-    /* ボタン・ホバー（維持） */
+    /* ナビボタン等 */
     .gallery-item:hover img { transform: scale(1.05); }
     .nav-btn {
         position: absolute; top: 50%; transform: translateY(-50%);
