@@ -7,7 +7,7 @@
     <title>Portfolio | AI Gallery Slides</title>
 <style>
     /* =========================================
-       AIページ共通スタイル（スマホ縦長・比率完全修正版）
+       AIページ共通スタイル（スマホ対応修正版）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -25,113 +25,102 @@
         touch-action: pan-x;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        padding-bottom: 20px; /* 余白を少し確保 */
+        padding-bottom: 15px;
         user-select: none;
         -webkit-user-select: none;
     }
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- PC版設定 --- */
+    /* --- 各アイテムの共通設定 --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
         overflow: hidden;
         border-radius: 12px;
-        background: #000; /* 背景を黒にして重なりを防止 */
-        height: 533px !important; 
+        background: #111;
     }
 
-    /* 比率設定を親要素に強制 */
-    .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
-    .video-size { aspect-ratio: 9 / 16 !important; width: auto !important; }
-    
-    .gallery-item:has(video) {
-        aspect-ratio: auto !important;
-        width: auto !important;
+    /* --- 4:5 画像専用の設定 --- */
+    .gallery-item.image-size {
+        aspect-ratio: 4 / 5 !important;
+        height: 533px;
+        width: auto;
     }
 
-    /* 中身の表示設定 */
-    .gallery-item img, .gallery-item video {
+    /* --- 9:16 画像・動画専用の設定 --- */
+    .gallery-item.video-size {
+        aspect-ratio: 9 / 16 !important;
+        height: 533px;
+        width: auto;
+    }
+
+    /* --- 中身（画像・動画）のフィット設定 --- */
+    .gallery-item img,
+    .gallery-item video {
         width: 100% !important;
         height: 100% !important;
-        object-fit: cover; 
+        object-fit: cover;
         display: block;
+    }
+
+    .gallery-item img {
         transition: transform 0.6s;
     }
 
-    /* ビデオは全体を見せるためcontainに */
-    .gallery-item video { object-fit: contain !important; }
-
-    /* --- 【最重要】モバイル対応（縦長を確保し、比率を維持） --- */
+    /* --- モバイル対応 (スマホでも比率を維持) --- */
     @media (max-width: 768px) {
-        .scroll-grid { gap: 15px; padding-left: 10px; }
-
-        .gallery-item {
-            /* スマホで縦の長さが足りない問題を解決するため、高さを引き上げ */
-            height: 480px !important; 
-            border-radius: 12px !important;
+        .scroll-grid { 
+            gap: 12px; 
+            padding-left: 15px;
+            padding-right: 15px;
         }
-
-        /* 4:5 画像：高さ480pxに合わせて幅を384pxに自動調整 */
-        .image-size {
-            width: auto !important;
-            aspect-ratio: 4 / 5 !important;
+        
+        /* スマホでは画面幅から計算して適切なサイズに */
+        .gallery-item.image-size {
+            height: 70vh;
+            max-height: 500px;
+            width: calc(70vh * 4 / 5); /* 4:5 比率を維持 */
+            max-width: calc(500px * 4 / 5);
         }
-
-        /* 9:16 動画：高さ480pxに合わせて幅を270pxに自動調整 */
-        .video-size {
-            width: auto !important;
-            aspect-ratio: 9 / 16 !important;
+        
+        .gallery-item.video-size {
+            height: 70vh;
+            max-height: 500px;
+            width: calc(70vh * 9 / 16); /* 9:16 比率を維持 */
+            max-width: calc(500px * 9 / 16);
         }
-
-        .nav-btn { display: none; }
     }
 
-    /* --- プロンプト表示設定（左揃え・改行維持） --- */
+    /* さらに小さい画面用 */
+    @media (max-width: 480px) {
+        .gallery-item.image-size {
+            height: 65vh;
+            max-height: 450px;
+            width: calc(65vh * 4 / 5);
+            max-width: calc(450px * 4 / 5);
+        }
+        
+        .gallery-item.video-size {
+            height: 65vh;
+            max-height: 450px;
+            width: calc(65vh * 9 / 16);
+            max-width: calc(450px * 9 / 16);
+        }
+    }
+
+    /* ホバー、オーバーレイ */
+    .gallery-item:hover img { transform: scale(1.08); }
+    
     .prompt-overlay {
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 80%, transparent 100%);
-        color: #eee;
-        padding: 40px 15px 15px;
-        font-size: 11px;
-        line-height: 1.5;
-        transform: translateY(100%);
-        transition: transform 0.4s ease-out;
-        
-        /* 中身を左寄せにする */
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        text-align: left !important;
-        
-        max-height: 80%;
-        overflow-y: auto;
-        white-space: pre-wrap !important; 
-        word-wrap: break-word;
+        position: absolute; bottom: 0; left: 0; right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+        color: #eee; padding: 40px 15px 15px; font-size: 11px;
+        transform: translateY(100%); transition: transform 0.4s;
     }
-
     .gallery-item:hover .prompt-overlay { transform: translateY(0); }
-
-    /* PROMPTタグも左揃え */
-    .prompt-tag {
-        color: #00aaff;
-        font-weight: bold;
-        font-size: 10px;
-        margin-bottom: 6px;
-        border-bottom: 1px solid rgba(0, 170, 255, 0.3);
-        padding-bottom: 2px;
-        
-        display: block !important;
-        width: fit-content !important; 
-        text-align: left !important;
-        margin-left: 0 !important;
-        margin-right: auto !important;
-    }
-
-    /* ホバー効果・ナビボタン */
-    .gallery-item:hover img { transform: scale(1.05); }
+    
+    /* ナビボタン */
     .nav-btn {
         position: absolute; top: 50%; transform: translateY(-50%);
         width: 44px; height: 44px; background: rgba(0,170,255,0.2);
@@ -141,8 +130,13 @@
     }
     .prev-btn { left: -60px; }
     .next-btn { right: -60px; }
-    @media (max-width: 1350px) { .prev-btn { left: 10px; } .next-btn { right: 10px; } }
+    
+    @media (max-width: 1350px) { 
+        .prev-btn { left: 10px; } 
+        .next-btn { right: 10px; } 
+    }
 </style>
+
     
 </head>
 <body>
