@@ -157,33 +157,22 @@ section {
     display: block;
 }
 
-/* B. カスタム画像グリッド（4:5比率・ハイライト防止済み） */
+/* --- Photography 4:5 グリッド修正 --- */
 .custom-image-grid {
     display: grid;
-    /* minmaxの200pxを調整することで1行あたりの枚数を制御できます */
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px; /* 隙間を少し広げると4:5が綺麗に見えます */
+    gap: 15px;
     padding: 20px 0;
     justify-content: center;
-    
-    /* グリッド全体でも選択を無効化 */
-    user-select: none;
-    -webkit-user-select: none;
 }
 
 .custom-image-grid img {
     width: 100%;
-    /* ▼▼▼ ここで4:5比率を指定 ▼▼▼ */
-    aspect-ratio: 4 / 5; 
-    height: auto; /* 固定値を解除 */
-    /* ▲▲▲ ここまで ▲▲▲ */
-    
+    aspect-ratio: 4 / 5;
+    height: auto;
     object-fit: cover;
     border-radius: 8px;
-    
-    /* 青いハイライト防止 */
-    pointer-events: none; 
-    
+    /* pointer-events: none; を削除（表示トラブルの原因） */
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -224,32 +213,61 @@ section {
     -webkit-user-select: none;
 }
 
+/* --- Coordinator 2:3 グリッド修正 --- */
+.custom-image-grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 20px 0;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
 .custom-image-grid-3col img {
     width: 100%;
-    /* ▼ 380:561に最も近く、写真が綺麗に見える2:3比率に変更 */
-    aspect-ratio: 2 / 3; 
+    aspect-ratio: 2 / 3;
     height: auto;
-    object-fit: cover; /* 枠に合わせて切り抜く（画像が伸びない） */
+    object-fit: cover;
     border-radius: 8px;
-    
-    /* ドラッグ防止 */
-    pointer-events: none; 
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.custom-image-grid-3col img:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
-}
-
-/* スマホ用設定 */
+/* --- スマホ用レスポンシブ設定（ここが重要） --- */
 @media (max-width: 768px) {
-    .custom-image-grid-3col {
-        grid-template-columns: repeat(2, 1fr);
+    body {
+        padding: 0 15px; /* 全体の余白を調整 */
+    }
+
+    .custom-image-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2列強制 */
         gap: 10px;
+        display: grid !important; /* 非表示防止 */
+    }
+
+    .custom-image-grid-3col {
+        grid-template-columns: repeat(2, 1fr) !important; /* コーディネーターも2列 */
+        gap: 10px;
+        display: grid !important;
+    }
+
+    .custom-image-grid img, 
+    .custom-image-grid-3col img {
+        opacity: 1 !important; /* アニメーションが失敗しても強制表示 */
+        transform: none !important; /* 位置ズレ防止 */
+        visibility: visible !important;
     }
 }
+/* フェードインアニメーションの予備設定 */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+}
 
+.reveal.active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
 /* =========================================
    5. スキルタグ & アニメーション（中央寄せ）
    ========================================= */
