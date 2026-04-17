@@ -7,7 +7,7 @@
     <title>Portfolio | AI Gallery Slides</title>
 <style>
     /* =========================================
-       AIページ共通スタイル（スマホ対応修正版）
+       AIページ共通スタイル（スマホ版・比率＆重なり完全修正）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -25,66 +25,117 @@
         touch-action: pan-x;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        padding-bottom: 15px;
+        padding-bottom: 20px;
         user-select: none;
         -webkit-user-select: none;
     }
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- 各アイテムの共通設定 --- */
+    /* --- PC版設定（高さ533px固定・他は変更なし） --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
         overflow: hidden;
         border-radius: 12px;
-        background: #111;
+        background: #000;
+        height: 533px !important; 
     }
 
-    /* --- 4:5 画像専用の設定 --- */
-    .gallery-item.image-size {
-        aspect-ratio: 4 / 5 !important;
-        height: 533px;
-        width: auto;
+    .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
+    .video-size { aspect-ratio: 9 / 16 !important; width: auto !important; }
+    
+    .gallery-item:has(video) {
+        aspect-ratio: auto !important;
+        width: auto !important;
     }
 
-    /* --- 9:16 画像・動画専用の設定 --- */
-    .gallery-item.video-size {
-        aspect-ratio: 9 / 16 !important;
-        height: 533px;
-        width: auto;
-    }
-
-    /* --- 中身（画像・動画）のフィット設定 --- */
-    .gallery-item img,
-    .gallery-item video {
+    .gallery-item img, .gallery-item video {
         width: 100% !important;
         height: 100% !important;
-        object-fit: cover;
+        object-fit: cover; 
         display: block;
-    }
-
-    .gallery-item img {
         transition: transform 0.6s;
+        border-radius: 12px;
     }
 
-         @media (max-width: 1350px) {
-            .prev-btn { left: 10px; }
-            .next-btn { right: 10px; }
+    .gallery-item video { object-fit: contain !important; }
+
+    /* --- 【重要】スマホ版修正：高さを自動にして「重なり・切れ」を解消 --- */
+    @media (max-width: 768px) {
+        .scroll-grid { gap: 15px; padding-left: 10px; }
+
+        .gallery-item {
+            /* スマホで画像が上下に重なる最大の原因「高さ固定」を解除 */
+            height: auto !important; 
+            min-height: 300px; /* 最低限の高さ */
+            border-radius: 12px !important;
+            background-repeat: no-repeat !important; /* 繰り返しを物理的に禁止 */
         }
 
-    /* ホバー、オーバーレイ */
-    .gallery-item:hover img { transform: scale(1.08); }
-    
-    .prompt-overlay {
-        position: absolute; bottom: 0; left: 0; right: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-        color: #eee; padding: 40px 15px 15px; font-size: 11px;
-        transform: translateY(100%); transition: transform 0.4s;
+        /* 4:5 画像：横幅を決めて、比率で高さを出させる */
+        .image-size {
+            width: 85vw !important; 
+            aspect-ratio: 4 / 5 !important;
+        }
+
+        /* 9:16 画像・動画：横幅を少し狭めて、縦長をしっかり見せる */
+        .video-size {
+            width: 75vw !important; 
+            aspect-ratio: 9 / 16 !important;
+        }
+
+        .gallery-item img, .gallery-item video {
+            height: 100% !important;
+            width: 100% !important;
+            object-fit: cover !important; /* 隙間なく表示 */
+            border-radius: 12px !important;
+        }
+
+        .nav-btn { display: none; }
     }
+
+    /* --- プロンプト表示設定（左揃え・改行・タグ設定は維持） --- */
+    .prompt-overlay {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 80%, transparent 100%);
+        color: #eee;
+        padding: 40px 15px 15px;
+        font-size: 11px;
+        line-height: 1.5;
+        transform: translateY(100%);
+        transition: transform 0.4s ease-out;
+        
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        
+        max-height: 80%;
+        overflow-y: auto;
+        white-space: pre-wrap !important; 
+        word-wrap: break-word;
+    }
+
     .gallery-item:hover .prompt-overlay { transform: translateY(0); }
-    
-    /* ナビボタン */
+
+    .prompt-tag {
+        color: #00aaff;
+        font-weight: bold;
+        font-size: 10px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+        padding-bottom: 2px;
+        display: block !important;
+        width: fit-content !important; 
+        text-align: left !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+    }
+
+    /* ナビボタンなどは変更なし */
+    .gallery-item:hover img { transform: scale(1.05); }
     .nav-btn {
         position: absolute; top: 50%; transform: translateY(-50%);
         width: 44px; height: 44px; background: rgba(0,170,255,0.2);
@@ -94,7 +145,7 @@
     }
     .prev-btn { left: -60px; }
     .next-btn { right: -60px; }
-    
+    @media (max-width: 1350px) { .prev-btn { left: 10px; } .next-btn { right: 10px; } }
 </style>
 
     
