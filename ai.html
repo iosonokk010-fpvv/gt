@@ -68,46 +68,10 @@
         transition: transform 0.6s;
     }
 
-    /* --- モバイル対応 (スマホでも比率を維持) --- */
-    @media (max-width: 768px) {
-        .scroll-grid { 
-            gap: 12px; 
-            padding-left: 15px;
-            padding-right: 15px;
+         @media (max-width: 1350px) {
+            .prev-btn { left: 10px; }
+            .next-btn { right: 10px; }
         }
-        
-        /* スマホでは画面幅から計算して適切なサイズに */
-        .gallery-item.image-size {
-            height: 70vh;
-            max-height: 500px;
-            width: calc(70vh * 4 / 5); /* 4:5 比率を維持 */
-            max-width: calc(500px * 4 / 5);
-        }
-        
-        .gallery-item.video-size {
-            height: 70vh;
-            max-height: 500px;
-            width: calc(70vh * 9 / 16); /* 9:16 比率を維持 */
-            max-width: calc(500px * 9 / 16);
-        }
-    }
-
-    /* さらに小さい画面用 */
-    @media (max-width: 480px) {
-        .gallery-item.image-size {
-            height: 65vh;
-            max-height: 450px;
-            width: calc(65vh * 4 / 5);
-            max-width: calc(450px * 4 / 5);
-        }
-        
-        .gallery-item.video-size {
-            height: 65vh;
-            max-height: 450px;
-            width: calc(65vh * 9 / 16);
-            max-width: calc(450px * 9 / 16);
-        }
-    }
 
     /* ホバー、オーバーレイ */
     .gallery-item:hover img { transform: scale(1.08); }
@@ -131,10 +95,6 @@
     .prev-btn { left: -60px; }
     .next-btn { right: -60px; }
     
-    @media (max-width: 1350px) { 
-        .prev-btn { left: 10px; } 
-        .next-btn { right: 10px; } 
-    }
 </style>
 
     
