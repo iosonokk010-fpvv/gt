@@ -354,7 +354,7 @@ section {
     }
 }
     /* =========================================
-       AIページ共通スタイル（スマホ版・比率＆重なり完全修正）
+       AIページ共通スタイル（スマホ動画サイズ最適化版）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -379,7 +379,7 @@ section {
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- PC版設定（高さ533px固定・他は変更なし） --- */
+    /* --- PC版設定（変更なし） --- */
     .gallery-item {
         flex: 0 0 auto;
         position: relative;
@@ -408,41 +408,39 @@ section {
 
     .gallery-item video { object-fit: contain !important; }
 
-    /* --- 【重要】スマホ版修正：高さを自動にして「重なり・切れ」を解消 --- */
+    /* --- 【修正】スマホ版：動画がデカすぎないように幅を再調整 --- */
     @media (max-width: 768px) {
         .scroll-grid { gap: 15px; padding-left: 10px; }
 
         .gallery-item {
-            /* スマホで画像が上下に重なる最大の原因「高さ固定」を解除 */
             height: auto !important; 
-            min-height: 300px; /* 最低限の高さ */
             border-radius: 12px !important;
-            background-repeat: no-repeat !important; /* 繰り返しを物理的に禁止 */
+            background-repeat: no-repeat !important;
         }
 
-        /* 4:5 画像：横幅を決めて、比率で高さを出させる */
+        /* 4:5 画像：画面幅の75%（スマホで見やすい標準サイズ） */
         .image-size {
-            width: 85vw !important; 
+            width: 75vw !important; 
             aspect-ratio: 4 / 5 !important;
         }
 
-        /* 9:16 画像・動画：横幅を少し狭めて、縦長をしっかり見せる */
+        /* 9:16 動画：縦に長くなりすぎないよう、横幅を45%まで絞る（これで画面内に収まります） */
         .video-size {
-            width: 75vw !important; 
+            width: 45vw !important; 
             aspect-ratio: 9 / 16 !important;
         }
 
         .gallery-item img, .gallery-item video {
             height: 100% !important;
             width: 100% !important;
-            object-fit: cover !important; /* 隙間なく表示 */
+            object-fit: cover !important;
             border-radius: 12px !important;
         }
 
         .nav-btn { display: none; }
     }
 
-    /* --- プロンプト表示設定（左揃え・改行・タグ設定は維持） --- */
+    /* --- プロンプト表示設定（維持） --- */
     .prompt-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
@@ -453,12 +451,10 @@ section {
         line-height: 1.5;
         transform: translateY(100%);
         transition: transform 0.4s ease-out;
-        
         display: flex !important;
         flex-direction: column !important;
         align-items: flex-start !important;
         text-align: left !important;
-        
         max-height: 80%;
         overflow-y: auto;
         white-space: pre-wrap !important; 
@@ -481,7 +477,7 @@ section {
         margin-right: auto !important;
     }
 
-    /* ナビボタンなどは変更なし */
+    /* ボタン・ホバー（維持） */
     .gallery-item:hover img { transform: scale(1.05); }
     .nav-btn {
         position: absolute; top: 50%; transform: translateY(-50%);
@@ -493,18 +489,6 @@ section {
     .prev-btn { left: -60px; }
     .next-btn { right: -60px; }
     @media (max-width: 1350px) { .prev-btn { left: 10px; } .next-btn { right: 10px; } }
-/* =========================================
-   7. フッター（中央揃え）
-   ========================================= */
-footer {
-    text-align: center;
-    padding: 80px 0 40px;
-    margin-top: 40px;
-    color: #555;
-    font-size: 14px;
-    letter-spacing: 0.2em;
-    border-top: 1px solid #222;
-}
 
 /* =========================================
    8. レスポンシブ（スマホ対応：機能維持）
