@@ -7,7 +7,7 @@
     <title>Portfolio | AI Gallery Slides</title>
 <style>
     /* =========================================
-       AIページ共通スタイル（PC・スマホ統合版）
+       AIページ共通スタイル（全体像表示・修正版）
        ========================================= */
     .slider-wrapper {
         position: relative;
@@ -28,15 +28,13 @@
         padding-bottom: 25px;
         user-select: none;
         -webkit-user-select: none;
-        /* スナップ設定 */
         scroll-snap-type: x mandatory;
     }
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- アイテム共通設定 --- */
     .gallery-item {
-        flex: 0 0 auto; /* 勝手に伸び縮みするのを防ぐ */
+        flex: 0 0 auto;
         position: relative;
         overflow: hidden !important; 
         border-radius: 20px !important; 
@@ -44,46 +42,43 @@
         scroll-snap-align: center;
     }
 
-    /* ビデオと画像自体のフィット設定 */
+    /* 【調整】PC版は現状を維持、スマホ版で全体を見せる設定 */
     .gallery-item img, .gallery-item video {
         width: 100% !important;
         height: 100% !important;
-        /* 「全体が見えない」を防ぐため contain にするか、
-           枠を比率通りにするなら cover でもOKです。ここでは全体重視のcoverを維持 */
-        object-fit: cover !important; 
+        object-fit: cover !important; /* PCでは迫力ある表示を維持 */
         display: block;
         transition: transform 0.6s;
     }
 
-    /* --- PC版設定 --- */
+    /* --- PC版設定（変更なし） --- */
     @media (min-width: 769px) {
         .gallery-item { height: 533px !important; }
         .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
-        .video-size, .video-9-16 { aspect-ratio: 9 / 16 !important; width: auto !important; }
-        .video-horiz-size, .video-16-9 { aspect-ratio: 16 / 9 !important; width: auto !important; }
+        .video-9-16 { aspect-ratio: 9 / 16 !important; width: auto !important; }
+        .video-16-9 { aspect-ratio: 16 / 9 !important; width: auto !important; }
     }
 
-    /* --- スマホ版設定（ここが修正の肝です） --- */
+    /* --- スマホ版設定（全体像が見えるように調整） --- */
     @media (max-width: 768px) {
-        .scroll-grid { 
-            gap: 15px; 
-            padding-left: 10px; 
-            padding-right: 10px;
-        }
+        .scroll-grid { gap: 15px; padding: 0 10px 20px; }
 
         .gallery-item {
-            /* スマホで「大きく広がりすぎ」を防ぐため高さを400pxに制限 */
-            height: 400px !important; 
-            /* width: autoだと計算が狂うことがあるため、
-               ブラウザに比率から幅を計算させる設定を強化 */
-            width: auto !important; 
-            max-width: 85vw; /* 画面幅いっぱいに広がりすぎるのを防止 */
+            height: 450px !important; /* 高さを少し確保 */
+            width: auto !important;
+            max-width: 90vw;
         }
 
-        /* 比率設定を gallery-item 自体に適用 */
+        /* 【重要】スマホ版のみ、動画を「枠内に収める」設定に変更 */
+        .gallery-item video {
+            object-fit: contain !important; 
+            background: #000; /* 全体を表示した際に出る余白を黒で馴染ませる */
+        }
+
+        /* 各サイズごとの比率設定 */
         .image-size { aspect-ratio: 4 / 5 !important; }
-        .video-size, .video-9-16 { aspect-ratio: 9 / 16 !important; }
-        .video-horiz-size, .video-16-9 { aspect-ratio: 16 / 9 !important; }
+        .video-9-16 { aspect-ratio: 9 / 16 !important; }
+        .video-16-9 { aspect-ratio: 16 / 9 !important; }
 
         .gallery-item video {
             mask-image: radial-gradient(white, black);
@@ -93,7 +88,7 @@
         .nav-btn { display: none; }
     }
 
-    /* --- プロンプト・ナビボタン（変更なし） --- */
+    /* --- プロンプト表示・ナビボタン（変更なし・維持） --- */
     .prompt-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
