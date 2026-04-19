@@ -28,48 +28,42 @@
         padding-bottom: 25px;
         user-select: none;
         -webkit-user-select: none;
-
-        /* 【追加】スナップスクロール：1つずつ止まる設定 */
+        /* スナップ設定 */
         scroll-snap-type: x mandatory;
     }
 
     .scroll-grid::-webkit-scrollbar { display: none; }
 
-    /* --- 全体共通：角丸と枠の設定 --- */
+    /* --- アイテム共通設定 --- */
     .gallery-item {
-        flex: 0 0 auto;
+        flex: 0 0 auto; /* 勝手に伸び縮みするのを防ぐ */
         position: relative;
-        /* 【重要】overflow: hidden で角丸を強制適用 */
         overflow: hidden !important; 
         border-radius: 20px !important; 
         background: #000;
-        /* スナップの停止位置 */
         scroll-snap-align: center;
     }
 
-    /* ビデオと画像自体のフィット設定（黒帯解消） */
+    /* ビデオと画像自体のフィット設定 */
     .gallery-item img, .gallery-item video {
         width: 100% !important;
         height: 100% !important;
-        /* coverにすることで枠いっぱいに表示し、黒帯を消します */
+        /* 「全体が見えない」を防ぐため contain にするか、
+           枠を比率通りにするなら cover でもOKです。ここでは全体重視のcoverを維持 */
         object-fit: cover !important; 
         display: block;
         transition: transform 0.6s;
     }
 
-    /* --- PC版設定（画面幅769px以上） --- */
+    /* --- PC版設定 --- */
     @media (min-width: 769px) {
-        .gallery-item {
-            height: 533px !important; 
-        }
+        .gallery-item { height: 533px !important; }
         .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
-        /* 縦動画の比率設定 */
         .video-size, .video-9-16 { aspect-ratio: 9 / 16 !important; width: auto !important; }
-        /* 横動画の比率設定 */
         .video-horiz-size, .video-16-9 { aspect-ratio: 16 / 9 !important; width: auto !important; }
     }
 
-    /* --- スマホ版設定（重複を統合し、サイズを適正化） --- */
+    /* --- スマホ版設定（ここが修正の肝です） --- */
     @media (max-width: 768px) {
         .scroll-grid { 
             gap: 15px; 
@@ -78,19 +72,20 @@
         }
 
         .gallery-item {
-            /* 高さを400pxに統一して「大きすぎ」を解消 */
+            /* スマホで「大きく広がりすぎ」を防ぐため高さを400pxに制限 */
             height: 400px !important; 
-            width: auto !important;
-            border-radius: 20px !important;
+            /* width: autoだと計算が狂うことがあるため、
+               ブラウザに比率から幅を計算させる設定を強化 */
+            width: auto !important; 
+            max-width: 85vw; /* 画面幅いっぱいに広がりすぎるのを防止 */
         }
 
-        /* 各種アスペクト比の維持 */
+        /* 比率設定を gallery-item 自体に適用 */
         .image-size { aspect-ratio: 4 / 5 !important; }
         .video-size, .video-9-16 { aspect-ratio: 9 / 16 !important; }
         .video-horiz-size, .video-16-9 { aspect-ratio: 16 / 9 !important; }
 
         .gallery-item video {
-            /* iOSで角丸が消える現象への対策 */
             mask-image: radial-gradient(white, black);
             -webkit-mask-image: -webkit-radial-gradient(white, black);
         }
@@ -98,7 +93,7 @@
         .nav-btn { display: none; }
     }
 
-    /* --- プロンプト表示設定（変更なし・維持） --- */
+    /* --- プロンプト・ナビボタン（変更なし） --- */
     .prompt-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
@@ -118,22 +113,12 @@
         white-space: pre-wrap !important; 
         word-wrap: break-word;
     }
-
     .gallery-item:hover .prompt-overlay { transform: translateY(0); }
-
     .prompt-tag {
-        color: #00aaff;
-        font-weight: bold;
-        font-size: 10px;
-        margin-bottom: 6px;
-        border-bottom: 1px solid rgba(0, 170, 255, 0.3);
-        padding-bottom: 2px;
-        display: block !important;
-        width: fit-content !important; 
-        text-align: left !important;
+        color: #00aaff; font-weight: bold; font-size: 10px;
+        margin-bottom: 6px; border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+        padding-bottom: 2px; display: block !important; width: fit-content !important; 
     }
-
-    /* --- ナビボタン（変更なし・維持） --- */
     .gallery-item:hover img { transform: scale(1.05); }
     .nav-btn {
         position: absolute; top: 50%; transform: translateY(-50%);
