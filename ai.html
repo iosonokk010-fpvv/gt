@@ -120,6 +120,85 @@
     .prev-btn { left: -60px; }
     .next-btn { right: -60px; }
     @media (max-width: 1350px) { .prev-btn { left: 10px; } .next-btn { right: 10px; } }
+    /* --- BA (Before/After) スライダー --- */
+.ba-outer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.ba-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16 / 9;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000;
+    cursor: ew-resize;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: radial-gradient(white, black);
+}
+.ba-video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+.ba-before { z-index: 1; }
+.ba-after-wrap {
+    position: absolute;
+    top: 0; left: 50%;
+    width: 50%; height: 100%;
+    overflow: hidden;
+    z-index: 2;
+}
+.ba-after {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+.ba-divider {
+    position: absolute;
+    top: 0; left: 50%;
+    width: 2px; height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 3;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+.ba-handle {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px; height: 44px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #111;
+    z-index: 4;
+    pointer-events: none;
+}
+.ba-tag {
+    position: absolute;
+    top: 14px;
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    pointer-events: none;
+}
+.ba-tag.left { left: 14px; }
+.ba-tag.right { right: 14px; }
 </style>
 
     
@@ -403,6 +482,33 @@ Shallow depth of field, cinematic style.</div>
         
         <button class="nav-btn next-btn">❯</button>
     </div>
+    
+</section>
+        <section class="ai-section">
+    <p class="section-title-label">AI VFX / COMPOSITING</p>
+    <div class="slider-wrapper">
+
+        <div class="ba-outer">
+            <div class="ba-wrapper" id="baWrapper1">
+                <video class="ba-video ba-before" autoplay muted loop playsinline>
+                    <source src="aivideos/vfx_before_01.mp4" type="video/mp4">
+                </video>
+
+                <div class="ba-after-wrap" id="baAfterWrap1">
+                    <video class="ba-video ba-after" id="baAfterVideo1" autoplay muted loop playsinline>
+                        <source src="aivideos/vfx_after_01.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="ba-divider" id="baDivider1"></div>
+                <div class="ba-handle" id="baHandle1">⇔</div>
+
+                <span class="ba-tag left">BEFORE</span>
+                <span class="ba-tag right">AFTER</span>
+            </div>
+        </div>
+
+    </div>
 </section>
 
 
@@ -468,6 +574,34 @@ Shallow depth of field, cinematic style.</div>
             slider.scrollLeft = scrollLeft - walk;
         });
     });
+    // BA スライダー
+document.querySelectorAll('.ba-wrapper').forEach(wrapper => {
+    const id = wrapper.id;
+    const num = id.replace('baWrapper', '');
+    const afterWrap = document.getElementById('baAfterWrap' + num);
+    const divider   = document.getElementById('baDivider'  + num);
+    const handle    = document.getElementById('baHandle'   + num);
+    let dragging = false;
+
+    function setPos(clientX) {
+        const rect = wrapper.getBoundingClientRect();
+        let pct = (clientX - rect.left) / rect.width;
+        pct = Math.max(0.04, Math.min(0.96, pct));
+        const p = pct * 100;
+        afterWrap.style.left  = p + '%';
+        afterWrap.style.width = (100 - p) + '%';
+        divider.style.left    = p + '%';
+        handle.style.left     = p + '%';
+    }
+
+    wrapper.addEventListener('mousedown',  e => { dragging = true; setPos(e.clientX); });
+    document.addEventListener('mouseup',   () => { dragging = false; });
+    document.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+
+    wrapper.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+    document.addEventListener('touchend',  () => { dragging = false; });
+    document.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+});
 </script>
 </body>
 </html>
