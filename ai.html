@@ -120,7 +120,8 @@
     .prev-btn { left: -60px; }
     .next-btn { right: -60px; }
     @media (max-width: 1350px) { .prev-btn { left: 10px; } .next-btn { right: 10px; } }
-    /* --- BA (Before/After) スライダー --- */
+    
+/* --- BA (Before/After) スライダー --- */
 .ba-outer {
     width: 100%;
     display: flex;
@@ -140,26 +141,29 @@
     -webkit-mask-image: -webkit-radial-gradient(white, black);
     mask-image: radial-gradient(white, black);
 }
-.ba-video {
+.ba-before {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     pointer-events: none;
+    z-index: 1;
 }
-.ba-before { z-index: 1; }
 .ba-after-wrap {
     position: absolute;
-    top: 0; left: 50%;
+    top: 0; left: 50%;     /* JSで動的に変わる */
     width: 50%; height: 100%;
     overflow: hidden;
     z-index: 2;
 }
+/* ★ポイント：after動画はwrapの左端ではなく「常に画面左端」から描画 */
 .ba-after {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    height: 100%;
     object-fit: cover;
+    pointer-events: none;
+    /* widthとleftはJSで設定 */
 }
 .ba-divider {
     position: absolute;
@@ -197,7 +201,7 @@
     border-radius: 20px;
     pointer-events: none;
 }
-.ba-tag.left { left: 14px; }
+.ba-tag.left  { left: 14px; }
 .ba-tag.right { right: 14px; }
 </style>
 
@@ -483,31 +487,25 @@ Shallow depth of field, cinematic style.</div>
         <button class="nav-btn next-btn">❯</button>
     </div>
     
-</section>
-        <section class="ai-section">
+<section class="ai-section">
     <p class="section-title-label">AI VFX / COMPOSITING</p>
     <div class="slider-wrapper">
-
         <div class="ba-outer">
             <div class="ba-wrapper" id="baWrapper1">
                 <video class="ba-video ba-before" autoplay muted loop playsinline>
                     <source src="aivideos/vfx_before_01.mp4" type="video/mp4">
                 </video>
-
                 <div class="ba-after-wrap" id="baAfterWrap1">
                     <video class="ba-video ba-after" id="baAfterVideo1" autoplay muted loop playsinline>
                         <source src="aivideos/vfx_after_01.mp4" type="video/mp4">
                     </video>
                 </div>
-
                 <div class="ba-divider" id="baDivider1"></div>
                 <div class="ba-handle" id="baHandle1">⇔</div>
-
                 <span class="ba-tag left">BEFORE</span>
                 <span class="ba-tag right">AFTER</span>
             </div>
         </div>
-
     </div>
 </section>
 
@@ -574,13 +572,14 @@ Shallow depth of field, cinematic style.</div>
             slider.scrollLeft = scrollLeft - walk;
         });
     });
-    // BA スライダー
+// BA スライダー
 document.querySelectorAll('.ba-wrapper').forEach(wrapper => {
-    const id = wrapper.id;
-    const num = id.replace('baWrapper', '');
-    const afterWrap = document.getElementById('baAfterWrap' + num);
-    const divider   = document.getElementById('baDivider'  + num);
-    const handle    = document.getElementById('baHandle'   + num);
+    const id       = wrapper.id;
+    const num      = id.replace('baWrapper', '');
+    const afterWrap  = document.getElementById('baAfterWrap'  + num);
+    const afterVideo = afterWrap.querySelector('.ba-after');
+    const divider    = document.getElementById('baDivider'    + num);
+    const handle     = document.getElementById('baHandle'     + num);
     let dragging = false;
 
     function setPos(clientX) {
@@ -588,19 +587,35 @@ document.querySelectorAll('.ba-wrapper').forEach(wrapper => {
         let pct = (clientX - rect.left) / rect.width;
         pct = Math.max(0.04, Math.min(0.96, pct));
         const p = pct * 100;
+
+        // afterWrapの左端位置と幅
         afterWrap.style.left  = p + '%';
         afterWrap.style.width = (100 - p) + '%';
-        divider.style.left    = p + '%';
-        handle.style.left     = p + '%';
+
+        // ★動画は常にwrapperの左端から始まるよう逆方向にオフセット
+        afterVideo.style.width = (100 / (1 - pct)) + '%';
+        afterVideo.style.left  = (-p / (100 - p) * 100) + '%';
+
+        // ライン＆ハンドル
+        divider.style.left = p + '%';
+        handle.style.left  = p + '%';
     }
+
+    // 初期位置を設定
+    setPos(wrapper.getBoundingClientRect().left + wrapper.getBoundingClientRect().width * 0.5);
 
     wrapper.addEventListener('mousedown',  e => { dragging = true; setPos(e.clientX); });
     document.addEventListener('mouseup',   () => { dragging = false; });
     document.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
 
-    wrapper.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+    wrapper.addEventListener('touchstart', e => {
+        dragging = true;
+        setPos(e.touches[0].clientX);
+    }, { passive: true });
     document.addEventListener('touchend',  () => { dragging = false; });
-    document.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+    document.addEventListener('touchmove', e => {
+        if (dragging) setPos(e.touches[0].clientX);
+    }, { passive: true });
 });
 </script>
 </body>
