@@ -584,7 +584,7 @@ document.querySelectorAll('.ba-wrapper').forEach(wrapper => {
     }
 
     // 初期位置50%
-    after.style.clipPath = 'inset(0 0 0 50%)';
+    after.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
 
     wrapper.addEventListener('mousedown', e => {
         dragging = true;
