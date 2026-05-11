@@ -563,42 +563,52 @@ Shallow depth of field, cinematic style.</div>
     });
 // BA スライダー
 document.querySelectorAll('.ba-wrapper').forEach(wrapper => {
-    const id      = wrapper.id;
-    const num     = id.replace('baWrapper', '');
+    const num     = wrapper.id.replace('baWrapper', '');
     const after   = wrapper.querySelector('.ba-after');
     const divider = document.getElementById('baDivider' + num);
     const handle  = document.getElementById('baHandle'  + num);
     let dragging  = false;
+
+    // 初期位置
+    after.style.clipPath      = 'inset(0 50% 0 0)';
+    divider.style.left        = '50%';
+    handle.style.left         = '50%';
+    handle.style.transform    = 'translate(-50%, -50%)';
 
     function setPos(clientX) {
         const rect = wrapper.getBoundingClientRect();
         let pct = (clientX - rect.left) / rect.width;
         pct = Math.max(0.04, Math.min(0.96, pct));
         const p = pct * 100;
-
-        // ★After動画を右半分だけ表示（clip-path）
-        after.style.clipPath = `inset(0 0 0 ${p}%)`;
-
-        divider.style.left = p + '%';
-        handle.style.left  = p + '%';
+        after.style.clipPath   = `inset(0 ${100 - p}% 0 0)`;
+        divider.style.left     = p + '%';
+        handle.style.left      = p + '%';
+        handle.style.transform = 'translate(-50%, -50%)';
     }
 
-    // 初期位置50%
-    after.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
-
     wrapper.addEventListener('mousedown', e => {
+        e.preventDefault();
+        e.stopPropagation();   // ← ドラッグスクロールへの干渉を止める
         dragging = true;
         setPos(e.clientX);
     });
-    document.addEventListener('mouseup',   () => { dragging = false; });
-    document.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+
+    // ★ document → window に変更
+    window.addEventListener('mouseup',   () => { dragging = false; });
+    window.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        e.preventDefault();
+        setPos(e.clientX);
+    });
 
     wrapper.addEventListener('touchstart', e => {
+        e.stopPropagation();
         dragging = true;
         setPos(e.touches[0].clientX);
     }, { passive: true });
-    document.addEventListener('touchend',  () => { dragging = false; });
-    document.addEventListener('touchmove', e => {
+
+    window.addEventListener('touchend',  () => { dragging = false; });
+    window.addEventListener('touchmove', e => {
         if (dragging) setPos(e.touches[0].clientX);
     }, { passive: true });
 });
