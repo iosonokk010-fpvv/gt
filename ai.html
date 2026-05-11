@@ -141,35 +141,22 @@
     -webkit-mask-image: -webkit-radial-gradient(white, black);
     mask-image: radial-gradient(white, black);
 }
-.ba-before {
+.ba-before,
+.ba-after {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     pointer-events: none;
-    z-index: 1;
 }
-.ba-after-wrap {
-    position: absolute;
-    top: 0; left: 50%;     /* JSで動的に変わる */
-    width: 50%; height: 100%;
-    overflow: hidden;
-    z-index: 2;
-}
-/* ★ポイント：after動画はwrapの左端ではなく「常に画面左端」から描画 */
-.ba-after {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-    /* widthとleftはJSで設定 */
-}
+.ba-before { z-index: 1; }
+.ba-after   { z-index: 2; }  /* clip-pathはJSで設定 */
+
 .ba-divider {
     position: absolute;
     top: 0; left: 50%;
     width: 2px; height: 100%;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255,255,255,0.85);
     z-index: 3;
     transform: translateX(-50%);
     pointer-events: none;
@@ -179,7 +166,7 @@
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     width: 44px; height: 44px;
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255,255,255,0.92);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -193,7 +180,7 @@
     position: absolute;
     top: 14px;
     z-index: 5;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0,0,0,0.5);
     color: #fff;
     font-size: 10px;
     letter-spacing: 1.5px;
@@ -492,16 +479,18 @@ Shallow depth of field, cinematic style.</div>
     <div class="slider-wrapper">
         <div class="ba-outer">
             <div class="ba-wrapper" id="baWrapper1">
-                <video class="ba-video ba-before" autoplay muted loop playsinline>
+
+                <video class="ba-before" autoplay muted loop playsinline>
                     <source src="aivideos/vfx_before_01.mp4" type="video/mp4">
                 </video>
-                <div class="ba-after-wrap" id="baAfterWrap1">
-                    <video class="ba-video ba-after" id="baAfterVideo1" autoplay muted loop playsinline>
-                        <source src="aivideos/vfx_after_01.mp4" type="video/mp4">
-                    </video>
-                </div>
+
+                <video class="ba-after" autoplay muted loop playsinline>
+                    <source src="aivideos/vfx_after_01.mp4" type="video/mp4">
+                </video>
+
                 <div class="ba-divider" id="baDivider1"></div>
-                <div class="ba-handle" id="baHandle1">⇔</div>
+                <div class="ba-handle"  id="baHandle1">⇔</div>
+
                 <span class="ba-tag left">BEFORE</span>
                 <span class="ba-tag right">AFTER</span>
             </div>
@@ -574,13 +563,12 @@ Shallow depth of field, cinematic style.</div>
     });
 // BA スライダー
 document.querySelectorAll('.ba-wrapper').forEach(wrapper => {
-    const id       = wrapper.id;
-    const num      = id.replace('baWrapper', '');
-    const afterWrap  = document.getElementById('baAfterWrap'  + num);
-    const afterVideo = afterWrap.querySelector('.ba-after');
-    const divider    = document.getElementById('baDivider'    + num);
-    const handle     = document.getElementById('baHandle'     + num);
-    let dragging = false;
+    const id      = wrapper.id;
+    const num     = id.replace('baWrapper', '');
+    const after   = wrapper.querySelector('.ba-after');
+    const divider = document.getElementById('baDivider' + num);
+    const handle  = document.getElementById('baHandle'  + num);
+    let dragging  = false;
 
     function setPos(clientX) {
         const rect = wrapper.getBoundingClientRect();
@@ -588,23 +576,20 @@ document.querySelectorAll('.ba-wrapper').forEach(wrapper => {
         pct = Math.max(0.04, Math.min(0.96, pct));
         const p = pct * 100;
 
-        // afterWrapの左端位置と幅
-        afterWrap.style.left  = p + '%';
-        afterWrap.style.width = (100 - p) + '%';
+        // ★After動画を右半分だけ表示（clip-path）
+        after.style.clipPath = `inset(0 0 0 ${p}%)`;
 
-        // ★動画は常にwrapperの左端から始まるよう逆方向にオフセット
-        afterVideo.style.width = (100 / (1 - pct)) + '%';
-        afterVideo.style.left  = (-p / (100 - p) * 100) + '%';
-
-        // ライン＆ハンドル
         divider.style.left = p + '%';
         handle.style.left  = p + '%';
     }
 
-    // 初期位置を設定
-    setPos(wrapper.getBoundingClientRect().left + wrapper.getBoundingClientRect().width * 0.5);
+    // 初期位置50%
+    after.style.clipPath = 'inset(0 0 0 50%)';
 
-    wrapper.addEventListener('mousedown',  e => { dragging = true; setPos(e.clientX); });
+    wrapper.addEventListener('mousedown', e => {
+        dragging = true;
+        setPos(e.clientX);
+    });
     document.addEventListener('mouseup',   () => { dragging = false; });
     document.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
 
