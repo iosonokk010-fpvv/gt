@@ -1,431 +1,308 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Kaho Kobayashi</title>
-    <link rel="stylesheet" href="styles.css"> <style>
-        /* --- トップページ独自のスタイル --- */
-
-        /* トップ動画：スマホでも確実に再生させる設定 */
-        .top-video-container {
-            position: relative;
-            width: 100%;
-            height: 60vh;
-            overflow: hidden;
-            background-color: #000;
-        }
-
-        .top-video-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .top-video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.2); /* 少し暗くして視認性確保 */
-            pointer-events: none;
-        }
-
-        /* プロフィールバナー（ABOUT部分） */
-        .profile-banner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            background-color: #111;
-            padding: 40px;
-            box-sizing: border-box;
-            color: white;
-            border-radius: 15px;
-            margin: 40px 0;
-        }
-
-        .profile-banner img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .profile-info {
-            flex: 1;
-            text-align: left;
-            padding: 0 30px;
-        }
-
-        .profile-info p:first-child {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .skills-section {
-            flex: 1;
-        }
-
-        /* YouTubeサムネイルの統一 */
-        .video-thumbnail {
-            display: block;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto 20px;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .video-thumbnail:hover {
-            transform: scale(1.02);
-        }
-
-        .portfolio-section p {
-            font-size: 14px;
-            letter-spacing: 0.2em;
-            color: #00aaff;
-            margin: 40px 0 20px;
-            text-transform: uppercase;
-        }
-
-        /* スマホ対応 */
-        @media (max-width: 768px) {
-            .profile-banner {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            .profile-info {
-                padding: 20px 0;
-                text-align: center;
-            }
-            .skills-section .skills {
-                justify-content: center;
-            }
-        }
-           </style>
+    <title>Kaho Kobayashi — Photo &amp; Video Creator</title>
+    <meta name="description" content="Kaho Kobayashi — Photo & Video Creator. Photography, film, motion design and generative AI.">
+    <script>
+    (function(){var d=document.documentElement;d.classList.add("js");var l;try{l=localStorage.getItem("kk-lang");}catch(e){}
+    if(!l){var n=(navigator.language||"en").toLowerCase(),tz="";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch(e){}
+    l=(n.indexOf("ja")===0||tz==="Asia/Tokyo")?"ja":"en";}
+    d.classList.add(l==="ja"?"lang-ja":"lang-en");d.setAttribute("lang",l);})();
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <header>
-        <div class="logo">
-            <h1>PORTFOLIO</h1>
+    <div class="curtain" aria-hidden="true">
+        <div class="curtain__panel">
+            <p class="curtain__brand">KAHO KOBAYASHI</p>
+            <span class="curtain__tag">Photo &amp; Video — 2026</span>
         </div>
-        <nav class="nav">
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </label>
-            <ul class="nav-list">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="motion.html">VIDEO</a></li>
-                <li><a href="photo.html">PHOTO</a></li>
+    </div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"><span>VIEW</span></div>
+    <div class="bg-stage" aria-hidden="true"></div>
+    <div class="aurora a1" aria-hidden="true"></div>
+    <div class="aurora a2" aria-hidden="true"></div>
+    <div class="aurora a3" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="scroll-progress"></div>
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+        <div class="nav-inner">
+            <a class="brand" href="index.html">KAHO KOBAYASHI<span>PORTFOLIO</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" aria-current="page">Home</a></li>
+                <li><a href="motion.html">Video</a></li>
+                <li><a href="photo.html">Photo</a></li>
                 <li><a href="ai.html">AI</a></li>
-                <li><a href="skill.html">PROFILE</a></li>
+                <li><a href="skill.html">Profile</a></li>
             </ul>
-        </nav>
+            <div class="nav-tools">
+                <div class="lang-toggle" role="group" aria-label="Language">
+                    <button type="button" data-lang="ja">JA</button>
+                    <button type="button" data-lang="en">EN</button>
+                </div>
+                <a class="btn btn--solid nav-cta" href="#contact">Contact</a>
+                <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+            </div>
+        </div>
     </header>
 
-    <div class="top-video-container">
-        <video autoplay muted loop playsinline id="background-video">
-            <source src="videos/0426_11.MOV" type="video/mp4">
-            <source src="videos/top-video.webm" type="video/webm">
-        </video>
-        <div class="top-video-overlay"></div>
+    <div class="nav-overlay">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="motion.html">Video</a></li>
+            <li><a href="photo.html">Photo</a></li>
+            <li><a href="ai.html">AI</a></li>
+            <li><a href="skill.html">Profile</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ol>
+        <div class="nav-overlay__foot"><span>Photo &amp; Video Creator</span><span>© 2026 Kaho Kobayashi</span></div>
     </div>
 
-    <main class="profile-container">
-
-        <section class="portfolio-section">
-           <h3>PHOTO</h3>
-            <div class="custom-image-grid">
-                <img src="images/photo42.jpg" alt="Photo 42">
-                <img src="images/photo11.jpg" alt="Photo 11">
-                <img src="images/photo9.jpg" alt="Photo 9">
-                <img src="images/photo47.jpg" alt="Photo 47">
-                <img src="images/photo15.jpg" alt="Photo 15">
-                <img src="images/photo16.jpg" alt="Photo 16">
-                 <img src="images/photo60.jpg" alt="Photo 60">
-                <img src="images/photo29.jpg" alt="Photo 29">
-            </div>
-            
- <section class="ai-section">
-    <h3>AI</h3>
-    <div class="slider-wrapper">
-        <button class="nav-btn prev-btn">❮</button>
-        <div class="scroll-grid" id="slider1">
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/03_image.webp" alt="01">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">A realistic portrait of a young woman with a sophisticated and melancholic gaze. She has a chin-length blonde bob hair, center-parted, with a slight natural wave. Pale skin with a natural matte finish, hazel eyes, and soft neutral lips. Wearing a sharp black blazer. Studio lighting, clean white background, high contrast, 8k resolution, cinematic lighting, hyper-detailed skin texture.</div>
+    <main>
+        <!-- ============ HERO ============ -->
+        <section class="hero">
+            <canvas class="hero__canvas" aria-hidden="true"></canvas>
+            <div class="hero__inner container">
+                <p class="eyebrow reveal">Kaho Kobayashi — Portfolio</p>
+                <h1 class="hero__title">
+                    <span class="reveal-mask"><span>Photo <span class="thin">&amp;</span></span></span>
+                    <span class="reveal-mask"><span><em>Video</em></span></span>
+                </h1>
+                <div class="hero__meta reveal">
+                    <p class="hero__lead">
+                        <span class="lx-en">Photography, film, motion design &amp; generative AI — crafted where proven craft meets the future.</span>
+                        <span class="lx-ja">写真・映像・モーションデザイン、そして生成AI。確かな技術と新しい表現が出会う場所で。</span>
+                    </p>
+                    <div class="hero__actions">
+                        <a class="btn btn--solid" href="#work"><span class="lx-en">View work</span><span class="lx-ja">作品を見る</span></a>
+                        <a class="btn btn--ghost" href="#contact"><span class="lx-en">Get in touch</span><span class="lx-ja">お問い合わせ</span></a>
+                    </div>
                 </div>
             </div>
+            <span class="hero__scroll">Scroll <span class="dot"></span></span>
+        </section>
 
-            <div class="gallery-item image-size">
-                <img src="aiimages/02_image.webp" alt="02">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A and Image B, 
-preserving facial features and hairstyle.
+        <!-- ============ INTRO ============ -->
+        <section class="section container">
+            <div class="intro-grid">
+                <h2 class="statement reveal">
+                    <span class="lx-en">Crafting <em>images</em> and motion where photography meets the future.</span>
+                    <span class="lx-ja"><em>写真</em>と映像で、いまと未来をつなぐビジュアルを。</span>
+                </h2>
+                <p class="reveal">
+                    <span class="lx-en">From shooting, editing and 2D/3D motion graphics to the latest generative image &amp; video AI — blended into one signature creative style.</span>
+                    <span class="lx-ja">撮影・編集・2D/3Dモーショングラフィックスから、最新の画像・動画生成AIまで。確かな撮影技術と新しい表現を融合させた、独自のクリエイティブを届けます。</span>
+                </p>
+            </div>
+        </section>
 
-【Changes】
-Change the shoes to the exact ones from Image C.
-Open the jacket, wear the top from Image D.
-Remove the bag.
-
-【Environment & Style】
-Natural daylight, soft shadows, realistic reflections.
-Photorealistic, ultra-detailed, sharp focus.
-High-quality fashion editorial photography.
-
-【Negative】
-no face change, no identity drift, no body distortion.</div>
+        <!-- ============ SHOWREEL ============ -->
+        <section class="section--tight container" id="work">
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(00) — Showreel</p>
+                    <h2 class="sec-head__title reveal-mask"><span>Showreel</span></h2>
                 </div>
             </div>
+            <div class="showreel reveal">
+                <video autoplay muted loop playsinline poster="images/photo42.jpg">
+                    <source src="videos/0426_11.MOV" type="video/mp4">
+                </video>
+            </div>
+        </section>
 
-            <div class="gallery-item image-size">
-                <img src="aiimages/06_image.webp" alt="03">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A and Image B, 
-preserving facial features and hairstyle.
-
-【Changes】
-Change the shoes to the exact ones from Image C.
-Open the jacket, wear the top from Image D.
-Remove the bag.
-
-【Technical】
-Natural daylight, soft shadows, realistic reflections.
-Photorealistic, ultra-detailed, cinematic depth of field.
-Aspect ratio 4:5.
-
-【Negative】
-no blur, no artifacts, no cropping, no aspect ratio change.</div>
+        <!-- ============ WHAT I DO ============ -->
+        <section class="section--tight container">
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal"><span class="lx-en">Capabilities</span><span class="lx-ja">できること</span></p>
+                    <h2 class="sec-head__title reveal-mask"><span>What I <em>do</em></span></h2>
                 </div>
             </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/07_image.webp" alt="04">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Full body portrait blending the specific facial features and hairstyle of Image A onto the body and pose of Image B. 
-
-Soft studio lighting, 8k resolution.
-Hyper-realistic skin textures.
-Sharp focus on the eyes. 
-The subject is wearing the exact outfit from Image B.</div>
+            <div class="feature-grid" data-stagger>
+                <div class="feature-card glass reveal">
+                    <span class="idx">01</span>
+                    <div>
+                        <h3><span class="lx-en">Photography</span><span class="lx-ja">写真撮影</span></h3>
+                        <p><span class="lx-en">Portrait, product and staff photography with a feel for light and texture.</span><span class="lx-ja">ポートレート・商品・スタッフ撮影。光と質感にこだわって。</span></p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/01_image.webp" alt="05">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A, preserving facial features, hairstyle, body proportions, and skin tone.
-
-【Background】
-Manhattan Village, 3200 N Sepulveda Blvd, 
-Manhattan Beach, CA 90266, USA.
-
-【Atmosphere】
-Outdoor lifestyle fashion, natural daylight.
-Photorealistic, ultra-detailed, sharp focus.
-High quality, fashion editorial style.</div>
+                <div class="feature-card glass reveal">
+                    <span class="idx">02</span>
+                    <div>
+                        <h3><span class="lx-en">Film &amp; Motion</span><span class="lx-ja">映像・モーション</span></h3>
+                        <p><span class="lx-en">Shooting, editing and 2D/3D motion graphics for films that move.</span><span class="lx-ja">撮影・編集、2D/3Dモーショングラフィックスによる動きのある映像。</span></p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/04_image.webp" alt="06">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A, 
-preserving identity and background.
-
-【Changes】
-Change only the pants to those from Image B.
-Tuck in the top.
-
-【Style】
-Outdoor lifestyle fashion with natural daylight.
-Realistic shadows and reflections.
-Photorealistic, ultra-detailed.
-
-【Negative】
-no face change, no identity drift, no body distortion, 
-no incorrect background.</div>
+                <div class="feature-card glass reveal">
+                    <span class="idx">03</span>
+                    <div>
+                        <h3><span class="lx-en">Generative AI</span><span class="lx-ja">生成AI</span></h3>
+                        <p><span class="lx-en">Image &amp; video generation built into the creative workflow.</span><span class="lx-ja">画像・動画生成AIをワークフローに導入した表現。</span></p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/05_image.webp" alt="07">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A, 
-preserving facial features and hairstyle.
-
-【Outfit】
-Use the exact outfit from Image B.
-Shoes from Image C / Top from Image D.
-Roll up the sleeves slightly.
-Shorten the top (exposed belly).
-
-【Environment】
-Natural daylight, soft shadows, realistic reflections.
-Photorealistic, ultra-detailed, cinematic depth of field.</div>
-                </div>
-            </div>
-
-        </div>
-        <button class="nav-btn next-btn">❯</button>
-    </div>
-</section>
-
-        <section class="portfolio-section">
-             <h3>PROFILE</h3>
-            <div class="profile-banner">
-                <img src="images/profile-photo.png" alt="Profile Photo">
-                <div class="profile-info">
-                    <p>KAHO KOBAYASHI</p>
-                    <p>PHOTO & VIDEO CREATOR</p>
-                </div>
-                <div class="skills-section">
-                    <div class="skills">
-                        <span>Photography</span>
-                        <span>Videography</span>
-                        <span>Photoshop</span>
-                        <span>Premiere Pro</span>
-                        <span>After Effects</span>
-                        <span>Illustrator</span>
-                        <span>Blender</span>
-                        <span>Nano Banana</span>
-                        <span>Kling</span>
-                        <span>Higgsfield</span>
+                <div class="feature-card glass reveal">
+                    <span class="idx">04</span>
+                    <div>
+                        <h3><span class="lx-en">Retouch &amp; Direction</span><span class="lx-ja">レタッチ・進行</span></h3>
+                        <p><span class="lx-en">Retouching, coordination and shoot management from start to finish.</span><span class="lx-ja">レタッチ、コーディネート、撮影の進行管理まで。</span></p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="portfolio-section">
-        <h3>VIDEO</h3>
-               <div class="shorts-grid">
-                <div class="shorts-item">
-                    <video controls autoplay muted loop>
-                        <source src="videos/sns_4.mp4" type="video/mp4">
-                    </video>
+        <!-- ============ PHOTO TEASER ============ -->
+        <section class="has-ghost section--tight container">
+            <span class="ghost ghost--r" aria-hidden="true" data-plx="r">Photography</span>
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(01) — Selected</p>
+                    <h2 class="sec-head__title reveal-mask"><span>Photography</span></h2>
                 </div>
-                <div class="shorts-item">
-                    <video controls autoplay muted loop>
-                        <source src="videos/SNS_3.mp4" type="video/mp4">
-                    </video>
+                <a class="linklike reveal" href="photo.html"><span class="lx-en">View all photo</span><span class="lx-ja">写真をすべて見る</span> →</a>
+            </div>
+            <div class="mosaic" data-stagger>
+                <a class="figure reveal" href="photo.html"><img src="images/photo42.jpg" alt="Photograph" loading="lazy"></a>
+                <a class="figure reveal" href="photo.html"><img src="images/photo11.jpg" alt="Photograph" loading="lazy"></a>
+                <a class="figure reveal" href="photo.html"><img src="images/photo9.jpg" alt="Photograph" loading="lazy"></a>
+                <a class="figure reveal" href="photo.html"><img src="images/photo47.jpg" alt="Photograph" loading="lazy"></a>
+                <a class="figure reveal" href="photo.html"><img src="images/photo15.jpg" alt="Photograph" loading="lazy"></a>
+                <a class="figure reveal" href="photo.html"><img src="images/photo16.jpg" alt="Photograph" loading="lazy"></a>
+                <a class="figure reveal" href="photo.html"><img src="images/photo60.jpg" alt="Photograph" loading="lazy"></a>
+                <a class="figure reveal" href="photo.html"><img src="images/photo29.jpg" alt="Photograph" loading="lazy"></a>
+            </div>
+        </section>
+
+        <!-- ============ AI TEASER ============ -->
+        <section class="has-ghost section--tight container">
+            <span class="ghost" aria-hidden="true" data-plx="l">Generative</span>
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(02) — Generative</p>
+                    <h2 class="sec-head__title reveal-mask"><span>AI <em>Direction</em></span></h2>
                 </div>
-                <div class="shorts-item">
-                    <video controls autoplay muted loop>
-                        <source src="videos/CD_shimada_15mb.mp4" type="video/mp4">
-                    </video>
+                <a class="linklike reveal" href="ai.html"><span class="lx-en">Explore AI works</span><span class="lx-ja">AI作品を見る</span> →</a>
+            </div>
+            <div class="slider reveal">
+                <div class="scroll-grid">
+                    <div class="gallery-item ar-4-5"><img src="aiimages/03_image.webp" alt="AI image" loading="lazy"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>A realistic portrait of a young woman with a sophisticated gaze. Chin-length blonde bob, pale skin, hazel eyes, sharp black blazer. Studio lighting, clean white background, 8k, cinematic, hyper-detailed skin texture.</div></div>
+                    <div class="gallery-item ar-4-5"><img src="aiimages/07_image.webp" alt="AI image" loading="lazy"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Full body portrait blending the specific facial features and hairstyle of Image A onto the body and pose of Image B. Soft studio lighting, 8k, hyper-realistic skin, sharp focus on the eyes.</div></div>
+                    <div class="gallery-item ar-4-5"><img src="aiimages/01_image.webp" alt="AI image" loading="lazy"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Keep the exact same model, preserving facial features, hairstyle and skin tone. Manhattan Beach, CA. Outdoor lifestyle fashion, natural daylight. Photorealistic, ultra-detailed, editorial style.</div></div>
+                    <div class="gallery-item ar-4-5"><img src="aiimages/04_image.webp" alt="AI image" loading="lazy"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Keep the exact same model, preserving identity and background. Change only the pants; tuck in the top. Outdoor lifestyle fashion, natural daylight, realistic shadows. Photorealistic, ultra-detailed.</div></div>
+                    <div class="gallery-item ar-4-5"><img src="aiimages/05_image.webp" alt="AI image" loading="lazy"><div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Keep the exact same model, preserving facial features and hairstyle. Use the exact outfit from reference, roll up the sleeves slightly. Natural daylight, cinematic depth of field.</div></div>
+                </div>
+                <div class="slider__nav">
+                    <button class="nav-btn prev-btn" aria-label="Previous">❮</button>
+                    <button class="nav-btn next-btn" aria-label="Next">❯</button>
                 </div>
             </div>
         </section>
-            
-            <p>PERSONAL PROJECT</p>
-            <a href="https://www.youtube.com/watch?v=9oJPrcyI9G4" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/9oJPrcyI9G4/hqdefault.jpg" alt="PERSONAL PROJECT">
-            </a>
-            <a href="https://youtu.be/08-nvPmuFNc" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/08-nvPmuFNc/hqdefault.jpg" alt="PERSONAL PROJECT">
-            </a>
 
-            <p>COORDINATOR</p>
-            <a href="https://www.youtube.com/watch?v=6-FV6zMvuxs" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/6-FV6zMvuxs/hqdefault.jpg" alt="COORDINATOR">
-            </a>
-
-            <p>CLIENT WORK</p>
-            <a href="https://www.youtube.com/watch?v=23t8xk9hnjY" target="_blank">
-    <img class="video-thumbnail" src="https://img.youtube.com/vi/23t8xk9hnjY/hqdefault.jpg" alt="WORK 2">
-</a>
-            <a href="https://www.youtube.com/watch?v=y1F0raVHGhU&start=11" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/y1F0raVHGhU/hqdefault.jpg" alt="CLIENT WORK 1">
-            </a>
-            <a href="https://www.youtube.com/watch?v=fhiSts8SJug" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/fhiSts8SJug/hqdefault.jpg" alt="CLIENT WORK 2">
-            </a>
-            <a href="https://www.youtube.com/watch?v=ITl4x9A_ps8&start=290" target="_blank">
-                <img class="video-thumbnail" src="https://img.youtube.com/vi/ITl4x9A_ps8/hqdefault.jpg" alt="CLIENT WORK 3">
-            </a>
+        <!-- ============ VIDEO TEASER ============ -->
+        <section class="has-ghost section--tight container">
+            <span class="ghost ghost--r" aria-hidden="true" data-plx="r">In Motion</span>
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(03) — In Motion</p>
+                    <h2 class="sec-head__title reveal-mask"><span>Film <em>&amp;</em> Edit</span></h2>
+                </div>
+                <a class="linklike reveal" href="motion.html"><span class="lx-en">View all video</span><span class="lx-ja">映像をすべて見る</span> →</a>
+            </div>
+            <div class="shorts" data-stagger style="margin-bottom: clamp(18px,2.4vw,32px);">
+                <div class="shorts__item reveal"><video autoplay muted loop playsinline><source src="videos/sns_4.mp4" type="video/mp4"></video></div>
+                <div class="shorts__item reveal"><video autoplay muted loop playsinline><source src="videos/SNS_3.mp4" type="video/mp4"></video></div>
+                <div class="shorts__item reveal"><video autoplay muted loop playsinline><source src="videos/CD_shimada_15mb.mp4" type="video/mp4"></video></div>
+            </div>
+            <div class="work-grid" data-stagger>
+                <a class="work-card reveal" href="https://www.youtube.com/watch?v=9oJPrcyI9G4" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/9oJPrcyI9G4/hqdefault.jpg" alt="Personal project" loading="lazy"></div><div class="work-card__label"><span>Personal Project</span><span>YouTube</span></div></a>
+                <a class="work-card reveal" href="https://www.youtube.com/watch?v=6-FV6zMvuxs" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/6-FV6zMvuxs/hqdefault.jpg" alt="Coordinator work" loading="lazy"></div><div class="work-card__label"><span>Coordinator</span><span>YouTube</span></div></a>
+                <a class="work-card reveal" href="https://www.youtube.com/watch?v=23t8xk9hnjY" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/23t8xk9hnjY/hqdefault.jpg" alt="Client work" loading="lazy"></div><div class="work-card__label"><span>Client Work</span><span>YouTube</span></div></a>
+            </div>
         </section>
 
+        <!-- ============ PROFILE ============ -->
+        <section class="section--tight container">
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(04) — The Creator</p>
+                    <h2 class="sec-head__title reveal-mask"><span>Profile</span></h2>
+                </div>
+                <a class="linklike reveal" href="skill.html"><span class="lx-en">Full profile</span><span class="lx-ja">プロフィール詳細</span> →</a>
+            </div>
+            <div class="profile-card glass reveal">
+                <img class="profile-card__avatar" src="images/profile-photo.png" alt="Kaho Kobayashi">
+                <div>
+                    <p class="profile-card__name">Kaho Kobayashi</p>
+                    <p class="profile-card__role">Photo &amp; Video Creator</p>
+                    <div class="chips">
+                        <span>Photography</span><span>Videography</span><span>Photoshop</span><span>Premiere Pro</span><span>After Effects</span><span>Illustrator</span><span>Blender</span><span>Nano Banana</span><span>Kling</span><span>Higgsfield</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ MARQUEE ============ -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee__track">
+                <span>Photography</span><span>Film</span><span>Motion Design</span><span>Generative AI</span><span>Retouch</span><span>Direction</span>
+                <span>Photography</span><span>Film</span><span>Motion Design</span><span>Generative AI</span><span>Retouch</span><span>Direction</span>
+            </div>
+            <div class="marquee__track marquee__track--outline">
+                <span>Kaho Kobayashi</span><span>Tokyo</span><span>Photo &amp; Video Creator</span><span>Since 2024</span>
+                <span>Kaho Kobayashi</span><span>Tokyo</span><span>Photo &amp; Video Creator</span><span>Since 2024</span>
+            </div>
+        </div>
+
+        <!-- ============ CONTACT ============ -->
+        <section class="section container" id="contact">
+            <div class="contact glass reveal">
+                <p class="eyebrow" style="justify-content:center;"><span class="lx-en">Contact</span><span class="lx-ja">お問い合わせ</span></p>
+                <h2 class="contact__title">
+                    <span class="lx-en">Let's work <em>together.</em></span>
+                    <span class="lx-ja">一緒に、<em>つくりましょう。</em></span>
+                </h2>
+                <p class="contact__lead">
+                    <span class="lx-en">Photography, film, motion or AI creative — feel free to reach out for projects and collaborations.</span>
+                    <span class="lx-ja">撮影・映像・モーション・AIクリエイティブのご相談やお仕事のご依頼は、お気軽にどうぞ。</span>
+                </p>
+                <a class="contact__mail" href="mailto:iosonokk010@gmail.com">iosonokk010@gmail.com</a>
+                <div class="contact__actions">
+                    <a class="btn btn--solid" href="mailto:iosonokk010@gmail.com"><span class="lx-en">Send an email</span><span class="lx-ja">メールを送る</span></a>
+                    <a class="btn btn--ghost" href="https://www.youtube.com/watch?v=9oJPrcyI9G4" target="_blank" rel="noopener">YouTube</a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>&copy; portfolio</p>
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer container">
+        <div class="footer-top">
+            <div class="footer-brand reveal-mask"><span>Kaho <em>Kobayashi</em></span></div>
+            <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="motion.html">Video</a>
+                <a href="photo.html">Photo</a>
+                <a href="ai.html">AI</a>
+                <a href="skill.html">Profile</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+        <div class="footer-meta">
+            <span>© 2026 Kaho Kobayashi</span>
+            <a class="to-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+        </div>
     </footer>
-<script>
-    // 1. 【追加】スクロールでふわっと表示させる機能 (Intersection Observer)
-    const observerOptions = {
-        threshold: 0.1 // 10%見えたら実行
-    };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
-        });
-    }, observerOptions);
-
-    // アニメーションさせたい要素を指定して観察開始
-    // セクション、グリッド内の画像、バナーなどに適用
-    document.querySelectorAll('section, .custom-image-grid img, .banner-item').forEach(el => {
-        el.classList.add('reveal'); // 初期状態のクラスを付与
-        observer.observe(el);
-    });
-
-
-    // 2. 【既存】ボタンによるスライド機能 & ドラッグスクロール
-    document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
-        const slider = wrapper.querySelector('.scroll-grid');
-        const prevBtn = wrapper.querySelector('.prev-btn');
-        const nextBtn = wrapper.querySelector('.next-btn');
-
-        const moveAmount = 320; // 1回で動く量
-
-        if (prevBtn && nextBtn) {
-            prevBtn.addEventListener('click', () => {
-                slider.scrollBy({ left: -moveAmount, behavior: 'smooth' });
-            });
-
-            nextBtn.addEventListener('click', () => {
-                slider.scrollBy({ left: moveAmount, behavior: 'smooth' });
-            });
-        }
-
-        // ドラッグスクロール機能
-        let isDown = false, startX, scrollLeft;
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true; 
-            slider.classList.add('active-drag'); // ドラッグ中用のスタイル（必要なら）
-            startX = e.pageX - slider.offsetLeft; 
-            scrollLeft = slider.scrollLeft;
-        });
-        slider.addEventListener('mouseleave', () => { isDown = false; });
-        slider.addEventListener('mouseup', () => { isDown = false; });
-        slider.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2;
-            slider.scrollLeft = scrollLeft - walk;
-        });
-    });
-</script>
+    <script src="main.js"></script>
 </body>
 </html>

@@ -1,265 +1,122 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css"> 
-    <title>Portfolio | AI Gallery Slides</title>
-<style>
-    /* =========================================
-       AIページ共通スタイル（角丸移植版）
-       ========================================= */
-    .slider-wrapper {
-        position: relative;
-        width: 100%;
-        margin: 0 auto;
-        max-width: 1200px;
-    }
-
-    .scroll-grid {
-        display: flex !important;
-        align-items: flex-start !important;
-        gap: 20px;
-        overflow-x: auto;
-        overflow-y: hidden !important; 
-        touch-action: pan-x;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 25px;
-        user-select: none;
-        -webkit-user-select: none;
-        scroll-snap-type: x mandatory;
-    }
-
-    .scroll-grid::-webkit-scrollbar { display: none; }
-
-    /* --- ショート動画の「角丸」要素をここに統合 --- */
-    .gallery-item {
-        flex: 0 0 auto;
-        position: relative;
-        /* ショート動画と同じ設定 */
-        overflow: hidden !important; 
-        border-radius: 20px !important; 
-        background: #000;
-        scroll-snap-align: center;
-        
-        /* スマホ用：角丸の枠からはみ出さないための強制設定 */
-        -webkit-mask-image: -webkit-radial-gradient(white, black);
-        mask-image: radial-gradient(white, black);
-    }
-
-    .gallery-item img, .gallery-item video {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important; 
-        display: block;
-        transition: transform 0.6s;
-        /* ショート動画と同じく中身にも角丸を意識させる */
-        border-radius: 20px !important;
-    }
-
-    /* --- PC版設定（維持） --- */
-    @media (min-width: 769px) {
-        .gallery-item { height: 533px !important; }
-        .image-size { aspect-ratio: 4 / 5 !important; width: auto !important; }
-        .video-9-16 { aspect-ratio: 9 / 16 !important; width: auto !important; }
-        .video-16-9 { aspect-ratio: 16 / 9 !important; width: auto !important; }
-    }
-
-    /* --- スマホ版設定（全体表示と角丸の両立） --- */
-    @media (max-width: 768px) {
-        .scroll-grid { gap: 15px; padding: 0 10px 20px; }
-
-        .gallery-item {
-            height: 450px !important; 
-            width: auto !important;
-            max-width: 90vw;
-        }
-
-        .gallery-item video {
-            /* 以前の調整通り、スマホでは全体像を見せるために contain */
-            object-fit: contain !important; 
-            background: #000;
-            /* iOS/Chrome用：描画レイヤーのバグを修正 */
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-        }
-
-        .image-size { aspect-ratio: 4 / 5 !important; }
-        .video-9-16 { aspect-ratio: 9 / 16 !important; }
-        .video-16-9 { aspect-ratio: 16 / 9 !important; }
-
-        .nav-btn { display: none; }
-    }
-
-    /* --- プロンプト・ナビ設定（すべて維持） --- */
-    .prompt-overlay {
-        position: absolute; bottom: 0; left: 0; right: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 80%, transparent 100%);
-        color: #eee; padding: 40px 15px 15px; font-size: 11px; line-height: 1.5;
-        transform: translateY(100%); transition: transform 0.4s ease-out;
-        display: flex !important; flex-direction: column !important;
-        align-items: flex-start !important; text-align: left !important;
-        max-height: 80%; overflow-y: auto; white-space: pre-wrap !important; word-wrap: break-word;
-    }
-    .gallery-item:hover .prompt-overlay { transform: translateY(0); }
-    .prompt-tag {
-        color: #00aaff; font-weight: bold; font-size: 10px; margin-bottom: 6px;
-        border-bottom: 1px solid rgba(0, 170, 255, 0.3); padding-bottom: 2px;
-        display: block !important; width: fit-content !important; 
-    }
-    .gallery-item:hover img { transform: scale(1.05); }
-    .nav-btn {
-        position: absolute; top: 50%; transform: translateY(-50%);
-        width: 44px; height: 44px; background: rgba(0,170,255,0.2);
-        backdrop-filter: blur(5px); border: 1px solid rgba(0,170,255,0.3);
-        color: white; border-radius: 50%; cursor: pointer; z-index: 10;
-        display: flex; align-items: center; justify-content: center;
-    }
-    .prev-btn { left: -60px; }
-    .next-btn { right: -60px; }
-    @media (max-width: 1350px) { .prev-btn { left: 10px; } .next-btn { right: 10px; } }
-    
-/* --- BA (Before/After) スライダー --- */
-.ba-outer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-.ba-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 960px;
-    aspect-ratio: 16 / 9;
-    border-radius: 20px;
-    overflow: hidden;
-    background: #000;
-    cursor: ew-resize;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
-    mask-image: radial-gradient(white, black);
-}
-.ba-before,
-.ba-after {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-}
-.ba-before { z-index: 1; }
-.ba-after   { z-index: 2; }  /* clip-pathはJSで設定 */
-
-.ba-divider {
-    position: absolute;
-    top: 0; left: 50%;
-    width: 2px; height: 100%;
-    background: rgba(255,255,255,0.85);
-    z-index: 3;
-    transform: translateX(-50%);
-    pointer-events: none;
-}
-.ba-handle {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 44px; height: 44px;
-    background: rgba(255,255,255,0.92);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    color: #111;
-    z-index: 4;
-    pointer-events: none;
-}
-.ba-tag {
-    position: absolute;
-    top: 14px;
-    z-index: 5;
-    background: rgba(0,0,0,0.5);
-    color: #fff;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    pointer-events: none;
-}
-.ba-tag.left  { left: 14px; }
-.ba-tag.right { right: 14px; }
-</style>
-
-    
+    <title>AI — Kaho Kobayashi</title>
+    <meta name="description" content="Generative AI works by Kaho Kobayashi — image generation, video generation and AI VFX compositing.">
+    <script>
+    (function(){var d=document.documentElement;d.classList.add("js");var l;try{l=localStorage.getItem("kk-lang");}catch(e){}
+    if(!l){var n=(navigator.language||"en").toLowerCase(),tz="";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch(e){}
+    l=(n.indexOf("ja")===0||tz==="Asia/Tokyo")?"ja":"en";}
+    d.classList.add(l==="ja"?"lang-ja":"lang-en");d.setAttribute("lang",l);})();
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="curtain" aria-hidden="true">
+        <div class="curtain__panel">
+            <p class="curtain__brand">KAHO KOBAYASHI</p>
+            <span class="curtain__tag">Photo &amp; Video — 2026</span>
+        </div>
+    </div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"><span>VIEW</span></div>
+    <div class="bg-stage" aria-hidden="true"></div>
+    <div class="aurora a1" aria-hidden="true"></div>
+    <div class="aurora a2" aria-hidden="true"></div>
+    <div class="aurora a3" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="scroll-progress"></div>
 
-    <header>
-        <div class="logo"><h1>PORTFOLIO</h1></div>
-        <nav class="nav">
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-            </label>
-            <ul class="nav-list">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="motion.html">VIDEO</a></li>
-                <li><a href="photo.html">PHOTO</a></li>
-                <li><a href="ai.html">AI</a></li>
-                <li><a href="skill.html">PROFILE</a></li>
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+        <div class="nav-inner">
+            <a class="brand" href="index.html">KAHO KOBAYASHI<span>PORTFOLIO</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="motion.html">Video</a></li>
+                <li><a href="photo.html">Photo</a></li>
+                <li><a href="ai.html" aria-current="page">AI</a></li>
+                <li><a href="skill.html">Profile</a></li>
             </ul>
-        </nav>
+            <div class="nav-tools">
+                <div class="lang-toggle" role="group" aria-label="Language">
+                    <button type="button" data-lang="ja">JA</button>
+                    <button type="button" data-lang="en">EN</button>
+                </div>
+                <a class="btn btn--solid nav-cta" href="index.html#contact">Contact</a>
+                <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+            </div>
+        </div>
     </header>
 
-    <main class="profile-container">
+    <div class="nav-overlay">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="motion.html">Video</a></li>
+            <li><a href="photo.html">Photo</a></li>
+            <li><a href="ai.html">AI</a></li>
+            <li><a href="skill.html">Profile</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ol>
+        <div class="nav-overlay__foot"><span>Photo &amp; Video Creator</span><span>© 2026 Kaho Kobayashi</span></div>
+    </div>
 
-        <div class="profile-name">
-            <h3>GENERATIVE<br>AI</h3>
-        </div>
-<section class="ai-section">
-    <p class="section-title-label">AI IMAGE GENERATE (4:5)</p>
-    <div class="slider-wrapper">
-        <button class="nav-btn prev-btn">❮</button>
-        <div class="scroll-grid" id="slider1">
+    <main>
+        <!-- ============ PAGE HERO ============ -->
+        <section class="page-hero container">
+            <p class="eyebrow reveal"><span class="lx-en">AI — Generative</span><span class="lx-ja">AI — ジェネレーティブ</span></p>
+            <h1 class="page-hero__title">
+                <span class="reveal-mask"><span>Generative</span></span>
+                <span class="reveal-mask"><span><em>AI</em></span></span>
+            </h1>
+            <p class="page-hero__sub reveal">
+                <span class="lx-en">Image &amp; video generation built into the workflow — a signature style that fuses proven craft with the latest AI expression.</span>
+                <span class="lx-ja">画像・動画生成AIをワークフローに導入。撮影技術と最新のAI表現を融合させた、独自のクリエイティブスタイル。</span>
+            </p>
+        </section>
 
-            <div class="gallery-item image-size">
-                <img src="aiimages/03_image.webp" alt="01">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">A realistic portrait of a young woman with a sophisticated and melancholic gaze. She has a chin-length blonde bob hair, center-parted, with a slight natural wave. Pale skin with a natural matte finish, hazel eyes, and soft neutral lips. Wearing a sharp black blazer. Studio lighting, clean white background, high contrast, 8k resolution, cinematic lighting, hyper-detailed skin texture.</div>
+        <!-- ============ 01 IMAGE 4:5 ============ -->
+        <section class="has-ghost section--tight container">
+            <span class="ghost ghost--r" aria-hidden="true" data-plx="r">Prompt</span>
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(01)</p>
+                    <h2 class="sec-head__title reveal-mask"><span>AI Image <em>4:5</em></span></h2>
                 </div>
             </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/02_image.webp" alt="02">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A and Image B, 
-preserving facial features and hairstyle.
+            <div class="slider reveal">
+                <div class="scroll-grid">
+                    <div class="gallery-item ar-4-5">
+                        <img src="aiimages/03_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>A realistic portrait of a young woman with a sophisticated and melancholic gaze. She has a chin-length blonde bob hair, center-parted, with a slight natural wave. Pale skin with a natural matte finish, hazel eyes, and soft neutral lips. Wearing a sharp black blazer. Studio lighting, clean white background, high contrast, 8k resolution, cinematic lighting, hyper-detailed skin texture.</div>
+                    </div>
+                    <div class="gallery-item ar-4-5">
+                        <img src="aiimages/02_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Keep the exact same model from Image A and Image B, preserving facial features and hairstyle.
 
 【Changes】
 Change the shoes to the exact ones from Image C.
 Open the jacket, wear the top from Image D.
 Remove the bag.
 
-【Environment & Style】
+【Environment &amp; Style】
 Natural daylight, soft shadows, realistic reflections.
 Photorealistic, ultra-detailed, sharp focus.
 High-quality fashion editorial photography.
 
 【Negative】
 no face change, no identity drift, no body distortion.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/06_image.webp" alt="03">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A and Image B, 
-preserving facial features and hairstyle.
+                    </div>
+                    <div class="gallery-item ar-4-5">
+                        <img src="aiimages/06_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Keep the exact same model from Image A and Image B, preserving facial features and hairstyle.
 
 【Changes】
 Change the shoes to the exact ones from Image C.
@@ -273,45 +130,31 @@ Aspect ratio 4:5.
 
 【Negative】
 no blur, no artifacts, no cropping, no aspect ratio change.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/07_image.webp" alt="04">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Full body portrait blending the specific facial features and hairstyle of Image A onto the body and pose of Image B. 
+                    </div>
+                    <div class="gallery-item ar-4-5">
+                        <img src="aiimages/07_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Full body portrait blending the specific facial features and hairstyle of Image A onto the body and pose of Image B.
 
 Soft studio lighting, 8k resolution.
 Hyper-realistic skin textures.
-Sharp focus on the eyes. 
+Sharp focus on the eyes.
 The subject is wearing the exact outfit from Image B.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/01_image.webp" alt="05">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A, preserving facial features, hairstyle, body proportions, and skin tone.
+                    </div>
+                    <div class="gallery-item ar-4-5">
+                        <img src="aiimages/01_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Keep the exact same model from Image A, preserving facial features, hairstyle, body proportions, and skin tone.
 
 【Background】
-Manhattan Village, 3200 N Sepulveda Blvd, 
-Manhattan Beach, CA 90266, USA.
+Manhattan Village, 3200 N Sepulveda Blvd, Manhattan Beach, CA 90266, USA.
 
 【Atmosphere】
 Outdoor lifestyle fashion, natural daylight.
 Photorealistic, ultra-detailed, sharp focus.
 High quality, fashion editorial style.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/04_image.webp" alt="06">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A, 
-preserving identity and background.
+                    </div>
+                    <div class="gallery-item ar-4-5">
+                        <img src="aiimages/04_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Keep the exact same model from Image A, preserving identity and background.
 
 【Changes】
 Change only the pants to those from Image B.
@@ -323,17 +166,11 @@ Realistic shadows and reflections.
 Photorealistic, ultra-detailed.
 
 【Negative】
-no face change, no identity drift, no body distortion, 
-no incorrect background.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item image-size">
-                <img src="aiimages/05_image.webp" alt="07">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep the exact same model from Image A, 
-preserving facial features and hairstyle.
+no face change, no identity drift, no body distortion, no incorrect background.</div>
+                    </div>
+                    <div class="gallery-item ar-4-5">
+                        <img src="aiimages/05_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Keep the exact same model from Image A, preserving facial features and hairstyle.
 
 【Outfit】
 Use the exact outfit from Image B.
@@ -344,275 +181,160 @@ Shorten the top (exposed belly).
 【Environment】
 Natural daylight, soft shadows, realistic reflections.
 Photorealistic, ultra-detailed, cinematic depth of field.</div>
+                    </div>
+                </div>
+                <div class="slider__nav">
+                    <button class="nav-btn prev-btn" aria-label="Previous">❮</button>
+                    <button class="nav-btn next-btn" aria-label="Next">❯</button>
                 </div>
             </div>
+        </section>
 
-        </div>
-        <button class="nav-btn next-btn">❯</button>
-    </div>
-</section>
-
-<section class="ai-section">
-    <p class="section-title-label">AI IMAGE GENERATE (9:16)</p>
-    <div class="slider-wrapper">
-        <button class="nav-btn prev-btn">❮</button>
-        <div class="scroll-grid">
-
-            <div class="gallery-item video-size">
-                <img src="aiimages/20_image.webp" alt="20">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Three-angle facial portrait composition:
+        <!-- ============ 02 IMAGE 9:16 ============ -->
+        <section class="section--tight container">
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(02)</p>
+                    <h2 class="sec-head__title reveal-mask"><span>AI Image <em>9:16</em></span></h2>
+                </div>
+            </div>
+            <div class="slider reveal">
+                <div class="scroll-grid">
+                    <div class="gallery-item ar-9-16">
+                        <img src="aiimages/20_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Three-angle facial portrait composition:
 1. Close up Front-facing view
 2. 45-degree three-quarter view
 3. Full side profile view
 
 Maintain exact facial features, hairstyle, and makeup.
 Clean neutral background, professional fashion style.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item video-size">
-                <img src="aiimages/11_image.webp" alt="11">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Modern glass skyscraper district.
-Standing on minimalist architectural stairs. 
+                    </div>
+                    <div class="gallery-item ar-9-16">
+                        <img src="aiimages/11_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Modern glass skyscraper district.
+Standing on minimalist architectural stairs.
 Action: Putting smartphone into pocket.
 
-Keep face and outfit exactly unchanged. 
+Keep face and outfit exactly unchanged.
 Clean geometric glass buildings.
 Soft natural daylight, cinematic fashion film style.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item video-size">
-                <img src="aiimages/12_image.webp" alt="12">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Keep face and outfit exactly unchanged. 
-Remove bag. 
+                    </div>
+                    <div class="gallery-item ar-9-16">
+                        <img src="aiimages/12_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Keep face and outfit exactly unchanged.
+Remove bag.
 
 Action: Rearranging clothing items on a rack.
 Minimalist modern interior.
 Soft warm boutique lighting, clean architectural lines.
 Calm refined atmosphere.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item video-size">
-                <img src="aiimages/10_image.webp" alt="10">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Three-angle facial portrait composition:
+                    </div>
+                    <div class="gallery-item ar-9-16">
+                        <img src="aiimages/10_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Three-angle facial portrait composition:
 - Front-facing
 - 45-degree view
 - Full side profile
 
 Consistency in hairstyle, makeup, and lighting.
 Professional fashion photography style.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item video-size">
-                <img src="aiimages/21_image.webp" alt="21">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Marunouchi red brick storefront in the morning.
+                    </div>
+                    <div class="gallery-item ar-9-16">
+                        <img src="aiimages/21_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Marunouchi red brick storefront in the morning.
 Action: Gently adjusting her handbag.
 
 Soft warm morning sunlight, subtle shadows.
 Realistic Japanese architecture.
 Cinematic fashion film style, ultra realistic.</div>
-                </div>
-            </div>
-
-            <div class="gallery-item video-size">
-                <img src="aiimages/22_image.webp" alt="22">
-                <div class="prompt-overlay">
-                    <span class="prompt-tag">PROMPT</span>
-                    <div class="prompt-content">Inside an elegant fashion boutique.
+                    </div>
+                    <div class="gallery-item ar-9-16">
+                        <img src="aiimages/22_image.webp" alt="AI image" loading="lazy">
+                        <div class="prompt-overlay"><span class="prompt-tag">PROMPT</span>Inside an elegant fashion boutique.
 Action: Adjusting an accessory on a mannequin.
 
-Keep face and outfit exactly unchanged. 
+Keep face and outfit exactly unchanged.
 Natural working moment (side angle).
 Soft warm indoor lighting, refined interior.
 Shallow depth of field, cinematic style.</div>
+                    </div>
+                </div>
+                <div class="slider__nav">
+                    <button class="nav-btn prev-btn" aria-label="Previous">❮</button>
+                    <button class="nav-btn next-btn" aria-label="Next">❯</button>
                 </div>
             </div>
+        </section>
 
-        </div>
-        <button class="nav-btn next-btn">❯</button>
-    </div>
-</section>
-
-<section class="ai-section">
-    <p class="section-title-label">AI VIDEO GENERATE</p>
-    <div class="slider-wrapper">
-        <button class="nav-btn prev-btn">❮</button>
-        
-        <div class="scroll-grid">
-            <div class="gallery-item video-9-16">
-                <video controls autoplay muted loop playsinline>
-                    <source src="aivideos/ai_movie_01.mp4" type="video/mp4">
-                </video>
+        <!-- ============ 03 VIDEO ============ -->
+        <section class="section--tight container">
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(03)</p>
+                    <h2 class="sec-head__title reveal-mask"><span>AI Video</span></h2>
+                </div>
             </div>
-
-            <div class="gallery-item video-16-9">
-                <video controls autoplay muted loop playsinline>
-                    <source src="aivideos/ai_movie_02.mp4" type="video/mp4">
-                </video>
+            <div class="slider reveal">
+                <div class="scroll-grid">
+                    <div class="gallery-item ar-9-16">
+                        <video controls muted loop playsinline><source src="aivideos/ai_movie_01.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="gallery-item ar-16-9">
+                        <video controls muted loop playsinline><source src="aivideos/ai_movie_02.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="gallery-item ar-16-9">
+                        <video controls muted loop playsinline><source src="aivideos/ai_movie_03.mp4" type="video/mp4"></video>
+                    </div>
+                </div>
+                <div class="slider__nav">
+                    <button class="nav-btn prev-btn" aria-label="Previous">❮</button>
+                    <button class="nav-btn next-btn" aria-label="Next">❯</button>
+                </div>
             </div>
-            
-            <div class="gallery-item video-16-9">
-                <video controls autoplay muted loop playsinline>
-                    <source src="aivideos/ai_movie_03.mp4" type="video/mp4">
-                </video>
+        </section>
+
+        <!-- ============ 04 VFX / COMPOSITING ============ -->
+        <section class="section--tight container">
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(04)</p>
+                    <h2 class="sec-head__title reveal-mask"><span>AI VFX <em>/ Compositing</em></span></h2>
+                </div>
             </div>
-        </div>
-        
-        <button class="nav-btn next-btn">❯</button>
-    </div>
-    
-<section class="ai-section">
-    <p class="section-title-label">AI VFX / COMPOSITING</p>
-    <div class="slider-wrapper">
-        <div class="ba-outer">
-            <div class="ba-wrapper" id="baWrapper1">
-
-                <video class="ba-before" autoplay muted loop playsinline>
-                    <source src="aivideos/vfx_before_01.mp4" type="video/mp4">
-                </video>
-
-                <video class="ba-after" autoplay muted loop playsinline>
-                    <source src="aivideos/vfx_after_01.mp4" type="video/mp4">
-                </video>
-
-                <div class="ba-divider" id="baDivider1"></div>
-                <div class="ba-handle"  id="baHandle1">⇔</div>
-
-              <span class="ba-tag left">AFTER</span>
-<span class="ba-tag right">BEFORE</span>
+            <p class="ba-hint reveal"><span class="lx-en">Drag the handle to compare before &amp; after.</span><span class="lx-ja">ハンドルをドラッグして、ビフォー / アフターを比較できます。</span></p>
+            <div class="reveal">
+                <div class="ba-wrapper">
+                    <video class="ba-before" autoplay muted loop playsinline><source src="aivideos/vfx_before_01.mp4" type="video/mp4"></video>
+                    <video class="ba-after" autoplay muted loop playsinline><source src="aivideos/vfx_after_01.mp4" type="video/mp4"></video>
+                    <div class="ba-divider"></div>
+                    <div class="ba-handle">⇔</div>
+                    <span class="ba-tag left">AFTER</span>
+                    <span class="ba-tag right">BEFORE</span>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
-
-
+        </section>
     </main>
 
-    <footer><p>&copy; portfolio</p></footer>
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer container">
+        <div class="footer-top">
+            <div class="footer-brand reveal-mask"><span>Kaho <em>Kobayashi</em></span></div>
+            <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="motion.html">Video</a>
+                <a href="photo.html">Photo</a>
+                <a href="ai.html">AI</a>
+                <a href="skill.html">Profile</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+        <div class="footer-meta">
+            <span>© 2026 Kaho Kobayashi</span>
+            <a class="to-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+        </div>
+    </footer>
 
-<script>
-    // 1. 【追加】スクロールでふわっと表示させる機能 (Intersection Observer)
-    const observerOptions = {
-        threshold: 0.1 // 10%見えたら実行
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
-        });
-    }, observerOptions);
-
-    // アニメーションさせたい要素を指定して観察開始
-    // セクション、グリッド内の画像、バナーなどに適用
-    document.querySelectorAll('section, .custom-image-grid img, .banner-item').forEach(el => {
-        el.classList.add('reveal'); // 初期状態のクラスを付与
-        observer.observe(el);
-    });
-
-
-    // 2. 【既存】ボタンによるスライド機能 & ドラッグスクロール
-    document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
-        const slider = wrapper.querySelector('.scroll-grid');
-        const prevBtn = wrapper.querySelector('.prev-btn');
-        const nextBtn = wrapper.querySelector('.next-btn');
-
-        const moveAmount = 320; // 1回で動く量
-
-        if (prevBtn && nextBtn) {
-            prevBtn.addEventListener('click', () => {
-                slider.scrollBy({ left: -moveAmount, behavior: 'smooth' });
-            });
-
-            nextBtn.addEventListener('click', () => {
-                slider.scrollBy({ left: moveAmount, behavior: 'smooth' });
-            });
-        }
-
-        // ドラッグスクロール機能
-        let isDown = false, startX, scrollLeft;
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true; 
-            slider.classList.add('active-drag'); // ドラッグ中用のスタイル（必要なら）
-            startX = e.pageX - slider.offsetLeft; 
-            scrollLeft = slider.scrollLeft;
-        });
-        slider.addEventListener('mouseleave', () => { isDown = false; });
-        slider.addEventListener('mouseup', () => { isDown = false; });
-        slider.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2;
-            slider.scrollLeft = scrollLeft - walk;
-        });
-    });
-    
-</script>
-    <!-- 既存の</script>の後、</body>の直前に追加 -->
-    <script>
-    (function() {
-        var wrapper  = document.getElementById('baWrapper1');
-        if (!wrapper) return;
-        var after    = wrapper.querySelector('.ba-after');
-        var divider  = document.getElementById('baDivider1');
-        var handle   = document.getElementById('baHandle1');
-        var dragging = false;
-
-        after.style.clipPath = 'inset(0 50% 0 0)';
-        divider.style.left   = '50%';
-        handle.style.left    = '50%';
-
-        function setPos(clientX) {
-            var rect = wrapper.getBoundingClientRect();
-            var pct  = (clientX - rect.left) / rect.width;
-            if (pct < 0.04) pct = 0.04;
-            if (pct > 0.96) pct = 0.96;
-            var p = pct * 100;
-            after.style.clipPath = 'inset(0 ' + (100 - p) + '% 0 0)';
-            divider.style.left   = p + '%';
-            handle.style.left    = p + '%';
-        }
-
-        wrapper.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            dragging = true;
-            setPos(e.clientX);
-        });
-        document.addEventListener('mousemove', function(e) {
-            if (!dragging) return;
-            e.preventDefault();
-            setPos(e.clientX);
-        }, { passive: false });
-        document.addEventListener('mouseup', function() { dragging = false; });
-
-        wrapper.addEventListener('touchstart', function(e) {
-            e.stopPropagation();
-            dragging = true;
-            setPos(e.touches[0].clientX);
-        }, { passive: true });
-        document.addEventListener('touchmove', function(e) {
-            if (!dragging) return;
-            setPos(e.touches[0].clientX);
-        }, { passive: true });
-        document.addEventListener('touchend', function() { dragging = false; });
-    })();
-    </script>
-    
+    <script src="main.js"></script>
 </body>
 </html>

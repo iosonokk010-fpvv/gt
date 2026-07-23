@@ -1,152 +1,216 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo — Kaho Kobayashi</title>
+    <meta name="description" content="Photography works by Kaho Kobayashi — portraits, products and coordination.">
+    <script>
+    (function(){var d=document.documentElement;d.classList.add("js");var l;try{l=localStorage.getItem("kk-lang");}catch(e){}
+    if(!l){var n=(navigator.language||"en").toLowerCase(),tz="";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch(e){}
+    l=(n.indexOf("ja")===0||tz==="Asia/Tokyo")?"ja":"en";}
+    d.classList.add(l==="ja"?"lang-ja":"lang-en");d.setAttribute("lang",l);})();
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <title>PHOTOGRAPHY　WORKS</title>
 </head>
 <body>
-
-    <header>
-        <div class="logo">
-            <h1>PORTFOLIO</h1>
+    <div class="curtain" aria-hidden="true">
+        <div class="curtain__panel">
+            <p class="curtain__brand">KAHO KOBAYASHI</p>
+            <span class="curtain__tag">Photo &amp; Video — 2026</span>
         </div>
-        <nav class="nav">
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </label>
-            <ul class="nav-list">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="motion.html">VIDEO</a></li>
-                <li><a href="photo.html">PHOTO</a></li>
+    </div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"><span>VIEW</span></div>
+    <div class="bg-stage" aria-hidden="true"></div>
+    <div class="aurora a1" aria-hidden="true"></div>
+    <div class="aurora a2" aria-hidden="true"></div>
+    <div class="aurora a3" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="scroll-progress"></div>
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+        <div class="nav-inner">
+            <a class="brand" href="index.html">KAHO KOBAYASHI<span>PORTFOLIO</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="motion.html">Video</a></li>
+                <li><a href="photo.html" aria-current="page">Photo</a></li>
                 <li><a href="ai.html">AI</a></li>
-                <li><a href="skill.html">PROFILE</a></li>
+                <li><a href="skill.html">Profile</a></li>
             </ul>
-        </nav>
+            <div class="nav-tools">
+                <div class="lang-toggle" role="group" aria-label="Language">
+                    <button type="button" data-lang="ja">JA</button>
+                    <button type="button" data-lang="en">EN</button>
+                </div>
+                <a class="btn btn--solid nav-cta" href="index.html#contact">Contact</a>
+                <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+            </div>
+        </div>
     </header>
 
-    <main class="profile-container">
-        
-        <div class="profile-name">
-            <h3>PHOTO<br>WORKS</h3>
-        </div>
+    <div class="nav-overlay">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="motion.html">Video</a></li>
+            <li><a href="photo.html">Photo</a></li>
+            <li><a href="ai.html">AI</a></li>
+            <li><a href="skill.html">Profile</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ol>
+        <div class="nav-overlay__foot"><span>Photo &amp; Video Creator</span><span>© 2026 Kaho Kobayashi</span></div>
+    </div>
 
-        <section class="skill">
-            <p class="section-title-label">Photography</p>
-            
-            <div class="custom-image-grid">
-                <img src="images/photo42.jpg" alt="Photo 42">
-    <img src="images/photo40.jpg" alt="Photo 40">
-    <img src="images/photo41.jpg" alt="Photo 41">
-    <img src="images/photo43.jpg" alt="Photo 43">
-    <img src="images/photo44.jpg" alt="Photo 44">
-    <img src="images/photo45.jpg" alt="Photo 45">
-    <img src="images/photo46.jpg" alt="Photo 46">
-    <img src="images/photo47.jpg" alt="Photo 47">
- <img src="images/photo48.jpg" alt="Photo 48">          
-    <img src="images/photo50.jpg" alt="Photo 50">
-    <img src="images/photo51.jpg" alt="Photo 51">
-    <img src="images/photo53.jpg" alt="Photo 53">
-    <img src="images/photo54.jpg" alt="Photo 54">
-    <img src="images/photo55.jpg" alt="Photo 55">
-    <img src="images/photo56.jpg" alt="Photo 56">
-   <img src="images/photo58.jpg" alt="Photo 58">             
-    <img src="images/photo60.jpg" alt="Photo 60">
-    <img src="images/photo61.jpg" alt="Photo 61">
-    <img src="images/photo62.jpg" alt="Photo 62">
-    <img src="images/photo63.jpg" alt="Photo 63">
-    <img src="images/photo64.jpg" alt="Photo 64">
-    <img src="images/photo65.jpg" alt="Photo 65">
-    <img src="images/photo66.jpg" alt="Photo 66">
-    <img src="images/photo67.jpg" alt="Photo 67">
-                <img src="images/photo2.jpg" alt="Photo 2">
-                <img src="images/photo3.jpg" alt="Photo 3">
-                <img src="images/photo4.jpg" alt="Photo 4">
-                <img src="images/photo5.jpg" alt="Photo 5">
-                <img src="images/photo6.jpg" alt="Photo 6">
-                <img src="images/photo7.jpg" alt="Photo 7">
-                <img src="images/photo8.jpg" alt="Photo 8">
-                <img src="images/photo9.jpg" alt="Photo 9">
-                <img src="images/photo10.jpg" alt="Photo 10">
-                <img src="images/photo11.jpg" alt="Photo 11">
-                <img src="images/photo12.jpg" alt="Photo 12">
-                <img src="images/photo13.jpg" alt="Photo 13">
-                <img src="images/photo14.jpg" alt="Photo 14">
-                <img src="images/photo16.jpg" alt="Photo 16">
-                <img src="images/photo29.jpg" alt="Photo 29">
-                <img src="images/photo30.jpg" alt="Photo 30">
-                <img src="images/photo31.jpg" alt="Photo 31">
-                <img src="images/photo32.jpg" alt="Photo 32">
-                <img src="images/photo33.jpg" alt="Photo 33">
-                <img src="images/photo34.jpg" alt="Photo 34">
-                <img src="images/photo35.jpg" alt="Photo 35">
-                <img src="images/photo36.jpg" alt="Photo 36">
-                <img src="images/photo37.jpg" alt="Photo 37">
-                <img src="images/photo38.jpg" alt="Photo 38">
-            </div>
+    <main>
+        <!-- ============ PAGE HERO ============ -->
+        <section class="page-hero container">
+            <p class="eyebrow reveal"><span class="lx-en">Photo — Stills</span><span class="lx-ja">写真 — スチール</span></p>
+            <h1 class="page-hero__title">
+                <span class="reveal-mask"><span>Photo</span></span>
+                <span class="reveal-mask"><span><em>Works</em></span></span>
+            </h1>
+            <p class="page-hero__sub reveal">
+                <span class="lx-en">From portrait, product and staff photography to coordination — stills crafted with a feel for light and texture.</span>
+                <span class="lx-ja">ポートレート、商品、スタッフ撮影からコーディネートまで。光と質感にこだわったスチール作品。</span>
+            </p>
+        </section>
 
-        <section class="skill">
-            <p class="section-title-label">Coordinator</p>
-           
-           <div class="custom-image-grid-3col">
- <img src="images/01_co.jpg" alt="co_01">
-<img src="images/02_co.jpg" alt="co_02">
-<img src="images/03_co.jpg" alt="co_03">
-<img src="images/04_co.jpg" alt="co_04">
-<img src="images/05_co.jpg" alt="co_05">
-<img src="images/06_co.jpg" alt="co_06">
-<img src="images/07_co.jpg" alt="co_07">
-<img src="images/08_co.jpg" alt="co_08">
-<img src="images/09_co.jpg" alt="co_09">
-<img src="images/10_co.jpg" alt="co_10">
-<img src="images/11_co.jpg" alt="co_11">
-<img src="images/12_co.jpg" alt="co_12">
-<img src="images/13_co.jpg" alt="co_13">
-<img src="images/14_co.jpg" alt="co_14">
-<img src="images/15_co.jpg" alt="co_15">
-<img src="images/17_co.jpg" alt="co_17">
-<img src="images/18_co.jpg" alt="co_18">
-<img src="images/19_co.jpg" alt="co_19">
-<img src="images/20_co.jpg" alt="co_20">
-<img src="images/21_co.jpg" alt="co_21">
-<img src="images/22_co.jpg" alt="co_22">
-<img src="images/23_co.jpg" alt="co_23">
-<img src="images/24_co.jpg" alt="co_24">
-<img src="images/25_co.jpg" alt="co_25">
-<img src="images/26_co.jpg" alt="co_26">
-<img src="images/27_co.jpg" alt="co_27">
-<img src="images/28_co.jpg" alt="co_28">
-<img src="images/29_co.jpg" alt="co_29">
-<img src="images/30_co.jpg" alt="co_30">
-<img src="images/31_co.jpg" alt="co_31">
-<img src="images/32_co.jpg" alt="co_32">
-<img src="images/33_co.jpg" alt="co_33">
-<img src="images/34_co.jpg" alt="co_34">
-<img src="images/35_co.jpg" alt="co_35">
-<img src="images/36_co.jpg" alt="co_36">
-<img src="images/37_co.jpg" alt="co_37">
+        <!-- ============ 01 PHOTOGRAPHY ============ -->
+        <section class="has-ghost section--tight container">
+            <span class="ghost ghost--r" aria-hidden="true" data-plx="r">Stills</span>
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(01)</p>
+                    <h2 class="sec-head__title reveal-mask"><span>Photography</span></h2>
                 </div>
-            
+            </div>
+            <div class="grid-photos" data-stagger>
+                <div class="figure reveal"><img src="images/photo42.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo40.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo41.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo43.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo44.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo45.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo46.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo47.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo48.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo50.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo51.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo53.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo54.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo55.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo56.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo58.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo60.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo61.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo62.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo63.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo64.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo65.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo66.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo67.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo2.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo3.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo4.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo5.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo6.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo7.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo8.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo9.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo10.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo11.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo12.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo13.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo14.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo16.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo29.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo30.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo31.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo32.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo33.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo34.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo35.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo36.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo37.jpg" alt="Photograph" loading="lazy"></div>
+                <div class="figure reveal"><img src="images/photo38.jpg" alt="Photograph" loading="lazy"></div>
+            </div>
+        </section>
+
+        <!-- ============ 02 COORDINATOR ============ -->
+        <section class="section--tight container">
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(02)</p>
+                    <h2 class="sec-head__title reveal-mask"><span>Coordinator</span></h2>
+                </div>
+            </div>
+            <div class="grid-3" data-stagger>
+                <div class="figure figure--tall reveal"><img src="images/01_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/02_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/03_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/04_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/05_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/06_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/07_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/08_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/09_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/10_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/11_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/12_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/13_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/14_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/15_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/17_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/18_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/19_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/20_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/21_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/22_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/23_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/24_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/25_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/26_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/27_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/28_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/29_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/30_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/31_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/32_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/33_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/34_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/35_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/36_co.jpg" alt="Coordination" loading="lazy"></div>
+                <div class="figure figure--tall reveal"><img src="images/37_co.jpg" alt="Coordination" loading="lazy"></div>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>&copy; portfolio</p>
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer container">
+        <div class="footer-top">
+            <div class="footer-brand reveal-mask"><span>Kaho <em>Kobayashi</em></span></div>
+            <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="motion.html">Video</a>
+                <a href="photo.html">Photo</a>
+                <a href="ai.html">AI</a>
+                <a href="skill.html">Profile</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+        <div class="footer-meta">
+            <span>© 2026 Kaho Kobayashi</span>
+            <a class="to-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+        </div>
     </footer>
-<script>
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, { 
-    threshold: 0.01, // 0.1から0.01に変更（少しでも画面に入ったら表示）
-    rootMargin: '0px 0px 200px 0px' // 画面の外にいるうちから読み込み開始
-});
-</script>
-    </body>
+
+    <script src="main.js"></script>
+</body>
 </html>

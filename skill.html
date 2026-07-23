@@ -1,186 +1,156 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css"> <title>Portfolio | Kaho Kobayashi</title>
-    <style>
-        /* =========================================
-           プロフィールページ専用の独自レイアウト
-           （ここを維持してエディトリアル感を出す）
-           ========================================= */
-        
-        /* メインコンテナ */
-        .profile-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 60px 100px;
-        }
-
-        /* 巨大な名前 */
-        .profile-name {
-            margin-bottom: 100px;
-            text-align: left; /* ここはあえての左寄せでデザインを強調 */
-        }
-        .profile-name h3 {
-            font-size: clamp(40px, 8vw, 120px);
-            margin: 0;
-            letter-spacing: -0.02em;
-            font-weight: 700;
-            line-height: 0.9;
-            color: #fff;
-        }
-
-        /* 1:2のグリッドレイアウト */
-        .profile-section {
-            border-top: 1px solid #333;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            padding: 40px 0;
-            gap: 40px;
-        }
-
-        .section-title {
-            font-size: 12px;
-            letter-spacing: 0.2em;
-            color: #00aaff;
-            margin: 0;
-            text-align: left;
-        }
-
-        .about-text {
-            font-size: 15px;
-            max-width: 600px;
-            margin: 0;
-            text-align: justify;
-            color: #fff;
-        }
-
-        .profile-block {
-            margin-bottom: 40px;
-            text-align: left;
-        }
-        .profile-block h3 {
-            font-size: 24px;
-            margin: 0 0 20px 0;
-            font-weight: 500;
-            color: #fff;
-        }
-
-        /* スキルのスラッシュ区切り */
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 20px;
-            justify-content: flex-start; /* 左寄せ */
-        }
-        .skills-list span {
-            font-size: 13px;
-            color: #999;
-            position: relative;
-        }
-        .skills-list span:not(:last-child)::after {
-            content: "/";
-            margin-left: 20px;
-            color: #333;
-        }
-
-        /* スマホ対応 */
-        @media (max-width: 768px) {
-            .profile-section { 
-                grid-template-columns: 1fr; 
-                gap: 20px; 
-            }
-            .profile-container { padding: 0 20px 60px; }
-            .profile-name { margin-bottom: 50px; }
-        }
-    </style>
+    <title>Profile — Kaho Kobayashi</title>
+    <meta name="description" content="Profile of Kaho Kobayashi — Photo & Video Creator.">
+    <script>
+    (function(){var d=document.documentElement;d.classList.add("js");var l;try{l=localStorage.getItem("kk-lang");}catch(e){}
+    if(!l){var n=(navigator.language||"en").toLowerCase(),tz="";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch(e){}
+    l=(n.indexOf("ja")===0||tz==="Asia/Tokyo")?"ja":"en";}
+    d.classList.add(l==="ja"?"lang-ja":"lang-en");d.setAttribute("lang",l);})();
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <header>
-        <div class="logo">
-            <h1>PORTFOLIO</h1>
+    <div class="curtain" aria-hidden="true">
+        <div class="curtain__panel">
+            <p class="curtain__brand">KAHO KOBAYASHI</p>
+            <span class="curtain__tag">Photo &amp; Video — 2026</span>
         </div>
-        <nav class="nav">
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </label>
-            <ul class="nav-list">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="motion.html">VIDEO</a></li>
-                <li><a href="photo.html">PHOTO</a></li>
+    </div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"><span>VIEW</span></div>
+    <div class="bg-stage" aria-hidden="true"></div>
+    <div class="aurora a1" aria-hidden="true"></div>
+    <div class="aurora a2" aria-hidden="true"></div>
+    <div class="aurora a3" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="scroll-progress"></div>
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+        <div class="nav-inner">
+            <a class="brand" href="index.html">KAHO KOBAYASHI<span>PORTFOLIO</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="motion.html">Video</a></li>
+                <li><a href="photo.html">Photo</a></li>
                 <li><a href="ai.html">AI</a></li>
-                <li><a href="skill.html">PROFILE</a></li>
+                <li><a href="skill.html" aria-current="page">Profile</a></li>
             </ul>
-        </nav>
+            <div class="nav-tools">
+                <div class="lang-toggle" role="group" aria-label="Language">
+                    <button type="button" data-lang="ja">JA</button>
+                    <button type="button" data-lang="en">EN</button>
+                </div>
+                <a class="btn btn--solid nav-cta" href="index.html#contact">Contact</a>
+                <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+            </div>
+        </div>
     </header>
 
-    <main class="profile-container">
-        <div class="profile-name">
-            <h3>KAHO<br>KOBAYASHI</h3>
-        </div>
+    <div class="nav-overlay">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="motion.html">Video</a></li>
+            <li><a href="photo.html">Photo</a></li>
+            <li><a href="ai.html">AI</a></li>
+            <li><a href="skill.html">Profile</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ol>
+        <div class="nav-overlay__foot"><span>Photo &amp; Video Creator</span><span>© 2026 Kaho Kobayashi</span></div>
+    </div>
 
-        <section class="profile-section">
-            <h2 class="section-title">ABOUT ME</h2>
-            <p class="about-text">
-              これまで企業で、撮影の進行管理や商品やスタッフ撮影、レタッチや動画編集などクリエイティブを支える仕事に携わってきました。
-                また、ウェディングの動画撮影なども行っています。動画の分野では、撮影・編集はもちろん、2D・3Dモーショングラフィックスを駆使した動きのあるデザイン制作も行なってきました。
-現在はさらに一歩先を見据え、画像・動画生成AIをワークフローに導入。撮影技術と最新のAI表現を融合させた、独自のクリエイティブスタイルを追求しています。
+    <main>
+        <!-- ============ PAGE HERO ============ -->
+        <section class="page-hero container">
+            <p class="eyebrow reveal"><span class="lx-en">Profile — About</span><span class="lx-ja">プロフィール — About</span></p>
+            <h1 class="page-hero__title">
+                <span class="reveal-mask"><span>Kaho</span></span>
+                <span class="reveal-mask"><span><em>Kobayashi</em></span></span>
+            </h1>
+            <p class="page-hero__sub reveal">
+                <span class="lx-en">Photo &amp; Video Creator — pursuing a signature creative style that fuses proven shooting craft with the latest AI expression.</span>
+                <span class="lx-ja">Photo &amp; Video Creator — 撮影技術と最新のAI表現を融合させた独自のクリエイティブを追求。</span>
             </p>
         </section>
 
-        <section class="profile-section">
-            <h2 class="section-title">MY PROFILE</h2>
-            <div>
-                <div class="profile-block">
-                    <h3>Education</h3>
-                    <div class="skills-list"><span>文化服装学院</span></div>
+        <!-- ============ PROFILE ROWS ============ -->
+        <section class="has-ghost section--tight container">
+            <span class="ghost ghost--r" aria-hidden="true" data-plx="r">Creator</span>
+            <div class="profile-rows">
+                <div class="profile-row">
+                    <p class="profile-row__label reveal">About Me</p>
+                    <div class="profile-row__body reveal">
+                        <p class="lx-en">I have worked in roles that support creative production at companies — from managing shoot schedules and photographing products and staff, to retouching and video editing. I also shoot wedding videos. In the video field I handle shooting and editing, of course, as well as motion design that brings movement through 2D and 3D motion graphics. Now, looking a step further ahead, I have brought image- and video-generation AI into my workflow, pursuing a creative style of my own that fuses proven shooting craft with the latest AI expression.</p>
+                        <p class="lx-ja">これまで企業で、撮影の進行管理や商品やスタッフ撮影、レタッチや動画編集などクリエイティブを支える仕事に携わってきました。また、ウェディングの動画撮影なども行っています。動画の分野では、撮影・編集はもちろん、2D・3Dモーショングラフィックスを駆使した動きのあるデザイン制作も行なってきました。現在はさらに一歩先を見据え、画像・動画生成AIをワークフローに導入。撮影技術と最新のAI表現を融合させた、独自のクリエイティブスタイルを追求しています。</p>
+                    </div>
                 </div>
 
-                <div class="profile-block">
-                    <h3>Work Experience</h3>
-                    <div class="skills-list"><span>FAREAST COMPANY</span></div>
-                </div>
-
-                <div class="profile-block">
-                    <h3>Skill</h3>
-                    <div class="skills-list">
-                        <span>Photography</span><span>Videography</span>
-                        <span>AI model</span><span>Photoshop</span><span>Premiere Pro</span>
-                        <span>After Effects</span><span>Illustrator</span><span>Blender</span>
-                        <span>Nano Banana</span><span>Kling</span><span>Higgsfield</span>
+                <div class="profile-row">
+                    <p class="profile-row__label reveal">My Profile</p>
+                    <div class="profile-row__body reveal">
+                        <div class="info-block">
+                            <h4>Education</h4>
+                            <div class="slashlist"><span class="lx-en">Bunka Fashion College</span><span class="lx-ja">文化服装学院</span></div>
+                        </div>
+                        <div class="info-block">
+                            <h4>Work Experience</h4>
+                            <div class="slashlist"><span>FAREAST COMPANY</span></div>
+                        </div>
+                        <div class="info-block">
+                            <h4>Skill</h4>
+                            <div class="slashlist">
+                                <span>Photography</span><span>Videography</span><span>AI model</span>
+                                <span>Photoshop</span><span>Premiere Pro</span><span>After Effects</span>
+                                <span>Illustrator</span><span>Blender</span><span>Nano Banana</span>
+                                <span>Kling</span><span>Higgsfield</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- ============ MARQUEE ============ -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee__track">
+                <span>Photography</span><span>Film</span><span>Motion Design</span><span>Generative AI</span><span>Retouch</span><span>Direction</span>
+                <span>Photography</span><span>Film</span><span>Motion Design</span><span>Generative AI</span><span>Retouch</span><span>Direction</span>
+            </div>
+            <div class="marquee__track marquee__track--outline">
+                <span>Kaho Kobayashi</span><span>Tokyo</span><span>Photo &amp; Video Creator</span><span>Since 2024</span>
+                <span>Kaho Kobayashi</span><span>Tokyo</span><span>Photo &amp; Video Creator</span><span>Since 2024</span>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <p>&copy; PORTFOLIO</p>
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer container">
+        <div class="footer-top">
+            <div class="footer-brand reveal-mask"><span>Kaho <em>Kobayashi</em></span></div>
+            <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="motion.html">Video</a>
+                <a href="photo.html">Photo</a>
+                <a href="ai.html">AI</a>
+                <a href="skill.html">Profile</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+        <div class="footer-meta">
+            <span>© 2026 Kaho Kobayashi</span>
+            <a class="to-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+        </div>
     </footer>
-<script>
-// スクロールで要素をふわっと表示させる（Intersection Observer）
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, { threshold: 0.1 });
 
-// アニメーションさせたい要素（セクションや画像）に一括適用
-document.querySelectorAll('section, .custom-image-grid img, .banner-item').forEach(el => {
-    el.classList.add('reveal');
-    observer.observe(el);
-});
-
-// 前回のスライダー機能もここに一緒に置いておいてくださいね！
-</script>
+    <script src="main.js"></script>
 </body>
 </html>
-
-
