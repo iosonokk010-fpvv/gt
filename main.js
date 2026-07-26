@@ -272,18 +272,19 @@
   function finishCurtain() { html.classList.add("is-done"); html.classList.remove("is-holding"); }
 
   if (curtain && !reduceMotion) {
-    var seen = false;
-    try { seen = sessionStorage.getItem("kk-seen") === "1"; } catch (e) {}
-    if (seen) html.classList.add("is-fast");
-    try { sessionStorage.setItem("kk-seen", "1"); } catch (e) {}
-
-    html.classList.add("is-holding");
-    var liftDelay = seen ? 320 : 1050;
-    setTimeout(function () {
-      html.classList.add("is-loaded");
-      html.classList.remove("is-holding");
-    }, liftDelay);
-    setTimeout(finishCurtain, liftDelay + 950);
+    if (!window.__kkCurtain) {
+      var seen = false;
+      try { seen = sessionStorage.getItem("kk-seen") === "1"; } catch (e) {}
+      if (seen) html.classList.add("is-fast");
+      try { sessionStorage.setItem("kk-seen", "1"); } catch (e) {}
+      html.classList.add("is-holding");
+      var liftDelay = seen ? 320 : 1050;
+      setTimeout(function () {
+        html.classList.add("is-loaded");
+        html.classList.remove("is-holding");
+      }, liftDelay);
+      setTimeout(finishCurtain, liftDelay + 950);
+    }
     setTimeout(finishCurtain, 3200); // hard safety
 
     // Exit transition on internal navigation

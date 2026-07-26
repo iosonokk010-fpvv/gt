@@ -27,6 +27,11 @@
     </div>
     <div class="cursor-dot" aria-hidden="true"></div>
     <div class="cursor-ring" aria-hidden="true"><span>VIEW</span></div>
+    <script>(function(){window.__kkCurtain=1;var h=document.documentElement;var f=false;try{f=sessionStorage.getItem("kk-seen")==="1";sessionStorage.setItem("kk-seen","1");}catch(e){}
+    if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){h.classList.add("is-loaded");h.classList.add("is-done");return;}
+    if(f)h.classList.add("is-fast");h.classList.add("is-holding");var d=f?320:1050;
+    setTimeout(function(){h.classList.add("is-loaded");h.classList.remove("is-holding");},d);
+    setTimeout(function(){h.classList.add("is-done");h.classList.remove("is-holding");},d+950);})();</script>
     <div class="bg-stage" aria-hidden="true"></div>
     <div class="aurora a1" aria-hidden="true"></div>
     <div class="aurora a2" aria-hidden="true"></div>
@@ -72,6 +77,16 @@
         <!-- ============ HERO ============ -->
         <section class="hero">
             <canvas class="hero__canvas" aria-hidden="true"></canvas>
+            <div class="hero__stream" aria-hidden="true">
+                <div class="stream-item" style="--z:60px; --y:6%; --ar:3/4; --dur:19s; --delay:-3s;"><img src="images/03_co.jpg" alt="" loading="eager" decoding="async"></div>
+                <div class="stream-item" style="--z:-180px; --y:54%; --ar:4/5; --dur:31s; --delay:-11s;"><img src="images/photo42.jpg" alt="" loading="eager" decoding="async"></div>
+                <div class="stream-item stream-item--video" style="--z:-60px; --y:30%; --ar:9/16; --dur:24s; --delay:-6s;"><video autoplay muted loop playsinline preload="metadata"><source src="aivideos/vfx_after_01.mp4#t=0.1" type="video/mp4"></video></div>
+                <div class="stream-item" style="--z:-260px; --y:12%; --ar:3/4; --dur:36s; --delay:-20s;"><img src="images/09_co.jpg" alt="" loading="lazy" decoding="async"></div>
+                <div class="stream-item" style="--z:0px; --y:62%; --ar:4/5; --dur:21s; --delay:-15s;"><img src="aiimages/03_image.webp" alt="" loading="eager" decoding="async"></div>
+                <div class="stream-item stream-item--video" style="--z:-220px; --y:40%; --ar:9/16; --dur:33s; --delay:-26s;"><video autoplay muted loop playsinline preload="metadata"><source src="aivideos/ai_movie_02.mp4#t=0.1" type="video/mp4"></video></div>
+                <div class="stream-item" style="--z:-120px; --y:2%; --ar:4/5; --dur:27s; --delay:-9s;"><img src="aiimages/04_image.webp" alt="" loading="lazy" decoding="async"></div>
+                <div class="stream-item" style="--z:-90px; --y:66%; --ar:3/4; --dur:29s; --delay:-23s;"><img src="images/25_co.jpg" alt="" loading="lazy" decoding="async"></div>
+            </div>
             <div class="hero__inner container">
                 <p class="eyebrow reveal">Kaho Kobayashi — Portfolio</p>
                 <h1 class="hero__title">
@@ -92,28 +107,8 @@
             <span class="hero__scroll">Scroll <span class="dot"></span></span>
         </section>
 
-        <!-- ============ INTRO ============ -->
-        <section class="section container">
-            <div class="intro-grid">
-                <h2 class="statement reveal">
-                    <span class="lx-en">Crafting <em>images</em> and motion where photography meets the future.</span>
-                    <span class="lx-ja"><em>写真</em>と映像で、いまと未来をつなぐビジュアルを。</span>
-                </h2>
-                <p class="reveal">
-                    <span class="lx-en">From shooting, editing and 2D/3D motion graphics to the latest generative image &amp; video AI — blended into one signature creative style.</span>
-                    <span class="lx-ja">撮影・編集・2D/3Dモーショングラフィックスから、最新の画像・動画生成AIまで。確かな撮影技術と新しい表現を融合させた、独自のクリエイティブを届けます。</span>
-                </p>
-            </div>
-        </section>
-
         <!-- ============ SHOWREEL ============ -->
         <section class="section--tight container" id="work">
-            <div class="sec-head">
-                <div>
-                    <p class="eyebrow reveal">(00) — Showreel</p>
-                    <h2 class="sec-head__title reveal-mask"><span>Showreel</span></h2>
-                </div>
-            </div>
             <div class="showreel reveal">
                 <video autoplay muted loop playsinline poster="images/photo42.jpg">
                     <source src="videos/0426_11.MOV" type="video/mp4">
@@ -140,8 +135,8 @@
                 <div class="feature-card glass reveal">
                     <span class="idx">02</span>
                     <div>
-                        <h3><span class="lx-en">Film &amp; Motion</span><span class="lx-ja">映像・モーション</span></h3>
-                        <p><span class="lx-en">Shooting, editing and 2D/3D motion graphics for films that move.</span><span class="lx-ja">撮影・編集、2D/3Dモーショングラフィックスによる動きのある映像。</span></p>
+                        <h3><span class="lx-en">Videography</span><span class="lx-ja">映像撮影</span></h3>
+                        <p><span class="lx-en">Wedding videography — full ceremony &amp; reception coverage.</span><span class="lx-ja">ウェディング（挙式・披露宴）の撮影を中心とした映像制作。</span></p>
                     </div>
                 </div>
                 <div class="feature-card glass reveal">
@@ -154,8 +149,8 @@
                 <div class="feature-card glass reveal">
                     <span class="idx">04</span>
                     <div>
-                        <h3><span class="lx-en">Retouch &amp; Direction</span><span class="lx-ja">レタッチ・進行</span></h3>
-                        <p><span class="lx-en">Retouching, coordination and shoot management from start to finish.</span><span class="lx-ja">レタッチ、コーディネート、撮影の進行管理まで。</span></p>
+                        <h3><span class="lx-en">Editing &amp; Retouch</span><span class="lx-ja">編集・レタッチ・進行</span></h3>
+                        <p><span class="lx-en">Video editing, retouching, coordination and shoot management from start to finish.</span><span class="lx-ja">映像編集、レタッチ、コーディネート、撮影の進行管理まで。</span></p>
                     </div>
                 </div>
             </div>
@@ -169,7 +164,7 @@
                     <p class="eyebrow reveal">(01) — Selected</p>
                     <h2 class="sec-head__title reveal-mask"><span>Photography</span></h2>
                 </div>
-                <a class="linklike reveal" href="photo.html"><span class="lx-en">View all photo</span><span class="lx-ja">写真をすべて見る</span> →</a>
+                <a class="linklike reveal" href="photo.html"><span class="lx-en">View photo works</span><span class="lx-ja">写真作品を見る</span> →</a>
             </div>
             <div class="mosaic" data-stagger>
                 <a class="figure reveal" href="photo.html"><img src="images/photo42.jpg" alt="Photograph" loading="lazy"></a>
@@ -189,9 +184,9 @@
             <div class="sec-head">
                 <div>
                     <p class="eyebrow reveal">(02) — Generative</p>
-                    <h2 class="sec-head__title reveal-mask"><span>AI <em>Direction</em></span></h2>
+                    <h2 class="sec-head__title reveal-mask"><span>AI <em>Generation</em></span></h2>
                 </div>
-                <a class="linklike reveal" href="ai.html"><span class="lx-en">Explore AI works</span><span class="lx-ja">AI作品を見る</span> →</a>
+                <a class="linklike reveal" href="ai.html"><span class="lx-en">View AI works</span><span class="lx-ja">AI作品を見る</span> →</a>
             </div>
             <div class="slider reveal">
                 <div class="scroll-grid">
@@ -210,23 +205,26 @@
 
         <!-- ============ VIDEO TEASER ============ -->
         <section class="has-ghost section--tight container">
-            <span class="ghost ghost--r" aria-hidden="true" data-plx="r">In Motion</span>
+            <span class="ghost ghost--r" aria-hidden="true" data-plx="r">Film</span>
             <div class="sec-head">
                 <div>
-                    <p class="eyebrow reveal">(03) — In Motion</p>
+                    <p class="eyebrow reveal">(03) — Video</p>
                     <h2 class="sec-head__title reveal-mask"><span>Film <em>&amp;</em> Edit</span></h2>
                 </div>
-                <a class="linklike reveal" href="motion.html"><span class="lx-en">View all video</span><span class="lx-ja">映像をすべて見る</span> →</a>
+                <a class="linklike reveal" href="motion.html"><span class="lx-en">View film works</span><span class="lx-ja">映像作品を見る</span> →</a>
             </div>
             <div class="shorts" data-stagger style="margin-bottom: clamp(18px,2.4vw,32px);">
-                <div class="shorts__item reveal"><video autoplay muted loop playsinline><source src="videos/sns_4.mp4" type="video/mp4"></video></div>
-                <div class="shorts__item reveal"><video autoplay muted loop playsinline><source src="videos/SNS_3.mp4" type="video/mp4"></video></div>
-                <div class="shorts__item reveal"><video autoplay muted loop playsinline><source src="videos/CD_shimada_15mb.mp4" type="video/mp4"></video></div>
+                <div class="shorts__item reveal"><video autoplay muted loop playsinline preload="metadata"><source src="videos/sns_4.mp4#t=0.1" type="video/mp4"></video></div>
+                <div class="shorts__item reveal"><video autoplay muted loop playsinline preload="metadata"><source src="videos/SNS_3.mp4#t=0.1" type="video/mp4"></video></div>
+                <div class="shorts__item reveal"><video autoplay muted loop playsinline preload="metadata"><source src="videos/CD_shimada_15mb.mp4#t=0.1" type="video/mp4"></video></div>
+                <div class="shorts__item reveal"><video autoplay muted loop playsinline preload="metadata"><source src="videos/10251818070_19.mp4#t=0.1" type="video/mp4"></video></div>
             </div>
             <div class="work-grid" data-stagger>
-                <a class="work-card reveal" href="https://www.youtube.com/watch?v=9oJPrcyI9G4" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/9oJPrcyI9G4/hqdefault.jpg" alt="Personal project" loading="lazy"></div><div class="work-card__label"><span>Personal Project</span><span>YouTube</span></div></a>
+                <a class="work-card reveal" href="https://www.youtube.com/watch?v=Iqori16StCg" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/Iqori16StCg/hqdefault.jpg" alt="Wedding Film" loading="lazy"></div><div class="work-card__label"><span>Wedding Film</span><span>YouTube</span></div></a>
+                <a class="work-card reveal" href="https://www.youtube.com/watch?v=bhRWzt1RwAE" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/bhRWzt1RwAE/hqdefault.jpg" alt="Wedding Film" loading="lazy"></div><div class="work-card__label"><span>Wedding Film</span><span>YouTube</span></div></a>
+                <a class="work-card reveal" href="https://www.youtube.com/watch?v=PLx-xD8y_1w" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/PLx-xD8y_1w/hqdefault.jpg" alt="Wedding Film" loading="lazy"></div><div class="work-card__label"><span>Wedding Film</span><span>YouTube</span></div></a></div><div class="work-card__label"><span>Personal Project</span><span>YouTube</span></div></a>
                 <a class="work-card reveal" href="https://www.youtube.com/watch?v=6-FV6zMvuxs" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/6-FV6zMvuxs/hqdefault.jpg" alt="Coordinator work" loading="lazy"></div><div class="work-card__label"><span>Coordinator</span><span>YouTube</span></div></a>
-                <a class="work-card reveal" href="https://www.youtube.com/watch?v=23t8xk9hnjY" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/23t8xk9hnjY/hqdefault.jpg" alt="Client work" loading="lazy"></div><div class="work-card__label"><span>Client Work</span><span>YouTube</span></div></a>
+                <a class="work-card reveal" href="https://www.youtube.com/watch?v=23t8xk9hnjY" target="_blank" rel="noopener"><div class="work-card__media"><img src="https://img.youtube.com/vi/23t8xk9hnjY/hqdefault.jpg" alt="Wedding film" loading="lazy"></div><div class="work-card__label"><span>Wedding Film</span><span>YouTube</span></div></a>
             </div>
         </section>
 
@@ -234,7 +232,7 @@
         <section class="section--tight container">
             <div class="sec-head">
                 <div>
-                    <p class="eyebrow reveal">(04) — The Creator</p>
+                    <p class="eyebrow reveal">(04) — About</p>
                     <h2 class="sec-head__title reveal-mask"><span>Profile</span></h2>
                 </div>
                 <a class="linklike reveal" href="skill.html"><span class="lx-en">Full profile</span><span class="lx-ja">プロフィール詳細</span> →</a>
@@ -245,7 +243,7 @@
                     <p class="profile-card__name">Kaho Kobayashi</p>
                     <p class="profile-card__role">Photo &amp; Video Creator</p>
                     <div class="chips">
-                        <span>Photography</span><span>Videography</span><span>Photoshop</span><span>Premiere Pro</span><span>After Effects</span><span>Illustrator</span><span>Blender</span><span>Nano Banana</span><span>Kling</span><span>Higgsfield</span>
+                        <span>Photography</span><span>Videography</span><span>Photoshop</span><span>Premiere Pro</span><span>After Effects</span><span>Illustrator</span><span>Blender</span><span>Image Generation</span><span>Video Generation</span>
                     </div>
                 </div>
             </div>
@@ -267,10 +265,6 @@
         <section class="section container" id="contact">
             <div class="contact glass reveal">
                 <p class="eyebrow" style="justify-content:center;"><span class="lx-en">Contact</span><span class="lx-ja">お問い合わせ</span></p>
-                <h2 class="contact__title">
-                    <span class="lx-en">Let's work <em>together.</em></span>
-                    <span class="lx-ja">一緒に、<em>つくりましょう。</em></span>
-                </h2>
                 <p class="contact__lead">
                     <span class="lx-en">Photography, film, motion or AI creative — feel free to reach out for projects and collaborations.</span>
                     <span class="lx-ja">撮影・映像・モーション・AIクリエイティブのご相談やお仕事のご依頼は、お気軽にどうぞ。</span>

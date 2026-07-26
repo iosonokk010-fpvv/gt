@@ -616,3 +616,71 @@ html.is-holding .reveal.in.figure, html.is-holding .reveal.in.frame,
 html.is-holding .reveal.in.shorts__item { clip-path: inset(0 0 100% 0 round 16px); }
 html.is-holding .reveal.in.showreel { clip-path: inset(0 0 100% 0 round var(--radius)); }
 html.is-holding .eyebrow.reveal.in::before { width: 0; }
+
+/* ---------- 2026.07 content revision tweaks ---------- */
+/* Compact contact card on desktop (title removed) */
+.contact { padding: clamp(36px, 4.5vw, 58px) clamp(20px, 4vw, 60px); }
+.contact .eyebrow { justify-content: center; }
+.contact__lead { margin-top: 14px; }
+.contact__mail { margin-top: 20px; font-size: clamp(20px, 2.6vw, 32px); }
+.contact__actions { margin-top: 24px; }
+
+/* Feature cards: no dead vertical space on mobile */
+@media (max-width: 768px) {
+    .feature-card { min-height: 0; justify-content: flex-start; gap: 12px; }
+}
+
+/* ---------- Curtain failsafe (works even if all timers fail) ---------- */
+@keyframes curtain-failsafe-lift { to { transform: translateY(-101%); } }
+html.js:not(.is-loaded):not(.is-exiting) .curtain__panel {
+    animation: curtain-failsafe-lift 0.9s cubic-bezier(0.76, 0, 0.24, 1) 3.6s forwards;
+}
+@keyframes curtain-unblock { to { pointer-events: none; } }
+html.js:not(.is-done) .curtain { animation: curtain-unblock 0s linear 4.7s forwards; }
+
+/* ---------- Hero media stream (right→left drift with depth) ---------- */
+.hero { position: relative; }
+.hero .hero__inner { position: relative; z-index: 1; }
+.hero__stream {
+    position: absolute; top: 13%; right: 0; z-index: 0;
+    width: min(56vw, 860px); height: 66%;
+    perspective: 1000px;
+    overflow: hidden;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+}
+.stream-item {
+    position: absolute; top: var(--y); left: 100%;
+    height: clamp(120px, 12vw, 176px);
+    aspect-ratio: var(--ar, 3/4);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 14px 34px rgba(30, 44, 42, 0.10);
+    transform: translate3d(0, 0, var(--z));
+    animation: stream-drift var(--dur) linear infinite;
+    animation-delay: var(--delay);
+    will-change: transform;
+}
+.stream-item img, .stream-item video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.stream-item video::-webkit-media-controls,
+.stream-item video::-webkit-media-controls-start-playback-button,
+.stream-item video::-webkit-media-controls-play-button {
+    display: none !important; -webkit-appearance: none; opacity: 0;
+}
+@keyframes stream-drift {
+    from { transform: translate3d(0, 0, var(--z)); }
+    to   { transform: translate3d(calc(-56vw - 620px), 0, var(--z)); }
+}
+@media (max-width: 899px) { .hero__stream { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hero__stream { display: none; } }
+
+/* ---------- Uniform card size: always 3-across on desktop (= Wedding size) ---------- */
+@media (min-width: 900px) {
+    .work-grid { grid-template-columns: repeat(3, 1fr); }
+}
+/* Film & Edit shorts: 3 columns (3 top / 2 bottom) */
+@media (min-width: 769px) {
+    .shorts--three { grid-template-columns: repeat(3, 1fr); }
+}

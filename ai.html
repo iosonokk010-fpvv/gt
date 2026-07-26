@@ -27,6 +27,11 @@
     </div>
     <div class="cursor-dot" aria-hidden="true"></div>
     <div class="cursor-ring" aria-hidden="true"><span>VIEW</span></div>
+    <script>(function(){window.__kkCurtain=1;var h=document.documentElement;var f=false;try{f=sessionStorage.getItem("kk-seen")==="1";sessionStorage.setItem("kk-seen","1");}catch(e){}
+    if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){h.classList.add("is-loaded");h.classList.add("is-done");return;}
+    if(f)h.classList.add("is-fast");h.classList.add("is-holding");var d=f?320:1050;
+    setTimeout(function(){h.classList.add("is-loaded");h.classList.remove("is-holding");},d);
+    setTimeout(function(){h.classList.add("is-done");h.classList.remove("is-holding");},d+950);})();</script>
     <div class="bg-stage" aria-hidden="true"></div>
     <div class="aurora a1" aria-hidden="true"></div>
     <div class="aurora a2" aria-hidden="true"></div>
@@ -88,7 +93,7 @@
             <div class="sec-head">
                 <div>
                     <p class="eyebrow reveal">(01)</p>
-                    <h2 class="sec-head__title reveal-mask"><span>AI Image <em>4:5</em></span></h2>
+                    <h2 class="sec-head__title reveal-mask"><span>AI Image</span></h2>
                 </div>
             </div>
             <div class="slider reveal">
@@ -188,16 +193,7 @@ Photorealistic, ultra-detailed, cinematic depth of field.</div>
                     <button class="nav-btn next-btn" aria-label="Next">❯</button>
                 </div>
             </div>
-        </section>
-
-        <!-- ============ 02 IMAGE 9:16 ============ -->
-        <section class="section--tight container">
-            <div class="sec-head">
-                <div>
-                    <p class="eyebrow reveal">(02)</p>
-                    <h2 class="sec-head__title reveal-mask"><span>AI Image <em>9:16</em></span></h2>
-                </div>
-            </div>
+        <div style="height: clamp(16px, 2vw, 26px);"></div>
             <div class="slider reveal">
                 <div class="scroll-grid">
                     <div class="gallery-item ar-9-16">
@@ -271,20 +267,20 @@ Shallow depth of field, cinematic style.</div>
         <section class="section--tight container">
             <div class="sec-head">
                 <div>
-                    <p class="eyebrow reveal">(03)</p>
+                    <p class="eyebrow reveal">(02)</p>
                     <h2 class="sec-head__title reveal-mask"><span>AI Video</span></h2>
                 </div>
             </div>
             <div class="slider reveal">
                 <div class="scroll-grid">
                     <div class="gallery-item ar-9-16">
-                        <video controls muted loop playsinline><source src="aivideos/ai_movie_01.mp4" type="video/mp4"></video>
+                        <video controls muted loop playsinline preload="metadata"><source src="aivideos/ai_movie_01.mp4#t=0.1" type="video/mp4"></video>
                     </div>
                     <div class="gallery-item ar-16-9">
-                        <video controls muted loop playsinline><source src="aivideos/ai_movie_02.mp4" type="video/mp4"></video>
+                        <video controls muted loop playsinline preload="metadata"><source src="aivideos/ai_movie_02.mp4#t=0.1" type="video/mp4"></video>
                     </div>
                     <div class="gallery-item ar-16-9">
-                        <video controls muted loop playsinline><source src="aivideos/ai_movie_03.mp4" type="video/mp4"></video>
+                        <video controls muted loop playsinline preload="metadata"><source src="aivideos/ai_movie_03.mp4#t=0.1" type="video/mp4"></video>
                     </div>
                 </div>
                 <div class="slider__nav">
@@ -298,15 +294,15 @@ Shallow depth of field, cinematic style.</div>
         <section class="section--tight container">
             <div class="sec-head">
                 <div>
-                    <p class="eyebrow reveal">(04)</p>
+                    <p class="eyebrow reveal">(03)</p>
                     <h2 class="sec-head__title reveal-mask"><span>AI VFX <em>/ Compositing</em></span></h2>
                 </div>
             </div>
             <p class="ba-hint reveal"><span class="lx-en">Drag the handle to compare before &amp; after.</span><span class="lx-ja">ハンドルをドラッグして、ビフォー / アフターを比較できます。</span></p>
             <div class="reveal">
                 <div class="ba-wrapper">
-                    <video class="ba-before" autoplay muted loop playsinline><source src="aivideos/vfx_before_01.mp4" type="video/mp4"></video>
-                    <video class="ba-after" autoplay muted loop playsinline><source src="aivideos/vfx_after_01.mp4" type="video/mp4"></video>
+                    <video class="ba-before" autoplay muted loop playsinline><source src="aivideos/vfx_before_01.mp4#t=0.1" type="video/mp4"></video>
+                    <video class="ba-after" autoplay muted loop playsinline><source src="aivideos/vfx_after_01.mp4#t=0.1" type="video/mp4"></video>
                     <div class="ba-divider"></div>
                     <div class="ba-handle">⇔</div>
                     <span class="ba-tag left">AFTER</span>
