@@ -302,7 +302,7 @@ body.nav-open .nav-overlay li:nth-child(6) a { transition-delay: .40s; }
 
 .mosaic { display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(10px, 1.4vw, 18px); }
 .mosaic .figure { aspect-ratio: 4/5; }
-.mosaic .figure:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: 1/1; }
+.mosaic .figure:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
 .mosaic .figure:nth-child(n+2) { grid-column: span 2; }
 
 /* Showreel */
@@ -661,6 +661,7 @@ html.js:not(.is-done) .curtain { animation: curtain-unblock 0s linear 4.7s forwa
     animation-delay: var(--delay);
     will-change: transform;
 }
+.stream-item { filter: blur(var(--bl, 0px)); }
 .stream-item img, .stream-item video {
     width: 100%; height: 100%; object-fit: cover; display: block;
 }
