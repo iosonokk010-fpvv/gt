@@ -274,13 +274,13 @@ Shallow depth of field, cinematic style.</div>
             <div class="slider reveal">
                 <div class="scroll-grid">
                     <div class="gallery-item ar-9-16">
-                        <video controls muted loop playsinline preload="metadata"><source src="aivideos/ai_movie_01.mp4#t=0.1" type="video/mp4"></video>
+                        <video controls muted loop playsinline preload="none" poster="posters/ai_movie_01.jpg"><source src="aivideos/ai_movie_01.mp4#t=0.1" type="video/mp4"></video>
                     </div>
                     <div class="gallery-item ar-16-9">
-                        <video controls muted loop playsinline preload="metadata"><source src="aivideos/ai_movie_02.mp4#t=0.1" type="video/mp4"></video>
+                        <video controls muted loop playsinline preload="none" poster="posters/ai_movie_02.jpg"><source src="aivideos/ai_movie_02.mp4#t=0.1" type="video/mp4"></video>
                     </div>
                     <div class="gallery-item ar-16-9">
-                        <video controls muted loop playsinline preload="metadata"><source src="aivideos/ai_movie_03.mp4#t=0.1" type="video/mp4"></video>
+                        <video controls muted loop playsinline preload="none" poster="posters/ai_movie_03.jpg"><source src="aivideos/ai_movie_03.mp4#t=0.1" type="video/mp4"></video>
                     </div>
                 </div>
                 <div class="slider__nav">
@@ -301,13 +301,29 @@ Shallow depth of field, cinematic style.</div>
             <p class="ba-hint reveal"><span class="lx-en">Drag the handle to compare before &amp; after.</span><span class="lx-ja">ハンドルをドラッグして、ビフォー / アフターを比較できます。</span></p>
             <div class="reveal">
                 <div class="ba-wrapper">
-                    <video class="ba-before" autoplay muted loop playsinline><source src="aivideos/vfx_before_01.mp4#t=0.1" type="video/mp4"></video>
-                    <video class="ba-after" autoplay muted loop playsinline><source src="aivideos/vfx_after_01.mp4#t=0.1" type="video/mp4"></video>
+                    <video class="ba-before" data-autoplay muted loop playsinline preload="none" poster="posters/vfx_before_01.jpg"><source src="aivideos/vfx_before_01.mp4#t=0.1" type="video/mp4"></video>
+                    <video class="ba-after" data-autoplay muted loop playsinline preload="none" poster="posters/vfx_after_01.jpg"><source src="aivideos/vfx_after_01.mp4#t=0.1" type="video/mp4"></video>
                     <div class="ba-divider"></div>
                     <div class="ba-handle">⇔</div>
                     <span class="ba-tag left">AFTER</span>
                     <span class="ba-tag right">BEFORE</span>
                 </div>
+            </div>
+        </section>
+
+        <!-- ============ 05 COMMERCIAL / ALDEA CAREER ============ -->
+        <section class="section--tight container">
+            <div class="sec-head">
+                <div>
+                    <p class="eyebrow reveal">(04)</p>
+                    <h2 class="sec-head__title reveal-mask"><span>Commercial <em>/ Aldea Career</em></span></h2>
+                </div>
+            </div>
+            <p class="ba-hint reveal"><span class="lx-en">AI-generated TV commercial for an engineer recruitment service — 15s × 3.</span><span class="lx-ja">エンジニア転職サービスのCMをAI生成で制作（15秒 × 3本）。</span></p>
+            <div class="work-grid" data-stagger>
+                <div class="work-card work-card--video reveal"><div class="work-card__media"><video data-autoplay muted loop playsinline preload="none" poster="posters/aldea_cm_01.jpg"><source src="aivideos/aldea_cm_01.mp4" type="video/mp4"></video></div><div class="work-card__label"><span>Aldea Career CM 01</span><span>15s</span></div></div>
+                <div class="work-card work-card--video reveal"><div class="work-card__media"><video data-autoplay muted loop playsinline preload="none" poster="posters/aldea_cm_02.jpg"><source src="aivideos/aldea_cm_02.mp4" type="video/mp4"></video></div><div class="work-card__label"><span>Aldea Career CM 02</span><span>15s</span></div></div>
+                <div class="work-card work-card--video reveal"><div class="work-card__media"><video data-autoplay muted loop playsinline preload="none" poster="posters/aldea_cm_03.jpg"><source src="aivideos/aldea_cm_03.mp4" type="video/mp4"></video></div><div class="work-card__label"><span>Aldea Career CM 03</span><span>15s</span></div></div>
             </div>
         </section>
     </main>
@@ -332,5 +348,6 @@ Shallow depth of field, cinematic style.</div>
     </footer>
 
     <script src="main.js"></script>
+    <script src="video-lazy.js"></script>
 </body>
 </html>
